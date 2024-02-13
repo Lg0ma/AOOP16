@@ -1,7 +1,7 @@
 // package 
-package Lab_2;
-// import
-import Lab_2.Lab_2_Chess_and_Objects.chess_piece_type;
+// package Lab_2;
+// // import
+// import Lab_2.Lab_2_Chess_and_Objects.chess_piece_type;
 
 // ANDRE MELENDEZ
 // bishop class

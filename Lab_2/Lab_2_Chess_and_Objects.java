@@ -268,19 +268,6 @@ public class Lab_2_Chess_and_Objects {
         // return the int value
         return x_value;
     }
-
-    // ANDRE MELENDEZ
-    // Enumerated chess piece types method
-    public enum chess_piece_type {
-
-        BISHOP,
-        KING,
-        KNIGHT,
-        PAWN,
-        QUEEN,
-        ROOK,
-    }
-
     // ANDRE MELENDEZ
     // method to create an object of unknown type, the <T> is meant to represent the object type, so ths can be 'pawn', 'rook', etc.
     public  static <T> T create_object(Supplier<T> supplier) {
