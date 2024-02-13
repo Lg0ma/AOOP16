@@ -1,6 +1,6 @@
 // import java.util.Arrays;
-import java.util.Arrays;
-import java.util.HashSet;
+// import java.util.Arrays;
+// import java.util.HashSet;
 import java.util.Scanner;
 
 // main class
@@ -23,7 +23,7 @@ private static Scanner scnr = new Scanner(System.in);
         int i = 0; //counter for array 
         for(i = 0; !typeInput.equalsIgnoreCase("stop") && i < 6; i++){ //Loop to populate type array
             try{
-                System.out.println("Select a chess piece: PAWN, ROOK, BISHOP, KNIGHT, QUEEN, KING \n\"Stop\" to continue to chess piece attributes");
+                System.out.println("Select a chess piece: PAWN, ROOK, BISHOP, KNIGHT, QUEEN, KING ");
                 typeInput = scnr.nextLine().toUpperCase(); 
 
                 type[i] = chess_piece_type.valueOf(typeInput); //Putting user input into enum array
