@@ -120,7 +120,7 @@ public class Lab_2_Chess_and_Objects {
     // Luis Gomez
     // method for changing the position of an existing chess piece
     public static <T> Object moveAgain( T type, Object chess_piece) {
-
+        System.out.println( "TRYING MOVE agaiN");
         // try catch block
         try {
             // initialize a new String array and String variable
