@@ -101,5 +101,5 @@ private static Scanner scnr = new Scanner(System.in);
     }
 
     
-    
+
 }
