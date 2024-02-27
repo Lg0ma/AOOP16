@@ -1,0 +1,4 @@
+//Luis Gomez
+public interface IntFigure{
+Boolean moveTo(X: LocationX, int Y).
+}
