@@ -22,6 +22,10 @@ public class Pawn extends Figure {
         super(name, color, x_coord, y_coord);
     }
 
+    // method that prints the current coordinates of the Chess Piece
+    public String toString() {
+        return "";
+    }
     // method to verify its piece movement
     @Override
     public Boolean moveTo(chess_piece_columns column, int row) {
@@ -65,7 +69,3 @@ public class Pawn extends Figure {
         return valid;
     }
 }
-    // method that prints the current coordinates of the Chess Piece
-    public String toString() {
-
-    }
