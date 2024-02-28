@@ -1,6 +1,6 @@
 // package
-/* */
-// imports 
+package chess_pieces;
+// import packages
 import enums.chess_piece_columns;
 
 // LUIS GOMEZ

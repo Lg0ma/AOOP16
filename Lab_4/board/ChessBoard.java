@@ -1,7 +1,6 @@
 // package
 package board;
-/* */
-// imports 
+// import packages
 import enums.*;
 
 // LUIS GOMEZ

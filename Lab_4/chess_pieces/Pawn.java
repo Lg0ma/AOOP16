@@ -1,8 +1,8 @@
 // package 
-/* */
-// imports 
-import enums.*;
-import board.*;
+package chess_pieces;
+// import packages
+import enums.*; // needed import despite extend
+
 
 // ANDRE MELENDEZ
 // Pawn class that extends to Figure

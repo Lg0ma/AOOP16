@@ -1,6 +1,6 @@
 // package
-/* */
-// imports 
+package chess_pieces;
+// import packages
 import enums.*;
 import board.*;
 
@@ -20,12 +20,12 @@ public abstract class Figure implements IntFigure {
         // default attributes
         this.piece_name = chess_piece_type.PAWN;
         this.color = chess_piece_color.WHITE;
-        this.column = enums.chess_piece_columns.A;
+        this.column = enums.chess_piece_columns.A; // modified
         this.row = 0;
     }
     
     // constructor with attributes
-    protected Figure(chess_piece_type name, chess_piece_color color2, enums.chess_piece_columns column, int row) {
+    protected Figure(chess_piece_type name, chess_piece_color color2, enums.chess_piece_columns column, int row) { // modified
         // set attributes
         this.piece_name = name;
         this.color = color2;
@@ -44,7 +44,7 @@ public abstract class Figure implements IntFigure {
     }
 
     // method to get column of object
-    protected enums.chess_piece_columns getColumn() {
+    protected enums.chess_piece_columns getColumn() { // modified
         return column;
     }
 
@@ -64,7 +64,7 @@ public abstract class Figure implements IntFigure {
     }
     
     // method to create a chess piece
-    protected static Figure create_chess_piece(chess_piece_type type, chess_piece_color color, enums.chess_piece_columns column, int row) {
+    public static Figure create_chess_piece(chess_piece_type type, chess_piece_color color, enums.chess_piece_columns column, int row) { // modified
         // switch case block to create a specific chess piece
         switch (type) {
             // type bishop
@@ -92,8 +92,7 @@ public abstract class Figure implements IntFigure {
     }
 
     // partially implement the moveTo method
-    public Boolean moveTo(enums.chess_piece_columns X, int Y) {
-        // check if the target position is within the Chess Board boundaries
+    public Boolean moveTo(enums.chess_piece_columns X, int Y) { // modified
         // method call from ChessBoard
         return chessBoard.verifyCoordinate(X, Y);
     }
