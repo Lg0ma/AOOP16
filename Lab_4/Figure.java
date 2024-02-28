@@ -66,27 +66,27 @@ public abstract class Figure implements IntFigure {
     }
     
     // method to create a chess piece
-    protected static chessPiece create_chess_piece(chess_piece_type type, chess_piece_color color, chess_piece_columns column, int row) {
+    protected static Figure create_chess_piece(chess_piece_type type, chess_piece_color color, chess_piece_columns column, int row) {
         // switch case block to create a specific chess piece
         switch (type) {
             // type bishop
             case BISHOP:
-                return new Bishop(type, color, column, row);
+                //return new Bishop(type, color, column, row);
             // type king
             case KING:
-                return new King(type, color, column, row);
+                //return new King(type, color, column, row);
             // type knight
             case KNIGHT:
-                return new Knight(type, color, column, row);
+                //return new Knight(type, color, column, row);
             // type pawn
             case PAWN:
                 return new Pawn(type, color, column, row);
             // type queen
             case QUEEN:
-                return new Queen(type, color, column, row);
+                //return new Queen(type, color, column, row);
             // type rook
             case ROOK:
-                return new Rook(type, color, column, row);
+                //return new Rook(type, color, column, row);
             // otherwise the type is invalid
             default:
                 throw new IllegalArgumentException("Invalid chess piece type");
