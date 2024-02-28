@@ -5,15 +5,15 @@ import enums.*; // needed import despite extend
 
 // ANDRE MELENDEZ
 // Pawn class that extends to Figure
-public class Pawn extends Figure {
+class Rook extends Figure {
     // empty constructor
-    public Pawn() {
+    public Rook() {
         // default values
         super();
     }
 
     // constructor with parameters for each class field
-    public Pawn(chess_piece_type name, chess_piece_color color, enums.chess_piece_columns x_coord, int y_coord) {
+    public Rook(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
         // set values
         super(name, color, x_coord, y_coord);
     }
@@ -27,41 +27,35 @@ public class Pawn extends Figure {
     // method to verify its piece movement
     @Override
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
-
-        // initialize a boolean
-        boolean valid = true;
+        
         // turn the enum into an int
         int new_column = column.ordinal() + 1;
         int old_column = getColumn().ordinal() + 1;
+        // find the current y position of the rook
+        int old_row = getRow();
         // if statement to check if the user input is within the chessboard range
         if (!super.moveTo(column, row)) {
             // print statement and return
             System.out.println("Input is out of range ... ");
-            valid = false;
+            return false;
         }
-        // if the team of the pawn is white
-        if (getColor().ordinal() == 1) {
-            // check if the x-coordinate or y-coordinate doesn't match the expected move
-            if ((old_column != new_column) || ((getRow() + 1) != row)) {
-                // set valid to false if the move is not valid'
-                valid = false;
-            }
-        }
-        // if the team of the pawn is black
-        if (getColor().ordinal() == 0) {
-            // check if the x-coordinate or y-coordinate doesn't match the expected move
-            if (old_column != new_column || (getRow() - 1) != row) {
-                // set valid to false if the move is not valid
-                valid = false;
-            }
-        }
-        // if valid is true up to this point
-        if (valid == true) {
+        // find the absolute difference in the x and y coordinates
+        int deltax = Math.abs(old_column - new_column);
+        int deltay = Math.abs(old_row - row);
+        // check if the move is valid along the y-axis or x-axis
+        if (deltax == 0 && deltay != 0) {
+            // return true if the move is valid along the y-axis
+            setColumn(column);
+            setRow(row);
+            return true;
+        } else if (deltax != 0 && deltay == 0) {
             // set the valid new coordinates to the object
             setColumn(column);
             setRow(row);
+            // return true if the move is valid along the x-axis
+            return true;
         }
-        // return the validity of the move
-        return valid;
+        // return false if the move is not valid
+        return false;
     }
 }

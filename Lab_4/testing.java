@@ -27,7 +27,7 @@ public class testing {
         // initialize an empty chessPiece array to hold the chess piece objects
         Figure pieces[] = new Figure[6];
         // for loop to create the chess pieces and store them in an array
-        for (int count = 0; count < 6; count++) {
+        for (int count = 0; count < 6; count++) { // CHANGE BACK TO 6
             // try catch block for errors
             try {
                 // initialize a Boolean and set it to false'
@@ -127,14 +127,14 @@ public class testing {
                 // if the new position is valid
                 if (chessPieces[i].moveTo(col, row) == true) {
                     // let the user know the chess piece was moved here
-                    System.out.println("Piece " + currPiece.getType() + " was able to move successfully to " + col + "," + row);
+                    System.out.println("Success: " + currPiece.toString());
                     // increment through the index
                     i++;
                 }
                 // otherwise, the chess piece cannot move to the new location
                 else {
                     // let the user know that the chess piece cannot move to the new location
-                    System.out.println("Piece " + currPiece.getType() +" was not able to move to " + col + "," + row);
+                    System.out.println("Failure: " + currPiece.toString());
                     // increment through the index
                     i++;
                 }

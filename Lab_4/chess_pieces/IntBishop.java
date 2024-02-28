@@ -1,3 +1,4 @@
+package chess_pieces;
 // initialize an interface for the Bishop class
 
 import enums.chess_piece_columns;

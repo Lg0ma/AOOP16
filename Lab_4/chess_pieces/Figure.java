@@ -39,17 +39,17 @@ public abstract class Figure implements IntFigure {
     }
     
     // method to get color of object
-    protected chess_piece_color getColor() {
+    public chess_piece_color getColor() {
         return color;
     }
 
     // method to get column of object
-    protected enums.chess_piece_columns getColumn() { // modified
+    public enums.chess_piece_columns getColumn() { // modified
         return column;
     }
 
     // method to get row of object
-    protected int getRow() {
+    public int getRow() {
         return row;
     }
 
@@ -69,26 +69,31 @@ public abstract class Figure implements IntFigure {
         switch (type) {
             // type bishop
             case BISHOP:
-                //return new Bishop(type, color, column, row);
+                return new Bishop(type, color, column, row);
             // type king
             case KING:
-                //return new King(type, color, column, row);
+                return new King(type, color, column, row);
             // type knight
             case KNIGHT:
-                //return new Knight(type, color, column, row);
+                return new Knight(type, color, column, row);
             // type pawn
             case PAWN:
                 return new Pawn(type, color, column, row);
             // type queen
             case QUEEN:
-                //return new Queen(type, color, column, row);
+                return new Queen(type, color, column, row);
             // type rook
             case ROOK:
-                //return new Rook(type, color, column, row);
+                return new Rook(type, color, column, row);
             // otherwise the type is invalid
             default:
                 throw new IllegalArgumentException("Invalid chess piece type");
         }
+    }
+
+    // method that prints the current attributes of the Chess Piece
+    public String toString() {
+        return getType() + " (" + getColor() + ") current position: " + getColumn() + ", " + getRow();
     }
 
     // partially implement the moveTo method
