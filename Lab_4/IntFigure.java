@@ -3,8 +3,9 @@
 // imports 
 import enums.chess_piece_columns;
 
-//Luis Gomez
+// LUIS GOMEZ
 // interface for the Chess Pieces to implement
 public interface IntFigure {
-Boolean moveTo(chess_piece_columns X, int Y);
+    // initialize a method that must be implemented
+    Boolean moveTo(chess_piece_columns X, int Y);
 }

@@ -1,11 +1,8 @@
 // package 
 /* */
 // imports 
-import enums.chess_piece_color;
-import enums.chess_piece_columns;
-import enums.chess_piece_type;
-import board.ChessBoard;
-import board.IntChessBoard;
+import enums.*;
+import board.*;
 
 // ANDRE MELENDEZ
 // Pawn class that extends to Figure
@@ -17,7 +14,7 @@ public class Pawn extends Figure {
     }
 
     // constructor with parameters for each class field
-    public Pawn(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
+    public Pawn(chess_piece_type name, chess_piece_color color, enums.chess_piece_columns x_coord, int y_coord) {
         // set values
         super(name, color, x_coord, y_coord);
     }
@@ -27,16 +24,13 @@ public class Pawn extends Figure {
         return "Current coordinates of the Pawn Chess Piece (x, y): " + getColumn() + ", " + getRow();
     }
     // method to verify its piece movement
-    @Override
-    public Boolean moveTo(chess_piece_columns column, int row) {
+    public Boolean moveTo(enums.chess_piece_columns column, int row) {
 
         // initialize a boolean
         boolean valid = true;
         // turn the enum into an int
         int new_column = column.ordinal() + 1;
         int old_column = getColumn().ordinal() + 1;
-        // check if the target position is within the Chess Board boundaries
-        IntChessBoard chessBoard = new ChessBoard(); // create an instance of ChessBoard
         // if statement to check if the user input is within the chessboard range
         if (!chessBoard.verifyCoordinate(column, row)) {
             // print statement and return

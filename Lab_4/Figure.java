@@ -1,11 +1,8 @@
 // package
 /* */
 // imports 
-import enums.chess_piece_columns;
-import enums.chess_piece_type;
-import enums.chess_piece_color;
-import board.ChessBoard;
-import board.IntChessBoard;
+import enums.*;
+import board.*;
 
 // ANDRE MELENDEZ
 // initialize an abstract class
@@ -14,20 +11,21 @@ public abstract class Figure implements IntFigure {
     // initialize protected attributes
     protected chess_piece_type piece_name;
     protected chess_piece_color color;
-    protected chess_piece_columns column;
+    protected enums.chess_piece_columns column; // modified
     protected int row;
+    protected ChessBoard chessBoard = new ChessBoard(); // added attribute
 
     // constructor with no attributes
     protected Figure() {
         // default attributes
         this.piece_name = chess_piece_type.PAWN;
         this.color = chess_piece_color.WHITE;
-        this.column = chess_piece_columns.A;
+        this.column = enums.chess_piece_columns.A;
         this.row = 0;
     }
     
     // constructor with attributes
-    protected Figure(enums.chess_piece_type name, enums.chess_piece_color color2, chess_piece_columns column, int row) {
+    protected Figure(chess_piece_type name, chess_piece_color color2, enums.chess_piece_columns column, int row) {
         // set attributes
         this.piece_name = name;
         this.color = color2;
@@ -46,7 +44,7 @@ public abstract class Figure implements IntFigure {
     }
 
     // method to get column of object
-    protected chess_piece_columns getColumn() {
+    protected enums.chess_piece_columns getColumn() {
         return column;
     }
 
@@ -56,7 +54,7 @@ public abstract class Figure implements IntFigure {
     }
 
     // setter method for column
-    public void setColumn(chess_piece_columns x_coord) {
+    public void setColumn(enums.chess_piece_columns x_coord) {
         this.column = x_coord;
     }
 
@@ -66,7 +64,7 @@ public abstract class Figure implements IntFigure {
     }
     
     // method to create a chess piece
-    protected static Figure create_chess_piece(chess_piece_type type, chess_piece_color color, chess_piece_columns column, int row) {
+    protected static Figure create_chess_piece(chess_piece_type type, chess_piece_color color, enums.chess_piece_columns column, int row) {
         // switch case block to create a specific chess piece
         switch (type) {
             // type bishop
@@ -94,9 +92,8 @@ public abstract class Figure implements IntFigure {
     }
 
     // partially implement the moveTo method
-    public Boolean moveTo(chess_piece_columns X, int Y) {
+    public Boolean moveTo(enums.chess_piece_columns X, int Y) {
         // check if the target position is within the Chess Board boundaries
-        IntChessBoard chessBoard = new ChessBoard(); // create an instance of ChessBoard
         // method call from ChessBoard
         return chessBoard.verifyCoordinate(X, Y);
     }

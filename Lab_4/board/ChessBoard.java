@@ -2,7 +2,7 @@
 package board;
 /* */
 // imports 
-import enums.chess_piece_columns;
+import enums.*;
 
 // LUIS GOMEZ
 // class that implements IntChessBoard
