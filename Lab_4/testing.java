@@ -21,9 +21,10 @@ public class testing {
          // create the object using the users inputs and store in the pieces array
          Figure obj = Figure.create_chess_piece(type, color, x_coord, y_coord);
 
-         System.out.println(obj.getColumn() + ", " + obj.getRow());
+         System.out.println(obj.toString()); // testing toString
          if (obj.moveTo(chess_piece_columns.A, 2)) {
             System.out.println("Success");
+            System.out.println(obj.toString()); // testing toString
          }
          else {
             System.out.println("Failure");

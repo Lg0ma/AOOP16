@@ -24,7 +24,7 @@ public class Pawn extends Figure {
 
     // method that prints the current coordinates of the Chess Piece
     public String toString() {
-        return "";
+        return "Current coordinates of the Pawn Chess Piece (x, y): " + getColumn() + ", " + getRow();
     }
     // method to verify its piece movement
     @Override
