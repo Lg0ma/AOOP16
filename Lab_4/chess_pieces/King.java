@@ -42,15 +42,16 @@ public class King extends Queen {
         // find the absolute difference in the x and y coordinates
         int deltax = Math.abs(old_column - new_column);
         int deltay = Math.abs(old_row - row);
-        // initialize a Boolean for queen validation
-        Boolean queen_movement = super.moveTo(column, row);
-        // if the queen movement is true and the difference between the new and old coordinates is 1
-        if (queen_movement == true && (deltax == 1 || deltay == 1)) {
-            // set the valid new coordinates to the object
-            setColumn(column);
-            setRow(row);
-            // return true if the move is valid
-            return true;
+        // if the difference between the new and old coordinates is 1
+        if (deltax == 1 || deltay == 1) {
+            // if the King moves like the Queen
+            if (super.moveTo(column, row) == true) {
+                // set the valid new coordinates to the object
+                setColumn(column);
+                setRow(row);
+                // return true if the move is valid
+                return true;
+            }
         }
         // return false
         return false;

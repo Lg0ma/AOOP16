@@ -34,7 +34,7 @@ class Queen extends Rook implements IntBishop {
         // find the current y position of the rook
         int old_row = getRow();
         // if statement to check if the user input is within the chessboard range
-        if (super.moveTo(column, row) == true) {
+        if (chessBoard.verifyCoordinate(column, row) == true) {
             // print statement and return
             System.out.println("Input is out of range ... ");
             return false;
