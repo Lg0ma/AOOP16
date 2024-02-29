@@ -34,7 +34,7 @@ public class King extends Queen {
         // find the current y position of the rook
         int old_row = getRow();
         // if statement to check if the user input is within the chessboard range
-        if (super.moveTo(column, row) == false) {
+        if (chessBoard.verifyCoordinate(column, row) == false) {
             // print statement and return
             System.out.println("Input is out of range ... ");
             return false;
