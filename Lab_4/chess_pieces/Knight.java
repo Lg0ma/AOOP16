@@ -35,7 +35,7 @@ class Knight extends Figure {
         // find the current y position of the rook
         int old_row = getRow();
         // if statement to check if the user input is within the chessboard range
-        if (!!super.moveTo(column, row)) {
+        if (super.moveTo(column, row) == false) {
             // print statement and return
             System.out.println("Input is out of range ... ");
             return false;

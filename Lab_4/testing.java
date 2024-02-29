@@ -132,7 +132,7 @@ public class testing {
                     i++;
                 }
                 // otherwise, the chess piece cannot move to the new location
-                else {
+                else if (chessPieces[i].moveTo(col, row) == false) {
                     // let the user know that the chess piece cannot move to the new location
                     System.out.println("Failure: " + currPiece.toString());
                     // increment through the index
