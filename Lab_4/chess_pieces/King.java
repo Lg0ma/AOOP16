@@ -1,7 +1,7 @@
 // package 
 package chess_pieces;
 // import packages
-import enums.*; // needed import despite extend
+import enums.*;
 
 
 // initialize a King class that extends to Queen
@@ -27,21 +27,16 @@ public class King extends Queen {
     // method to verify its piece movement
     @Override
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
-
         // turn the enum into an int
         int new_column = column.ordinal() + 1;
         int old_column = getColumn().ordinal() + 1;
         // find the current y position of the rook
         int old_row = getRow();
-       
-
-        // removed checking within chessboard
-
         // find the absolute difference in the x and y coordinates
         int deltax = Math.abs(old_column - new_column);
         int deltay = Math.abs(old_row - row);
         // if the difference between the new and old coordinates is 1
-        if (deltax == 1 || deltay == 1) {
+        if ((deltax == 1 && deltay == 1) || (deltax == 0 && deltay == 1) || (deltax == 1 && deltay == 0)) {
             // if the King moves like the Queen
             if (super.moveTo(column, row) == true) {
                 // set the valid new coordinates to the object

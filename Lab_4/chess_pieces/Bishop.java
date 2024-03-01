@@ -1,7 +1,7 @@
 // package 
 package chess_pieces;
 // import packages
-import enums.*; // needed import despite extend
+import enums.*;
 
 // IVAN ARMENTA & ANDRE MELENDEZ
 //Bishop impements bihop interface
@@ -24,22 +24,18 @@ class Bishop extends Figure implements IntBishop {
         return super.toString();
     }
 
-    // method to verify its piece movement
+    // method to verify its piece movement (Bishop)
     public Boolean moveToBishop(chess_piece_columns column, int row) {
-
         // turn the enum into an int
         int new_column = column.ordinal() + 1;
         int old_column = getColumn().ordinal() + 1;
         // find the current y position of the rook
         int old_row = getRow();
-
-        // removed checking within chessboard
-
         // find the absolute difference in the x and y coordinates
         int deltax = Math.abs(old_column - new_column);
         int deltay = Math.abs(old_row - row);
         // check if the move is a valid diagonal move
-        if ((deltax == deltay) && (deltax > 0)) {
+        if ((deltax == deltay) && (deltax > 0 && deltay >0)) {
             // set the valid new coordinates to the object
             setColumn(column);
             setRow(row);
@@ -47,6 +43,17 @@ class Bishop extends Figure implements IntBishop {
             return true;
         }
         // return false
+        return false;
+    }
+
+    // method to verify its piece movement
+    @Override
+    public Boolean moveTo(enums.chess_piece_columns column, int row) {
+        // check if the piece can move like a Bishop
+        if (moveToBishop(column, row) == true) {
+            return true;
+        }
+        // otherwise, return false
         return false;
     }
 }
