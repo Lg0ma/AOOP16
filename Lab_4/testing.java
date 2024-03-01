@@ -40,7 +40,7 @@ public class testing {
                     // end the program
                     System.exit(0);
                 }
-                // split the users input by the white-space and comma and store in a String array
+                // split the users input by any number of nonalphanumeric chars
                 String[] user_info = user_input.split("\\W+");
                 // for loop to traverse the number of chess pieces created
                 for (int idx = 0; idx < count; idx++) {
