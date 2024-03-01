@@ -1,5 +1,3 @@
-// import packages
-import enums.*;
 import board.*;
 import chess_pieces.*;
 import java.util.Scanner;
@@ -42,8 +40,8 @@ public class testing {
                     // end the program
                     System.exit(0);
                 }
-                // split the users input by the white-space and comma and store in a String array
-                String[] user_info = user_input.split(",\\s*");
+                // split the users input by any number of nonalphanumeric chars
+                String[] user_info = user_input.split("\\W+");
                 // for loop to traverse the number of chess pieces created
                 for (int idx = 0; idx < count; idx++) {
                     // if the users inputted chess piece already exists in the pieces array
@@ -124,22 +122,28 @@ public class testing {
             // while loop to traverse the chessPiece array
             while(i < chessPieces.length) {
                 Figure currPiece = chessPieces[i];
-                // if the new position is valid
-                if (chessPieces[i].moveTo(col, row) == true) {
-                    // let the user know the chess piece was moved here
-                    System.out.println("Success: " + currPiece.toString());
-                    // increment through the index
-                    i++;
+                // if the new position is within the chess board
+                if (chessBoard.verifyCoordinate(col, row) == true) {
+                    // if the move is valid
+                    if (chessPieces[i].moveTo(col, row) == true) {
+                        // let the user know the chess piece was moved here
+                        System.out.println("Success: " + currPiece.toString() + "\n");
+                    }
+                    // if the move is not valid
+                    else if (chessPieces[i].moveTo(col, row) == false) {
+                        // let the user know that the chess piece cannot move to the new location
+                        System.out.println("Failure: " + currPiece.toString() + "\n");
+                    }
                 }
-                // otherwise, the chess piece cannot move to the new location
-                else if (chessPieces[i].moveTo(col, row) == false) {
+                // otherwise the new position is not within the chess board
+                else {
+                    System.out.println("The user input is not in range of the chess board...");
                     // let the user know that the chess piece cannot move to the new location
-                    System.out.println("Failure: " + currPiece.toString());
-                    // increment through the index
-                    i++;
+                    System.out.println("Failure: " + currPiece.toString() + "\n");
                 }
+                // increment through the index
+                i++;
             }
-
         }
         catch (Exception e) {
             System.out.println("Invalid input try again!");

@@ -1,7 +1,7 @@
 // package 
 package chess_pieces;
 // import packages
-import enums.*; // needed import despite extend
+import enums.*;
 
 // ANDRE MELENDEZ
 // Pawn class that extends to Figure
@@ -27,18 +27,11 @@ public class Pawn extends Figure {
     // method to verify its piece movement
     @Override
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
-
         // initialize a boolean
         boolean valid = true;
         // turn the enum into an int
         int new_column = column.ordinal() + 1;
         int old_column = getColumn().ordinal() + 1;
-        // if statement to check if the user input is within the chessboard range
-        if (super.moveTo(column, row) == false) {
-            // print statement and return
-            System.out.println("Input is out of range ... ");
-            valid = false;
-        }
         // if the team of the pawn is white
         if (getColor().ordinal() == 1) {
             // check if the x-coordinate or y-coordinate doesn't match the expected move
