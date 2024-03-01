@@ -11,21 +11,21 @@ public abstract class Figure implements IntFigure {
     // initialize protected attributes
     protected chess_piece_type piece_name;
     protected chess_piece_color color;
-    protected enums.chess_piece_columns column; // modified
+    protected enums.chess_piece_columns column;
     protected int row;
-    protected ChessBoard chessBoard = new ChessBoard(); // added attribute
+    protected ChessBoard chessBoard = new ChessBoard();
 
     // constructor with no attributes
     protected Figure() {
         // default attributes
         this.piece_name = chess_piece_type.PAWN;
         this.color = chess_piece_color.WHITE;
-        this.column = enums.chess_piece_columns.A; // modified
+        this.column = enums.chess_piece_columns.A;
         this.row = 0;
     }
     
     // constructor with attributes
-    protected Figure(chess_piece_type name, chess_piece_color color2, enums.chess_piece_columns column, int row) { // modified
+    protected Figure(chess_piece_type name, chess_piece_color color2, enums.chess_piece_columns column, int row) {
         // set attributes
         this.piece_name = name;
         this.color = color2;
@@ -44,7 +44,7 @@ public abstract class Figure implements IntFigure {
     }
 
     // method to get column of object
-    public enums.chess_piece_columns getColumn() { // modified
+    public enums.chess_piece_columns getColumn() {
         return column;
     }
 
@@ -64,7 +64,7 @@ public abstract class Figure implements IntFigure {
     }
     
     // method to create a chess piece
-    public static Figure create_chess_piece(chess_piece_type type, chess_piece_color color, enums.chess_piece_columns column, int row) { // modified
+    public static Figure create_chess_piece(chess_piece_type type, chess_piece_color color, enums.chess_piece_columns column, int row) {
         // switch case block to create a specific chess piece
         switch (type) {
             // type bishop
@@ -97,8 +97,8 @@ public abstract class Figure implements IntFigure {
     }
 
     // partially implement the moveTo method
-    public Boolean moveTo(enums.chess_piece_columns X, int Y) { // modified
-        // method call from ChessBoard
+    public Boolean moveTo(enums.chess_piece_columns X, int Y) {
+        // check if the input is within range
         return chessBoard.verifyCoordinate(X, Y);
     }
 }
