@@ -41,7 +41,7 @@ public class testing {
                     System.exit(0);
                 }
                 // split the users input by the white-space and comma and store in a String array
-                String[] user_info = user_input.split(",\\s*");
+                String[] user_info = user_input.split("\\W+");
                 // for loop to traverse the number of chess pieces created
                 for (int idx = 0; idx < count; idx++) {
                     // if the users inputted chess piece already exists in the pieces array
