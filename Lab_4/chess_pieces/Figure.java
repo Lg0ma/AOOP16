@@ -98,6 +98,10 @@ public abstract class Figure implements IntFigure {
 
     // partially implement the moveTo method
     public Boolean moveTo(enums.chess_piece_columns X, int Y) { // modified
+        // if the input is outside of the chess board
+        if (chessBoard.verifyCoordinate(X, Y) == false) {
+            System.out.println("Input is out of range of the chess board...");
+        }
         // method call from ChessBoard
         return chessBoard.verifyCoordinate(X, Y);
     }

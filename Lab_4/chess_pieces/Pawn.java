@@ -33,12 +33,10 @@ public class Pawn extends Figure {
         // turn the enum into an int
         int new_column = column.ordinal() + 1;
         int old_column = getColumn().ordinal() + 1;
-        // if statement to check if the user input is within the chessboard range
-        if (super.moveTo(column, row) == false) {
-            // print statement and return
-            System.out.println("Input is out of range ... ");
-            valid = false;
-        }
+        
+
+        // removed checking within chessboard
+
         // if the team of the pawn is white
         if (getColor().ordinal() == 1) {
             // check if the x-coordinate or y-coordinate doesn't match the expected move

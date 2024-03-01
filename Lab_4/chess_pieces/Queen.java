@@ -33,12 +33,10 @@ class Queen extends Rook implements IntBishop {
         int old_column = getColumn().ordinal() + 1;
         // find the current y position of the rook
         int old_row = getRow();
-        // if statement to check if the user input is within the chessboard range
-        if (chessBoard.verifyCoordinate(column, row) == true) {
-            // print statement and return
-            System.out.println("Input is out of range ... ");
-            return false;
-        }
+       
+
+        // removed checking within chessboard
+
         // find the absolute difference in the x and y coordinates
         int deltax = Math.abs(old_column - new_column);
         int deltay = Math.abs(old_row - row);
@@ -57,9 +55,9 @@ class Queen extends Rook implements IntBishop {
     // method to verify its piece movement
     @Override
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
-       // check if the piece can move like a Bishop
-       if (moveToBishop(column, row) == true) {
-        return true;
+        // check if the piece can move like a Bishop
+        if (moveToBishop(column, row) == true) {
+            return true;
         }
         // If moving like a Bishop fails, try moving like a Rook
         return super.moveTo(column, row);
