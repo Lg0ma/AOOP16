@@ -25,7 +25,6 @@ class Bishop extends Figure implements IntBishop {
     }
 
     // method to verify its piece movement
-    @Override
     public Boolean moveToBishop(chess_piece_columns column, int row) {
 
         // turn the enum into an int

@@ -25,7 +25,6 @@ class Queen extends Rook implements IntBishop {
     }
 
     // method to verify its piece movement (Bishop)
-    @Override
     public Boolean moveToBishop(chess_piece_columns column, int row) {
 
         // turn the enum into an int

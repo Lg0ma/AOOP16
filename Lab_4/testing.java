@@ -128,16 +128,14 @@ public class testing {
                 if (chessPieces[i].moveTo(col, row) == true) {
                     // let the user know the chess piece was moved here
                     System.out.println("Success: " + currPiece.toString());
-                    // increment through the index
-                    i++;
                 }
                 // otherwise, the chess piece cannot move to the new location
                 else if (chessPieces[i].moveTo(col, row) == false) {
                     // let the user know that the chess piece cannot move to the new location
                     System.out.println("Failure: " + currPiece.toString());
-                    // increment through the index
-                    i++;
                 }
+                // increment through the index
+                i++;
             }
 
         }
