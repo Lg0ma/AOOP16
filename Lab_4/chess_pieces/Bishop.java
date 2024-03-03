@@ -1,27 +1,70 @@
 // package 
 package chess_pieces;
+import board.ChessBoard;
 // import packages
 import enums.*;
 
-// IVAN ARMENTA & ANDRE MELENDEZ
+// IVAN ARMENTA & ANDRE MELENDEZ & Luis Gomez
 //Bishop impements bihop interface
-class Bishop extends Figure implements IntBishop {
+class Bishop implements IntBishop {
+
+    protected chess_piece_type piece_name;
+    protected chess_piece_color color;
+    protected enums.chess_piece_columns column;
+    protected int row;
+    protected ChessBoard chessBoard = new ChessBoard();
+
     // empty constructor
     public Bishop() {
-        // default values
-        super();
+        this.piece_name = chess_piece_type.BISHOP;
+        this.color = chess_piece_color.WHITE;
+        this.column = enums.chess_piece_columns.A;
+        this.row = 0;
     }
 
     // constructor with parameters for each class field
     public Bishop(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
         // set values
-        super(name, color, x_coord, y_coord);
+        this.piece_name = name;
+        this.color = color;
+        this.column = x_coord;
+        this.row = y_coord;
     }
 
+    // method to get the type of object
+    public chess_piece_type getType(){
+        return piece_name;
+    }
+
+    // method to get color of object
+    public chess_piece_color getColor() {
+        return color;
+    }
+
+    // method to get column of object
+    public enums.chess_piece_columns getColumn() {
+        return column;
+    }
+
+    // method to get row of object
+    public int getRow() {
+        return row;
+    }
+
+    // setter method for column
+    public void setColumn(enums.chess_piece_columns x_coord) {
+        this.column = x_coord;
+    }
+
+    // setter method for row
+    public void setRow(int y_coord) {
+        this.row = y_coord;
+    }
+
+
     // method that prints the current attributes of the Chess Piece
-    @Override
     public String toString() {
-        return super.toString();
+        return getType() + " (" + getColor() + ") current position: " + getColumn() + ", " + getRow();
     }
 
     // method to verify its piece movement (Bishop)
@@ -47,7 +90,6 @@ class Bishop extends Figure implements IntBishop {
     }
 
     // method to verify its piece movement
-    @Override
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
         // check if the piece can move like a Bishop
         if (moveToBishop(column, row) == true) {
