@@ -5,7 +5,7 @@ import enums.*;
 
 // ANDRE MELENDEZ
 // Pawn class that extends to Figure
-class Rook extends Figure {
+public class Rook extends Figure {
     // empty constructor
     public Rook() {
         // default values
