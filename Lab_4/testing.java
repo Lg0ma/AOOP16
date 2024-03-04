@@ -75,7 +75,8 @@ public class testing {
                         enums.chess_piece_color color = enums.chess_piece_color.valueOf(user_info[1]);
                         enums.chess_piece_columns x_coord = enums.chess_piece_columns.valueOf(user_info[2]);
                         int y_coord = Integer.parseInt(user_info[3]);    
-                        Bishop bishopPiece =  new Bishop(type,color,x_coord,y_coord); 
+                        Bishop bishopPiece =  new Bishop(type,color,x_coord,y_coord);
+                        move(pieces, bishopPiece); 
                        }
                     // otherwise, the coordinate is valid
                     else {
