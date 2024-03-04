@@ -6,7 +6,7 @@ import enums.*;
 
 // IVAN ARMENTA & ANDRE MELENDEZ & Luis Gomez
 //Bishop impements bihop interface
-class Bishop implements IntBishop {
+public class Bishop implements IntBishop {
 
     protected chess_piece_type piece_name;
     protected chess_piece_color color;

@@ -12,16 +12,15 @@ public class testing {
     // everyone used this
     public static void main(String[] args) {
         // method call to prompt user to make chess pieces
-        Figure [] pieces = prompt(); // array used to store the chess piece objects array
+        prompt(); // array used to store the chess piece objects array
         // method prompt to move the chess pieces to a new location
-        move(pieces);
         // close the Scanner
         scnr.close();
     }
 
     // IVAN ARMENTA and ANDRE MELENDEZ
     // method to prompt the user to create chess pieces and store the newly created objects
-    public static Figure[] prompt() {
+    public static void prompt() {
         // initialize an empty chessPiece array to hold the chess piece objects
         Figure pieces[] = new Figure[6];
         // for loop to create the chess pieces and store them in an array
@@ -35,6 +34,7 @@ public class testing {
                 System.out.println("");
                 // store the users input in a String
                 String user_input = scnr.nextLine().toUpperCase();
+
                 // if the user inputted 'stop'
                 if (user_input.equals("STOP")) {
                     // end the program
@@ -77,7 +77,12 @@ public class testing {
                         enums.chess_piece_columns x_coord = enums.chess_piece_columns.valueOf(user_info[2]);
                         int y_coord = Integer.parseInt(user_info[3]);
                         // create the object using the users inputs and store in the pieces array
-                        pieces[count] = Figure.create_chess_piece(type, color, x_coord, y_coord);
+                        if(type == enums.chess_piece_type.BISHOP){
+                            Bishop myBishop = new Bishop(type, color, x_coord, y_coord);
+                        }else{
+                            pieces[count] = Figure.create_chess_piece(type, color, x_coord, y_coord);
+
+                        }
                         // let the user know that the chess piece was create
                         System.out.println("The " + type + " chess piece has been successfully created ...");
                         System.out.println("");
@@ -92,12 +97,12 @@ public class testing {
             }
         }
         // return the array of pieces
-        return pieces;
+        // return pieces;
     }
 
     // Luis Gomez
     // traverses the array and asks for new position to try to move piece into
-    public static void move(Figure[] chessPieces) {
+    public static void move(Figure[] chessPieces, Bishop bishop) {
         // initialize the index variable, and the variables to store the user input
         int i = 0;
         String[] user_input;
@@ -120,6 +125,25 @@ public class testing {
             // convert the users input for the y-coordinate into an integer
             int row = Integer.parseInt(user_input[1]);
             // while loop to traverse the chessPiece array
+
+            //validation for bishop piece
+            //if piece is in board
+            if (chessBoard.verifyCoordinate(col, row) == true) {
+                // if the move is valid
+                if(bishop.moveTo(col, row) == true){
+                    System.out.println("Success: " + bishop.toString() + "\n");
+                }//if move is invalid
+                else if(bishop.moveTo(col, row) == false){
+                    System.out.println("Failure: " + bishop.toString() + "\n");
+                }
+            }
+            // otherwise the new position is not within the chess board
+            else {
+                System.out.println("The user input is not in range of the chess board...");
+                // let the user know that the chess piece cannot move to the new location
+                System.out.println("Failure: " + bishop.toString() + "\n");
+            }
+            
             while(i < chessPieces.length) {
                 Figure currPiece = chessPieces[i];
                 // if the new position is within the chess board
@@ -147,7 +171,7 @@ public class testing {
         }
         catch (Exception e) {
             System.out.println("Invalid input try again!");
-            move(chessPieces);
+            move(chessPieces,bishop);
         }
     }
 }

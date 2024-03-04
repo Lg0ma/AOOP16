@@ -68,8 +68,8 @@ public abstract class Figure implements IntFigure {
         // switch case block to create a specific chess piece
         switch (type) {
             // type bishop
-            case BISHOP:
-                return new Bishop(type, color, column, row);
+            // case BISHOP:
+            //     return new Bishop(type, color, column, row);
             // type king
             case KING:
                 return new King(type, color, column, row);
