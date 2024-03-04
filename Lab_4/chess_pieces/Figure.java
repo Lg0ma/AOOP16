@@ -67,9 +67,6 @@ public abstract class Figure implements IntFigure {
     public static Figure create_chess_piece(chess_piece_type type, chess_piece_color color, enums.chess_piece_columns column, int row) {
         // switch case block to create a specific chess piece
         switch (type) {
-            // type bishop
-            case BISHOP:
-                return new Bishop(type, color, column, row);
             // type king
             case KING:
                 return new King(type, color, column, row);

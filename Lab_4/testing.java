@@ -23,9 +23,9 @@ public class testing {
     // method to prompt the user to create chess pieces and store the newly created objects
     public static Figure[] prompt() {
         // initialize an empty chessPiece array to hold the chess piece objects
-        Figure pieces[] = new Figure[6];
+        Figure pieces[] = new Figure[5];
         // for loop to create the chess pieces and store them in an array
-        for (int count = 0; count < 6; count++) { // CHANGE BACK TO 6
+        for (int count = 0; count < pieces.length; count++) { // CHANGE BACK TO 6
             // try catch block for errors
             try {
                 // initialize a Boolean and set it to false'
@@ -69,6 +69,14 @@ public class testing {
                         // loop back up to prompt the user again
                         continue;
                     }
+                    else if(user_info[0].equalsIgnoreCase("bishop")){
+                        // create variables to hold the users inputs to create the object bishop
+                        enums.chess_piece_type type = enums.chess_piece_type.valueOf(user_info[0]);
+                        enums.chess_piece_color color = enums.chess_piece_color.valueOf(user_info[1]);
+                        enums.chess_piece_columns x_coord = enums.chess_piece_columns.valueOf(user_info[2]);
+                        int y_coord = Integer.parseInt(user_info[3]);    
+                        Bishop bishopPiece =  new Bishop(type,color,x_coord,y_coord); 
+                       }
                     // otherwise, the coordinate is valid
                     else {
                         // create variables to hold the users inputs to create the object
