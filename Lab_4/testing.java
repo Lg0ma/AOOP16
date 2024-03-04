@@ -8,6 +8,7 @@ public class testing {
     // initialize a private Scanner
     private static Scanner scnr = new Scanner(System.in);
     private static ChessBoard chessBoard = new ChessBoard(); // added attribute
+    static Bishop bishopPiece;
 
     // everyone used this
     public static void main(String[] args) {
@@ -75,8 +76,8 @@ public class testing {
                         enums.chess_piece_color color = enums.chess_piece_color.valueOf(user_info[1]);
                         enums.chess_piece_columns x_coord = enums.chess_piece_columns.valueOf(user_info[2]);
                         int y_coord = Integer.parseInt(user_info[3]);    
-                        Bishop bishopPiece =  new Bishop(type,color,x_coord,y_coord);
-                        move(pieces, bishopPiece); 
+                        bishopPiece =  new Bishop(type,color,x_coord,y_coord);
+                        
                        }
                     // otherwise, the coordinate is valid
                     else {
@@ -91,7 +92,8 @@ public class testing {
                         System.out.println("The " + type + " chess piece has been successfully created ...");
                         System.out.println("");
                     }
-                } 
+                }
+                move(pieces, bishopPiece);
             }
             catch (Exception e) {
                 System.out.println("Invalid input, try again ...");
