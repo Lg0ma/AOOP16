@@ -5,7 +5,7 @@ import enums.*;
 
 // ANDRE MELENDEZ
 // knight class
-class Knight extends Figure {
+public class Knight extends Figure {
     // empty constructor
     public Knight() {
         // default values

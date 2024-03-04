@@ -5,7 +5,7 @@ import enums.*;
 
 // ANDRE MELENDEZ
 // Queen class that extends to Rook and implementes IntBishop
-class Queen extends Rook implements IntBishop {
+public class Queen extends Rook implements IntBishop {
     // empty constructor
     public Queen() {
         // default values
