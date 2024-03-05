@@ -8,7 +8,7 @@ public class testing {
     // initialize a private Scanner
     private static Scanner scnr = new Scanner(System.in);
     private static ChessBoard chessBoard = new ChessBoard(); // added attribute
-    static Bishop bishopPiece;
+    private static Bishop bishopPiece;
 
     // everyone used this
     public static void main(String[] args) {
@@ -64,6 +64,7 @@ public class testing {
                     if (!chessBoard.verifyCoordinate(enums.chess_piece_columns.valueOf(user_info[2]), Integer.parseInt(user_info[3]))) {
                         // let the user know that the inputted position is not within range
                         System.out.println("User input for starting position is out of range ... ");
+                        System.out.println("HERE IS THE ISSUE ");
                         System.out.println("");
                         // decrementcount since the chess piece was invalid
                         count--;
@@ -90,7 +91,7 @@ public class testing {
                     }
                 }
             }
-            catch (Exception e) {
+            catch(Exception e) {
                 System.out.println("Invalid input, try again ...");
                 System.out.println("");
                 // decrement count since the users input was invalid
@@ -162,7 +163,7 @@ public class testing {
                 }
                 // otherwise the new position is not within the chess board
                 else {
-                    System.out.println("The user input is not in range of the chess board...");
+                    System.out.println("The user input is not in range of the chess boardHELLO...");
                     // let the user know that the chess piece cannot move to the new location
                     System.out.println("Failure: " + currPiece.toString() + "\n");
                 }
