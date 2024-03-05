@@ -18,11 +18,11 @@ public class testing {
         scnr.close();
     }
 
-    // IVAN ARMENTA and ANDRE MELENDEZ
+ // IVAN ARMENTA and ANDRE MELENDEZ
     // method to prompt the user to create chess pieces and store the newly created objects
-    public static void prompt() {
+    public static Figure[] prompt() {
         // initialize an empty chessPiece array to hold the chess piece objects
-        Figure pieces[] = new Figure[6];
+        Figure pieces[] = new Figure[5];
         // for loop to create the chess pieces and store them in an array
         for (int count = 0; count < 6; count++) { // CHANGE BACK TO 6
             // try catch block for errors
@@ -34,7 +34,6 @@ public class testing {
                 System.out.println("");
                 // store the users input in a String
                 String user_input = scnr.nextLine().toUpperCase();
-
                 // if the user inputted 'stop'
                 if (user_input.equals("STOP")) {
                     // end the program
@@ -63,6 +62,7 @@ public class testing {
                     if (!chessBoard.verifyCoordinate(enums.chess_piece_columns.valueOf(user_info[2]), Integer.parseInt(user_info[3]))) {
                         // let the user know that the inputted position is not within range
                         System.out.println("User input for starting position is out of range ... ");
+                        System.out.println("HERE IS THE ISSUE ");
                         System.out.println("");
                         // decrementcount since the chess piece was invalid
                         count--;
@@ -76,20 +76,20 @@ public class testing {
                         enums.chess_piece_color color = enums.chess_piece_color.valueOf(user_info[1]);
                         enums.chess_piece_columns x_coord = enums.chess_piece_columns.valueOf(user_info[2]);
                         int y_coord = Integer.parseInt(user_info[3]);
-                        // create the object using the users inputs and store in the pieces array
                         if(type == enums.chess_piece_type.BISHOP){
-                            Bishop myBishop = new Bishop(type, color, x_coord, y_coord);
-                        }else{
-                            pieces[count] = Figure.create_chess_piece(type, color, x_coord, y_coord);
-
+                            bishopPiece =  new Bishop(type,color,x_coord,y_coord);
+                        }
+                        else{
+                        // create the object using the users inputs and store in the pieces array
+                        pieces[count] = Figure.create_chess_piece(type, color, x_coord, y_coord);
                         }
                         // let the user know that the chess piece was create
                         System.out.println("The " + type + " chess piece has been successfully created ...");
                         System.out.println("");
                     }
-                } 
+                }
             }
-            catch (Exception e) {
+            catch(Exception e) {
                 System.out.println("Invalid input, try again ...");
                 System.out.println("");
                 // decrement count since the users input was invalid
@@ -97,7 +97,7 @@ public class testing {
             }
         }
         // return the array of pieces
-        // return pieces;
+        return pieces;
     }
 
     // Luis Gomez
