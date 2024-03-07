@@ -25,18 +25,14 @@ public class Main {
     public static Figure[] prompt() {
         // initialize an empty chessPiece array to hold the chess piece objects
         Figure pieces[] = new Figure[5];
-
-        // initialize a Boolean to check if a Bishop exists 
-        Boolean bishopExists = false;
-
         // for loop to create the chess pieces and store them in an array
-        for (int count = 0; count < 6; count++) { // CHANGE BACK TO 6
+        for (int count = 0; count < 5; count++) {
             // try catch block for errors
             try {
                 // initialize a Boolean and set it to false'
                 Boolean exists = false;
                 // print to prompt the user to input a chess piece with a position
-                System.out.println("Input a chess piece with its initial position. Can only input a chess piece once. E.G. Pawn, White, H, 3. Input 'stop' to end the program ... ");
+                System.out.println("Input a chess piece with its initial position. Do NOT initialize a Bishop chess piece yet. Can only input a chess piece once. E.G. Pawn, White, H, 3. Input 'stop' to end the program ... ");
                 System.out.println("");
                 // store the users input in a String
                 String user_input = scnr.nextLine().toUpperCase();
@@ -47,22 +43,10 @@ public class Main {
                 }
                 // split the users input by any number of nonalphanumeric chars
                 String[] user_info = user_input.split("\\W+");
-
-
-                if(!bishopExists && enums.chess_piece_type.valueOf(user_info[0]) == enums.chess_piece_type.BISHOP){
-                    bishopPiece =  new Bishop(enums.chess_piece_type.valueOf(user_info[0]),enums.chess_piece_color.valueOf(user_info[1]),enums.chess_piece_columns.valueOf(user_info[2]),Integer.parseInt(user_info[3]));
-                    bishopExists = true;
-                    // let the user know that the chess piece was create
-                    System.out.println("The " + enums.chess_piece_type.valueOf(user_info[0]) + " chess piece has been successfully created ...");
-                    System.out.println("");
-                    //continue;
-                    
-                }
-
                 // for loop to traverse the number of chess pieces created
                 for (int idx = 0; idx < count; idx++) {
                     // if the users inputted chess piece already exists in the pieces array
-                    if (enums.chess_piece_type.valueOf(user_info[0]) == pieces[idx].getType() || (enums.chess_piece_type.valueOf(user_info[0]) == enums.chess_piece_type.BISHOP && bishopExists == true)) {
+                    if (enums.chess_piece_type.valueOf(user_info[0]) == pieces[idx].getType()) {
                         // change the exists Boolean to true
                         exists = true;
                         // let the user know
@@ -71,7 +55,7 @@ public class Main {
                         // decrement count since the chess piece was invalid
                         count--; 
                         // break to loop back up the method
-                        break; // changed from break to continue (IT DIED)
+                        break;
                     }
                 }
                 // if the chess piece does not exist
@@ -80,7 +64,6 @@ public class Main {
                     if (!chessBoard.verifyCoordinate(enums.chess_piece_columns.valueOf(user_info[2]), Integer.parseInt(user_info[3]))) {
                         // let the user know that the inputted position is not within range
                         System.out.println("User input for starting position is out of range ... ");
-                        System.out.println("HERE IS THE ISSUE ");
                         System.out.println("");
                         // decrementcount since the chess piece was invalid
                         count--;
@@ -102,13 +85,55 @@ public class Main {
                     }
                 }
             }
-            catch(Exception e) {
+            catch (Exception e) {
                 System.out.println("Invalid input, try again ...");
                 System.out.println("");
                 // decrement count since the users input was invalid
                 count--;
-            }
+            } 
         }
+        // initialize a Boolean to check if the Bishop object exists 
+        Boolean bishopExists = false;
+        // while there hasnt been a Bishop initialized
+        while (!bishopExists) {
+            try {
+                // print to prompt the user to input a chess piece with a position
+                System.out.println("Input a Bishop chess piece with its initial position. E.G. Pawn, White, H, 3. Input 'stop' to end the program ... ");
+                System.out.println("");
+                // store the users input in a String
+                String user_input = scnr.nextLine().toUpperCase();
+                // if the user inputted 'stop'
+                if (user_input.equals("STOP")) {
+                    // end the program
+                    System.exit(0);
+                }
+                // split the users input by any number of nonalphanumeric chars
+                String[] user_info = user_input.split("\\W+");
+                // check if the users inputted initial position is within range of the chessboard
+                if (!chessBoard.verifyCoordinate(enums.chess_piece_columns.valueOf(user_info[2]), Integer.parseInt(user_info[3]))) {
+                    // let the user know that the inputted position is not within range
+                    System.out.println("User input for starting position is out of range ... ");
+                    System.out.println("");
+                    continue;
+                }
+                // create variables to hold the users inputs to create the object
+                enums.chess_piece_type type = enums.chess_piece_type.valueOf(user_info[0]);
+                enums.chess_piece_color color = enums.chess_piece_color.valueOf(user_info[1]);
+                enums.chess_piece_columns x_coord = enums.chess_piece_columns.valueOf(user_info[2]);
+                int y_coord = Integer.parseInt(user_info[3]);
+                // create the Bishop object
+                bishopPiece = new Bishop(type, color, x_coord, y_coord);
+                // let the user know that the chess piece was create
+                System.out.println("The " + enums.chess_piece_type.valueOf(user_info[0]) + " chess piece has been successfully created ...");
+                System.out.println("");
+                // set the Boolean to true
+                bishopExists = true;
+            }
+            catch (Exception e) {
+                System.out.println("Invalid input, try again ...");
+                System.out.println("");
+            }
+    }
         // return the array of pieces
         return pieces;
     }
