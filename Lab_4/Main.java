@@ -3,11 +3,11 @@ import chess_pieces.*;
 import java.util.Scanner;
 
 // main class
-public class testing {
+public class Main {
 
     // initialize a private Scanner
     private static Scanner scnr = new Scanner(System.in);
-    private static ChessBoard chessBoard = new ChessBoard(); // added attribute
+    private static ChessBoard chessBoard = new ChessBoard();
     private static Bishop bishopPiece;
 
     // everyone used this
@@ -25,6 +25,10 @@ public class testing {
     public static Figure[] prompt() {
         // initialize an empty chessPiece array to hold the chess piece objects
         Figure pieces[] = new Figure[5];
+
+        // initialize a Boolean to check if a Bishop exists 
+        Boolean bishopExists = false;
+
         // for loop to create the chess pieces and store them in an array
         for (int count = 0; count < 6; count++) { // CHANGE BACK TO 6
             // try catch block for errors
@@ -43,10 +47,22 @@ public class testing {
                 }
                 // split the users input by any number of nonalphanumeric chars
                 String[] user_info = user_input.split("\\W+");
+
+
+                if(!bishopExists && enums.chess_piece_type.valueOf(user_info[0]) == enums.chess_piece_type.BISHOP){
+                    bishopPiece =  new Bishop(enums.chess_piece_type.valueOf(user_info[0]),enums.chess_piece_color.valueOf(user_info[1]),enums.chess_piece_columns.valueOf(user_info[2]),Integer.parseInt(user_info[3]));
+                    bishopExists = true;
+                    // let the user know that the chess piece was create
+                    System.out.println("The " + enums.chess_piece_type.valueOf(user_info[0]) + " chess piece has been successfully created ...");
+                    System.out.println("");
+                    //continue;
+                    
+                }
+
                 // for loop to traverse the number of chess pieces created
                 for (int idx = 0; idx < count; idx++) {
                     // if the users inputted chess piece already exists in the pieces array
-                    if (enums.chess_piece_type.valueOf(user_info[0]) == pieces[idx].getType()) {
+                    if (enums.chess_piece_type.valueOf(user_info[0]) == pieces[idx].getType() || (enums.chess_piece_type.valueOf(user_info[0]) == enums.chess_piece_type.BISHOP && bishopExists == true)) {
                         // change the exists Boolean to true
                         exists = true;
                         // let the user know
@@ -55,7 +71,7 @@ public class testing {
                         // decrement count since the chess piece was invalid
                         count--; 
                         // break to loop back up the method
-                        break;
+                        break; // changed from break to continue (IT DIED)
                     }
                 }
                 // if the chess piece does not exist
@@ -78,13 +94,8 @@ public class testing {
                         enums.chess_piece_color color = enums.chess_piece_color.valueOf(user_info[1]);
                         enums.chess_piece_columns x_coord = enums.chess_piece_columns.valueOf(user_info[2]);
                         int y_coord = Integer.parseInt(user_info[3]);
-                        if(type == enums.chess_piece_type.BISHOP){
-                            bishopPiece =  new Bishop(type,color,x_coord,y_coord);
-                        }
-                        else{
                         // create the object using the users inputs and store in the pieces array
                         pieces[count] = Figure.create_chess_piece(type, color, x_coord, y_coord);
-                        }
                         // let the user know that the chess piece was create
                         System.out.println("The " + type + " chess piece has been successfully created ...");
                         System.out.println("");
