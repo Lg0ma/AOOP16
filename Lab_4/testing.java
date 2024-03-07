@@ -1,5 +1,9 @@
 import board.*;
 import chess_pieces.*;
+import enums.chess_piece_color;
+import enums.chess_piece_columns;
+import enums.chess_piece_type;
+
 import java.util.Scanner;
 
 // main class
@@ -8,12 +12,27 @@ public class testing {
     // initialize a private Scanner
     private static Scanner scnr = new Scanner(System.in);
     private static ChessBoard chessBoard = new ChessBoard(); // added attribute
+    private static Bishop bishopPiece;
+
 
     // everyone used this
     public static void main(String[] args) {
         // method call to prompt user to make chess pieces
-        prompt(); // array used to store the chess piece objects array
-        // method prompt to move the chess pieces to a new location
+        Pawn myPawn = new Pawn(chess_piece_type.PAWN, chess_piece_color.WHITE, chess_piece_columns.A, 1);
+        Queen myQueen = new Queen(chess_piece_type.QUEEN, chess_piece_color.WHITE, chess_piece_columns.A, 1);
+        King myKing = new King(chess_piece_type.KING, chess_piece_color.WHITE, chess_piece_columns.A, 1);
+        Rook myRook = new Rook(chess_piece_type.ROOK, chess_piece_color.WHITE, chess_piece_columns.A, 1);
+        Knight myKnight = new Knight(chess_piece_type.KNIGHT, chess_piece_color.WHITE, chess_piece_columns.A, 1);
+        Bishop myBishop = new Bishop(chess_piece_type.BISHOP, chess_piece_color.WHITE, chess_piece_columns.A, 1);
+
+        Figure chessPieces[] = new Figure[5];
+        chessPieces[0] = myPawn;
+        chessPieces[1] = myQueen;
+        chessPieces[2] = myKing;
+        chessPieces[3] = myRook;
+        chessPieces[4] = myKnight;
+
+        move(chessPieces, myBishop);
         // close the Scanner
         scnr.close();
     }

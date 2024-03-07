@@ -68,34 +68,16 @@ public class Bishop implements IntBishop {
     }
 
     // method to verify its piece movement (Bishop)
-    public Boolean moveToBishop(chess_piece_columns column, int row) {
-        // turn the enum into an int
-        int new_column = column.ordinal() + 1;
-        int old_column = getColumn().ordinal() + 1;
-        // find the current y position of the rook
+    public Boolean moveTo(chess_piece_columns column, int row) {
+        //get current piece position
+        chess_piece_columns old_column = getColumn();
         int old_row = getRow();
-        // find the absolute difference in the x and y coordinates
-        int deltax = Math.abs(old_column - new_column);
-        int deltay = Math.abs(old_row - row);
-        // check if the move is a valid diagonal move
-        if ((deltax == deltay) && (deltax > 0 && deltay >0)) {
-            // set the valid new coordinates to the object
+        if(moveToBishop( old_column, old_row, column, row) == true){
             setColumn(column);
             setRow(row);
-            // return true
             return true;
         }
-        // return false
         return false;
     }
 
-    // method to verify its piece movement
-    public Boolean moveTo(enums.chess_piece_columns column, int row) {
-        // check if the piece can move like a Bishop
-        if (moveToBishop(column, row) == true) {
-            return true;
-        }
-        // otherwise, return false
-        return false;
-    }
 }
