@@ -112,7 +112,7 @@ public class testing {
             System.exit(0);
         }                    
         // split the users input at the',' and any whitespace                                                                     
-        user_input = newMove.split(",\\s*");
+        user_input = newMove.split("\\W+");
         // tyr catch blocks to handle any errors
         try {
             //  convert the users input for the x-coordinate into an enum
