@@ -67,17 +67,18 @@ public class Bishop implements IntBishop {
         return getType() + " (" + getColor() + ") current position: " + getColumn() + ", " + getRow();
     }
 
-    // method to verify its piece movement (Bishop)
-    public Boolean moveTo(chess_piece_columns column, int row) {
+    // method to verify its piece movement
+    public Boolean moveTo(enums.chess_piece_columns column, int row) {
         //get current piece position
         chess_piece_columns old_column = getColumn();
         int old_row = getRow();
-        if(moveToBishop( old_column, old_row, column, row) == true){
+        // if the default method return true
+        if(moveToBishop( old_column, old_row, column, row) == true) {
+            // update the attributes
             setColumn(column);
             setRow(row);
             return true;
         }
         return false;
     }
-
 }
