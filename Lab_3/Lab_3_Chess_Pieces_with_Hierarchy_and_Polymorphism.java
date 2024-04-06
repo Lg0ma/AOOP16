@@ -1,16 +1,19 @@
-// import java.util.Arrays
 import java.util.Scanner;
 
-// main class
+/**
+ * Class that will take in user data for 6 pieces an ask for initial
+ * data and then ask for a new position to try to move the pieces to
+ * @author Luis Gomez
+ * @author Ivan Armenta
+ * @version 1.0 (04/06/24)
+ */
+
 public class Lab_3_Chess_Pieces_with_Hierarchy_and_Polymorphism{
 private static Scanner scnr = new Scanner(System.in);
 
-/** 
- * @param args
- */
-//hello
-
-    // everyone used this
+    /** Main method that is used to run all the methods in the Lab_3_Chess_Pieces_with_Hierarchy_and_Polymorphism class
+     * @param args
+     */
     public static void main(String[] args) {
         chess_piece_type [] pieceTypes = prompt(); //Array used to store only user piece types
         chessPiece [] chessPieces; // Array taht will be used to hold ches pieces as objects
@@ -19,10 +22,10 @@ private static Scanner scnr = new Scanner(System.in);
     }
 
     
-    /** 
-     * @return chess_piece_type[]
+    /** Initial prompt method that will return an array of chessPiece types as specified by user
+     * @author Ivan Armenta
+     * @return type an array of chesspiece types selected by the user
      */
-    // Ivan Armenta
     public static chess_piece_type [] prompt() {
         chess_piece_type [] type = new chess_piece_type[6]; //enum array used to hold user input
         String typeInput = "";
@@ -57,13 +60,13 @@ private static Scanner scnr = new Scanner(System.in);
     
 
     
-    /** 
-     * @param piece_type
-     * @return chessPiece[]
+    /** Method that takes in an array of types from the prompt method and asks for more info to create the chess pieces
+     * , also checks that initial position is within bounds
+     * @author Luis Gomez
+     * @param piece_type an array of chess piece types of types in the chess_piece_type enum
+     * @return newChesspieces an array of chess pieces that have all their initial data set
      */
-    // Luis Gomez
-    // takes array of type that user input and asks for more info to create the piece
-    // checks that initial position is within bounds
+
     public static chessPiece[] secondPrompt(chess_piece_type [] piece_type){
         chessPiece [] newChesspieces = new chessPiece[piece_type.length];
         String [] user_input;
@@ -88,11 +91,11 @@ private static Scanner scnr = new Scanner(System.in);
     }
 
     
-    /** 
-     * @param chessPieces
+    /** Method that traverses the array and asks for new position to try to move piece into
+     * will call verifyTarget for every chesspiece to check if the piece of that type can move to the new postion input by user
+     * @author Luis Gomez
+     * @param chessPieces an array of chesspieces that are all initialized with their initial data
      */
-    //Luis Gomez
-    // traverses the array and asks for new position to try to move piece into
     public static void move(chessPiece [] chessPieces){
         int i = 0;
         String [] user_input;

@@ -1,17 +1,29 @@
-// ANDRE MELENDEZ
-// bishop class
-class bishop extends chessPiece {
+/** Class for the chesspiece bishop that extends from the chessPiece class
+ *  @author Andre Melendez
+ *  @version 1.0 (04/06/24)
+ */
+public class bishop extends chessPiece {
 
-    // initialize a private chess_piece_type for the name
+    /** Chesspiece name/type that is in the chess_piece_type
+     */
     private chess_piece_type piece_name;
-    // initialize a private chess_piece_type for the color
+
+    /** Chesspiece color that is in the chess_piece_color enum
+     */
     private chess_piece_color color;
-    // initialize a private chess_piece_type for the x-coord
+
+    /** Chesspiece column that is in the chess_piece_columns enum
+     */
     private chess_piece_columns column;
-    // initialize a private int for the y-coord
+
+    /** Chesspiece row that is an integer
+     */
     private int row;
 
-    // empty constructor
+    /**
+     * A default constructor for the bishop object
+     * sets the piece to a white bishop in coords A,0
+     */
     public bishop() {
         // default values
         this.piece_name = chess_piece_type.BISHOP;
@@ -20,7 +32,14 @@ class bishop extends chessPiece {
         this.row = 0;
     }
 
-    // constructor with parameters for each class field
+    /**
+     * A constructor for the bishop object that sets the
+     * initial piece info like name , color, x_coord, and y_coord
+     * @param name a chess piece name that is in the chess_piece_type enum
+     * @param color a chess piece color that is in the chess_piece_color enum
+     * @param x_coord the initial x coordinate for the piece that is in the chess_piece_columns enum
+     * @param y_coord the initial y coordinate for the piece that is an int
+     */
     public bishop(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
         // set values
         this.piece_name = name;
@@ -30,55 +49,67 @@ class bishop extends chessPiece {
     }
 
     
-    /** 
-     * @return chess_piece_type
+    /**
+     * getter method that returns the chess piece type
+     * @return piece_name a chess piece type that is in the chess_piece_type enum
      */
     public chess_piece_type getType(){
         return piece_name;
     }
     
     
-    /** 
-     * @return chess_piece_color
+    /**
+     * getter method that returns the chess piece color
+     * @return color a chess piece color that is in the chess_piece_color enum
      */
-    // getter method for color
     public chess_piece_color getColor() {
         return color;
     }
 
     
-    /** 
-     * @return chess_piece_columns
+    /**
+     * getter method that returns the chess piece column
+     * @return column a column that is in the chess_piece_columns enum
      */
-     // getter method for column
     public chess_piece_columns getColumn() {
         return column;
     }
 
     
-    /** 
-     * @return int
+    /**
+     * getter method that returns the chess piece row
+     * @return row an int variable that represents the chess piece row
      */
-    // getter method for row
     public int getRow() {
         return row;
     }
 
     
-    /** 
+    /** setter method for column data in a chesspiece
+     * sets the column data to the data passed in the x_coord param
      * @param x_coord
      */
-    // setter method for column
     public void setColumn(chess_piece_columns x_coord) {
         this.column = x_coord;
     }
 
-    // setter method for row
+    /** setter method for row data in a chesspiece
+     * sets the row data to the data passed in the y_coord param
+     * @param y_coord
+     */
     public void setRow(int y_coord) {
         this.row = y_coord;
     }
 
-    // method to verify its piece movement
+    /**
+     * Overrides the verifyTarget method in the chessPiece class.
+     * Verification method that verifies if a piece can move to a new position according to its ruleset
+     * and if its within the bounds of the chessboard
+     * @see chessPiece
+     * @param column a new column which the piece will try to move to
+     * @param row a new row which the piece will try to move to
+     * @return true if the piece is able to move to the new position passed in according to its set rules, false otherwise
+     */
     @Override
     public Boolean verifyTarget(chess_piece_columns column, int row) {
 
