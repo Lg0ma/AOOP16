@@ -29,25 +29,45 @@ class bishop extends chessPiece {
         this.row = y_coord;
     }
 
+    
+    /** 
+     * @return chess_piece_type
+     */
     public chess_piece_type getType(){
         return piece_name;
     }
     
+    
+    /** 
+     * @return chess_piece_color
+     */
     // getter method for color
     public chess_piece_color getColor() {
         return color;
     }
 
-    // getter method for column
+    
+    /** 
+     * @return chess_piece_columns
+     */
+     // getter method for column
     public chess_piece_columns getColumn() {
         return column;
     }
 
+    
+    /** 
+     * @return int
+     */
     // getter method for row
     public int getRow() {
         return row;
     }
 
+    
+    /** 
+     * @param x_coord
+     */
     // setter method for column
     public void setColumn(chess_piece_columns x_coord) {
         this.column = x_coord;

@@ -1,5 +1,11 @@
 // LUIS GOMEZ
 public class chessboard {
+    
+    /** 
+     * @param enum_column
+     * @param row
+     * @return boolean
+     */
     // VARS?
     // MANDATORY METHOD
     public static boolean withinChessboard(chess_piece_columns enum_column, int row) {

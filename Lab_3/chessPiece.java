@@ -25,25 +25,49 @@ public class chessPiece {
         this.row = row;
     }
 
+    
+    /** 
+     * @return chess_piece_type
+     */
     public chess_piece_type getType(){
         return piece_name;
     }
     
+    
+    /** 
+     * @return chess_piece_color
+     */
     // method to get color of object
     public chess_piece_color getColor() {
         return color;
     }
 
+    
+    /** 
+     * @return chess_piece_columns
+     */
     // method to get column of object
     public chess_piece_columns getColumn() {
         return column;
     }
 
+    
+    /** 
+     * @return int
+     */
     // method to get row of object
     public int getRow() {
         return row;
     }
 
+    
+    /** 
+     * @param type
+     * @param color
+     * @param column
+     * @param row
+     * @return chessPiece
+     */
     // method to create a chess piece
     public static chessPiece create_chess_piece(chess_piece_type type, chess_piece_color color, chess_piece_columns column, int row) {
         // switch case block to create a specific chess piece

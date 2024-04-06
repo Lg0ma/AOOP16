@@ -4,6 +4,10 @@ import java.util.Scanner;
 // main class
 public class Lab_3_Chess_Pieces_with_Hierarchy_and_Polymorphism{
 private static Scanner scnr = new Scanner(System.in);
+
+/** 
+ * @param args
+ */
 //hello
 
     // everyone used this
@@ -14,6 +18,10 @@ private static Scanner scnr = new Scanner(System.in);
         move(chessPieces); //
     }
 
+    
+    /** 
+     * @return chess_piece_type[]
+     */
     // Ivan Armenta
     public static chess_piece_type [] prompt() {
         chess_piece_type [] type = new chess_piece_type[6]; //enum array used to hold user input
@@ -48,6 +56,11 @@ private static Scanner scnr = new Scanner(System.in);
 
     
 
+    
+    /** 
+     * @param piece_type
+     * @return chessPiece[]
+     */
     // Luis Gomez
     // takes array of type that user input and asks for more info to create the piece
     // checks that initial position is within bounds
@@ -74,6 +87,10 @@ private static Scanner scnr = new Scanner(System.in);
         return newChesspieces;
     }
 
+    
+    /** 
+     * @param chessPieces
+     */
     //Luis Gomez
     // traverses the array and asks for new position to try to move piece into
     public static void move(chessPiece [] chessPieces){
