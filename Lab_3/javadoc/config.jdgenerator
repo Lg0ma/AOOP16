@@ -1,0 +1,178 @@
+==== CONFIGS ====		
+{
+    "base_path": "c:\\Users\\luisg\\AOOP16\\Lab_3",
+    "out": "c:\\Users\\luisg\\AOOP16\\Lab_3\\javadoc",
+    "javadoc_executable": "C:\\Program Files\\Java\\jdk-18.0.2.1\\bin\\javadoc.exe",
+    "exclude": [],
+    "raw_params": ""
+}
+
+==== COMMAND ====
+"C:\Program Files\Java\jdk-18.0.2.1\bin\javadoc.exe" 
+	-sourcepath "c:\Users\luisg\AOOP16\Lab_3" 
+	-d "c:\Users\luisg\AOOP16\Lab_3\javadoc" 
+	"c:\Users\luisg\AOOP16\Lab_3\bishop.java"
+	"c:\Users\luisg\AOOP16\Lab_3\chessboard.java"
+	"c:\Users\luisg\AOOP16\Lab_3\chessPiece.java"
+	"c:\Users\luisg\AOOP16\Lab_3\chess_piece_color.java"
+	"c:\Users\luisg\AOOP16\Lab_3\chess_piece_columns.java"
+	"c:\Users\luisg\AOOP16\Lab_3\chess_piece_type.java"
+	"c:\Users\luisg\AOOP16\Lab_3\king.java"
+	"c:\Users\luisg\AOOP16\Lab_3\knight.java"
+	"c:\Users\luisg\AOOP16\Lab_3\Lab_3_Chess_Pieces_with_Hierarchy_and_Polymorphism.java"
+	"c:\Users\luisg\AOOP16\Lab_3\pawn.java"
+	"c:\Users\luisg\AOOP16\Lab_3\queen.java"
+	"c:\Users\luisg\AOOP16\Lab_3\rook.java"
+
+
+==== JAVADOC OUTPUT ====
+Loading source file c:\Users\luisg\AOOP16\Lab_3\bishop.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\chessboard.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\chessPiece.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\chess_piece_color.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\chess_piece_columns.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\chess_piece_type.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\king.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\knight.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\Lab_3_Chess_Pieces_with_Hierarchy_and_Polymorphism.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\pawn.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\queen.java...
+Loading source file c:\Users\luisg\AOOP16\Lab_3\rook.java...
+Constructing Javadoc information...
+Creating destination directory: "c:\Users\luisg\AOOP16\Lab_3\javadoc\"
+Building index for all the packages and classes...
+Standard Doclet version 18.0.2.1+1-1
+Building tree for all the packages and classes...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\bishop.html...
+c:\Users\luisg\AOOP16\Lab_3\chessPiece.java:40: error: @param name not found
+     * @param x_coord the initial x coordinate for the piece that is in the chess_piece_columns enum
+              ^
+c:\Users\luisg\AOOP16\Lab_3\chessPiece.java:41: error: @param name not found
+     * @param y_coord the initial y coordinate for the piece that is an int
+              ^
+c:\Users\luisg\AOOP16\Lab_3\chessPiece.java:42: warning: no @param for column
+     */    public chessPiece(chess_piece_type name, chess_piece_color color, chess_piece_columns column, int row) {
+                  ^
+c:\Users\luisg\AOOP16\Lab_3\chessPiece.java:42: warning: no @param for row
+     */    public chessPiece(chess_piece_type name, chess_piece_color color, chess_piece_columns column, int row) {
+                  ^
+c:\Users\luisg\AOOP16\Lab_3\bishop.java:90: warning: no description for @param
+     * @param x_coord
+       ^
+c:\Users\luisg\AOOP16\Lab_3\bishop.java:98: warning: no description for @param
+     * @param y_coord
+       ^
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\chess_piece_color.html...
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_color.java:7: warning: no comment
+    BLACK,
+    ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_color.java:8: warning: no comment
+    WHITE,
+    ^
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\chess_piece_columns.html...
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_columns.java:7: warning: no comment
+        A,
+        ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_columns.java:8: warning: no comment
+        B,
+        ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_columns.java:9: warning: no comment
+        C,
+        ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_columns.java:10: warning: no comment
+        D,
+        ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_columns.java:11: warning: no comment
+        E,
+        ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_columns.java:12: warning: no comment
+        F,
+        ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_columns.java:13: warning: no comment
+        G,
+        ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_columns.java:14: warning: no comment
+        H,
+        ^
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\chess_piece_type.html...
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_type.java:7: warning: no comment
+    BISHOP,
+    ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_type.java:8: warning: no comment
+    KING,
+    ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_type.java:9: warning: no comment
+    KNIGHT,
+    ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_type.java:12: warning: no comment
+    ROOK, length,
+          ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_type.java:10: warning: no comment
+    PAWN,
+    ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_type.java:11: warning: no comment
+    QUEEN,
+    ^
+c:\Users\luisg\AOOP16\Lab_3\chess_piece_type.java:12: warning: no comment
+    ROOK, length,
+    ^
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\chessboard.html...
+c:\Users\luisg\AOOP16\Lab_3\chessboard.java:5: warning: use of default constructor, which does not provide a comment
+public class chessboard {
+       ^
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\chessPiece.html...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\king.html...
+c:\Users\luisg\AOOP16\Lab_3\rook.java:89: warning: no description for @param
+     * @param x_coord
+       ^
+c:\Users\luisg\AOOP16\Lab_3\rook.java:97: warning: no description for @param
+     * @param y_coord
+       ^
+c:\Users\luisg\AOOP16\Lab_3\queen.java:90: warning: no description for @param
+     * @param x_coord
+       ^
+c:\Users\luisg\AOOP16\Lab_3\queen.java:98: warning: no description for @param
+     * @param y_coord
+       ^
+c:\Users\luisg\AOOP16\Lab_3\king.java:90: warning: no description for @param
+     * @param x_coord
+       ^
+c:\Users\luisg\AOOP16\Lab_3\king.java:98: warning: no description for @param
+     * @param y_coord
+       ^
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\knight.html...
+c:\Users\luisg\AOOP16\Lab_3\knight.java:90: warning: no description for @param
+     * @param x_coord
+       ^
+c:\Users\luisg\AOOP16\Lab_3\knight.java:98: warning: no description for @param
+     * @param y_coord
+       ^
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\Lab_3_Chess_Pieces_with_Hierarchy_and_Polymorphism.html...
+c:\Users\luisg\AOOP16\Lab_3\Lab_3_Chess_Pieces_with_Hierarchy_and_Polymorphism.java:15: warning: no description for @param
+     * @param args
+       ^
+c:\Users\luisg\AOOP16\Lab_3\Lab_3_Chess_Pieces_with_Hierarchy_and_Polymorphism.java:11: warning: use of default constructor, which does not provide a comment
+public class Lab_3_Chess_Pieces_with_Hierarchy_and_Polymorphism{
+       ^
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\pawn.html...
+c:\Users\luisg\AOOP16\Lab_3\pawn.java:90: warning: no description for @param
+     * @param x_coord
+       ^
+c:\Users\luisg\AOOP16\Lab_3\pawn.java:98: warning: no description for @param
+     * @param y_coord
+       ^
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\queen.html...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\rook.html...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\package-summary.html...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\package-tree.html...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\overview-tree.html...
+Building index for all classes...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\allclasses-index.html...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\allpackages-index.html...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\index-all.html...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\index.html...
+Generating c:\Users\luisg\AOOP16\Lab_3\javadoc\help-doc.html...
+2 errors
+34 warnings
+
+

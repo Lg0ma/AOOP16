@@ -125,7 +125,6 @@ public class chessPiece {
  * @param row a new row which the piece will try to move to
  * @return true if the move is within the chessboard bounds
  * */
-    /
     public Boolean verifyTarget(chess_piece_columns column, int row) {
         // check if the target position is within the chessboard boundaries
         return chessboard.withinChessboard(column, row);
