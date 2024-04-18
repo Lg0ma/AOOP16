@@ -12,29 +12,40 @@ public class chessboard extends JFrame {
     // a 2D Array of Tile objects
     Tile[][] boardCells;
 
+    JPanel buttonPanel; // EXTRA
+
     public chessboard() {
         // sets the title of the panel
         super();
         setTitle("Chess Board");
         // initializes a new panel
         panel = new JPanel();
+
+        buttonPanel = new JPanel(); // EXTRA
+
+        JButton addButton = new JButton("Add Task"); // EXTRA
+
         // sets the panel with a bordered layout
         panel.setLayout(new BorderLayout()); // BorderLayout organizes the panel to have NORTH EAST SOUTH WEST sides
 
         boardPanel = new JPanel();
-        boardPanel.setLayout(new GridLayout(8, 8)); // GridLayout organizes the panel to have grids
+        boardPanel.setLayout(new GridLayout(8, 8)); // GridLayout organizes the panel to have grid
 
         // method call
         initializeBoard();
 
         // adds the boardPanel to the panel, and centers it
         panel.add(boardPanel, BorderLayout.CENTER);
+
+        buttonPanel.add(addButton); //EXTRA
+        panel.add(buttonPanel, BorderLayout.WEST); // EXTRA
+
         // adds the panel to the container to be displayed
         add(panel);
         // displays the container panel to the user at the center of the screen 
         setLocationRelativeTo(null); // null sets the container in the center of the screen
         // set the size of the panel
-        setSize(400, 400);
+        setSize(900, 800);
         // make the panel visible
         setVisible(true);
         // add the close window operation (close button)
