@@ -1,35 +1,33 @@
 import javax.swing.*; // imports classes and components of the Java API that provides components for building graphical user interface (GUI)
 import java.awt.*; // imports classes, interfaces, and enumerations from Abstract Window Toolkit (AWT), used for building windows, buttons, text fields, etc.
 
+// class for creating the chessboard window with its operations
 public class chessboard extends JFrame {
 
     // a container
-    static JPanel panel = new JPanel(); // a generic, lightweight container, wiil be added to the overarching container to be displayed
+    static JPanel panel = new JPanel(); // a generic, lightweight container, wil be added to the overarching container to be displayed
     // window that holds the chessboard, will be displayed in the display panel window
     static JPanel sidePanel = sidePanel();
     JPanel boardPanel; 
     // a 2D Array of Tile objects
     Tile[][] boardCells;
+    // a button side panel
+    JPanel buttonPanel;
 
-    JPanel buttonPanel; // EXTRA
-
+    // the chessboard function
     public chessboard(){
         // sets the title of the panel
         super();
         setTitle("Chess Board");
-        
         // sets the panel with a bordered layout
         panel.setLayout(new BorderLayout()); // BorderLayout organizes the panel to have NORTH EAST SOUTH WEST sides
-
+        // initialize a panel for the chessboard and its grid layout
         boardPanel = new JPanel();
         boardPanel.setLayout(new GridLayout(8, 8)); // GridLayout organizes the panel to have grid
-
-        // method call
+        // method call to fill the panel
         initializeBoard();
-
-        // adds the boardPanel to the panel, and centers it
+        // adds the boardPanel to the panel, and centers it in the window
         panel.add(boardPanel, BorderLayout.CENTER);
-
         // adds the panel to the container to be displayed
         add(panel);
         // displays the container panel to the user at the center of the screen 
@@ -40,13 +38,11 @@ public class chessboard extends JFrame {
         setVisible(true);
         // add the close window operation (close button)
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        // sidePanel
+        // add the sidePanel
         add(sidePanel, BorderLayout.WEST);
-        
     }
 
-    // method to initialize the chessboard
+    // function to initialize the chessboard
     private void initializeBoard() {
         // create an array of Tiles
         boardCells = new Tile[8][8];
@@ -65,108 +61,102 @@ public class chessboard extends JFrame {
         }
     }
 
-    // Side Panel code
-    public static JPanel sidePanel(){   
-        // Color macro
-        Color gray = new Color(192,192,192);
-
-        // Panels where controls are going to live
-        JPanel bottonsPanel = new JPanel();
-        bottonsPanel.setBackground(gray);
-
-        //Making layout for side Panel
-        BoxLayout buttonLayout = new BoxLayout(bottonsPanel, BoxLayout.Y_AXIS);
-        bottonsPanel.setLayout(buttonLayout);
-
-        // Lists used for dropdowns
-        String [] chessPieces = {"Pawn", "Rook", "Knight", "Queen", "King"};
-        String [] row = {"1", "2", "3", "4", "5", "6", "7", "8"};
-        String [] col = {"A", "B", "C", "D", "E", "F", "G", "H"};
-        String [] colors = {"White", "Black"};
-
-        // Components that will go on side panel
-        JLabel chessType = new JLabel("Select a chess piece");
-        JLabel inputLabel = new JLabel("Select inital chess pos.");
-        JLabel colorLabel = new JLabel("Chess piece color");
-        JLabel finalPosLabel = new JLabel("Select final chess pos.");
-
-        chessType.setAlignmentX(Component.CENTER_ALIGNMENT);
-        inputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        colorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        finalPosLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Addign these first to be able to add RadioButtons in a loop
-        bottonsPanel.add(chessType);
-        bottonsPanel.add(Box.createVerticalStrut(5));
-        
-        // Dropdown and button creation
-        JComboBox colDropdown = new JComboBox<>(col);
-        JComboBox rowDropdown = new JComboBox<>(row);
-        JComboBox colorDropdown = new JComboBox<>(colors);
-        JComboBox finalColDropdown = new JComboBox<>(col);
-        JComboBox finalRowDropdown = new JComboBox<>(row);
-
-        // Alignments for dropdowns and buttons
-        colDropdown.setMaximumSize(colDropdown.getPreferredSize());
-        colDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
-        rowDropdown.setMaximumSize(rowDropdown.getPreferredSize());
-        rowDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
-        colorDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
-        colorDropdown.setMaximumSize(colorDropdown.getPreferredSize());
-        finalColDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
-        finalColDropdown.setMaximumSize(finalColDropdown.getPreferredSize());
-        finalRowDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
-        finalRowDropdown.setMaximumSize(finalRowDropdown.getPreferredSize());
-
-        // Other buttons
-        JButton createButton = new JButton("Create piece");
-        JButton moveButton = new JButton("Move piece");
-
-        // Button group to be able to click only one button at a time
-        ButtonGroup buttonPieces = new ButtonGroup();
-
-        // Radio buttons
-        for(String type: chessPieces){
-            JRadioButton buttonType = new JRadioButton(type);
-            buttonType.setAlignmentX(Component.CENTER_ALIGNMENT);
-            buttonPieces.add(buttonType);
-            bottonsPanel.add(buttonType);
-            // Removing all space around button panel so they look closer
-        }
-        // Buttons alignment
-        createButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        moveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        
-        // Adding components to side 
-        bottonsPanel.add(Box.createVerticalStrut(20));
-        bottonsPanel.add(colorLabel);
-        bottonsPanel.add(Box.createVerticalStrut(5));
-        bottonsPanel.add(colorDropdown);
-        bottonsPanel.add(Box.createVerticalStrut(20));
-        bottonsPanel.add(inputLabel);
-        bottonsPanel.add(Box.createVerticalStrut(5));
-        bottonsPanel.add(rowDropdown);
-        bottonsPanel.add(colDropdown);
-        bottonsPanel.add(Box.createVerticalStrut(20));
-        bottonsPanel.add(finalPosLabel);
-        bottonsPanel.add(Box.createVerticalStrut(5));
-        bottonsPanel.add(finalColDropdown);
-        bottonsPanel.add(finalRowDropdown);
-        bottonsPanel.add(Box.createVerticalStrut(40));
-        bottonsPanel.add(createButton);
-        bottonsPanel.add(moveButton);
-
-
-        // Lines that modfiy frame
-        // frame.add(bottonsPanel, BorderLayout.WEST);
-        // panel.add(bottonsPanel, BorderLayout.WEST);
-        // panel.setVisible(true);
-        return bottonsPanel;
+// function to set the components for the sidePanel
+public static JPanel sidePanel(){   
+    // initialize the grey color
+    Color gray = new Color(192,192,192);
+    // panel where controls are going to live and set its background as grey
+    JPanel buttonsPanel = new JPanel();
+    buttonsPanel.setBackground(gray);
+    // making layout for side panel
+    BoxLayout buttonLayout = new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS);
+    buttonsPanel.setLayout(buttonLayout);
+    // lists used for dropdowns options
+    String [] chessPieces = {"Pawn", "Rook", "Knight", "Queen", "King"};
+    String [] row = {"1", "2", "3", "4", "5", "6", "7", "8"};
+    String [] col = {"A", "B", "C", "D", "E", "F", "G", "H"};
+    String [] colors = {"White", "Black"};
+    // components that will go on side panel
+    JLabel chessType = new JLabel("Select a chess piece");
+    JLabel inputLabel = new JLabel("Select initial chess pos.");
+    JLabel colorLabel = new JLabel("Chess piece color");
+    JLabel finalPosLabel = new JLabel("Select final chess pos.");
+    // align the components in the center of the side panel
+    chessType.setAlignmentX(Component.CENTER_ALIGNMENT);
+    inputLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    colorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    finalPosLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    // add the chessType component first
+    buttonsPanel.add(chessType);
+    buttonsPanel.add(Box.createVerticalStrut(5));
+    // dropdown and button creation
+    JComboBox colDropdown = new JComboBox<>(col);
+    JComboBox rowDropdown = new JComboBox<>(row);
+    JComboBox colorDropdown = new JComboBox<>(colors);
+    JComboBox finalColDropdown = new JComboBox<>(col);
+    JComboBox finalRowDropdown = new JComboBox<>(row);
+    // alignments for dropdowns and buttons
+    colDropdown.setMaximumSize(colDropdown.getPreferredSize());
+    colDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
+    rowDropdown.setMaximumSize(rowDropdown.getPreferredSize());
+    rowDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
+    colorDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
+    colorDropdown.setMaximumSize(colorDropdown.getPreferredSize());
+    finalColDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
+    finalColDropdown.setMaximumSize(finalColDropdown.getPreferredSize());
+    finalRowDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
+    finalRowDropdown.setMaximumSize(finalRowDropdown.getPreferredSize());
+    // other buttons
+    JButton createButton = new JButton("Create piece");
+    JButton moveButton = new JButton("Move piece");
+    // button group to be able to click only one button at a time
+    ButtonGroup buttonPieces = new ButtonGroup();
+    // radio buttons
+    for(String type: chessPieces){
+        JRadioButton buttonType = new JRadioButton(type);
+        buttonType.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonPieces.add(buttonType);
+        buttonsPanel.add(buttonType);
+        // Removing all space around button panel so they look closer
     }
-
-    
-
+    // buttons alignment
+    createButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    moveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    // add spacing between the buttons
+    buttonsPanel.add(Box.createVerticalStrut(10));
+    // add components to side panel
+    buttonsPanel.add(Box.createVerticalStrut(20));
+    buttonsPanel.add(colorLabel);
+    buttonsPanel.add(Box.createVerticalStrut(5));
+    buttonsPanel.add(colorDropdown);
+    buttonsPanel.add(Box.createVerticalStrut(20));
+    buttonsPanel.add(inputLabel);
+    buttonsPanel.add(Box.createVerticalStrut(5));
+    // create a panel for the initial position selectors
+    JPanel initialPosPanel = new JPanel();
+    initialPosPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    initialPosPanel.setLayout(new BoxLayout(initialPosPanel, BoxLayout.X_AXIS));
+    initialPosPanel.add(colDropdown);
+    initialPosPanel.add(rowDropdown);
+    buttonsPanel.add(initialPosPanel);
+    buttonsPanel.add(Box.createVerticalStrut(20));
+    buttonsPanel.add(finalPosLabel);
+    buttonsPanel.add(Box.createVerticalStrut(5));
+    // create a panel for the final position selectors
+    JPanel finalPosPanel = new JPanel();
+    finalPosPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    finalPosPanel.setLayout(new BoxLayout(finalPosPanel, BoxLayout.X_AXIS));
+    finalPosPanel.add(finalColDropdown);
+    finalPosPanel.add(finalRowDropdown);
+    buttonsPanel.add(finalPosPanel);
+    buttonsPanel.add(Box.createVerticalStrut(40));
+    // add create and move buttons
+    buttonsPanel.add(createButton);
+    buttonsPanel.add(Box.createVerticalStrut(5)); // add space between buttons
+    buttonsPanel.add(moveButton);
+    // return the panel
+    return buttonsPanel;
+}
     // main method
     public static void main(String[] args) {
         new chessboard();
