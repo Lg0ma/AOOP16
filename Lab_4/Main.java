@@ -98,7 +98,7 @@ public class Main {
         while (!bishopExists) {
             try {
                 // print to prompt the user to input a chess piece with a position
-                System.out.println("Input a Bishop chess piece with its initial position. E.G. Pawn, White, H, 3. Input 'stop' to end the program ... ");
+                System.out.println("Input a Bishop chess piece with its initial position. E.G. Bishop, White, H, 3. Input 'stop' to end the program ... ");
                 System.out.println("");
                 // store the users input in a String
                 String user_input = scnr.nextLine().toUpperCase();
