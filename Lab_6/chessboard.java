@@ -3,9 +3,13 @@ import enums.*;
 import chess_pieces.*;
 import java.awt.*; 
 import java.awt.event.ActionEvent; 
-import java.awt.event.ActionListener; 
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class chessboard extends JFrame {
+
+    static ArrayList<Figure> pieces = new ArrayList<Figure>();
 
     private static String selectedPieceType = "";
     private static String selectedPieceColor = "";
@@ -264,6 +268,9 @@ public class chessboard extends JFrame {
             public void actionPerformed(ActionEvent e) throws NumberFormatException {
 
                 if (selectedPieceType != "" && selectedPieceColor != ""  && selectedPieceCol != "" && selectedPieceRow != "") {
+
+
+
                     JFrame popUpFrame = new JFrame("Created a Chess Piece");
                     JLabel messageLabel = new JLabel("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow);
 
@@ -278,13 +285,42 @@ public class chessboard extends JFrame {
                         int r = Integer.parseInt(selectedPieceRow);
                         
                         Figure piece = chess_pieces.Figure.create_chess_piece(etype, ecolor, eco, r);
-                                            
-                        int row = Integer.parseInt(selectedPieceRow) - 1; 
-                        int col = eco.ordinal(); 
                         
-                        Tile tile = boardCells[row][col];
-                        
-                        tile.setPieceImage(icon(piece));
+                        boolean canCreate = true;
+
+                        for (Figure a_piece : pieces) {
+                            enums.chess_piece_type temp_type = a_piece.getType();
+                            enums.chess_piece_color temp_color = a_piece.getColor();
+                            int temp_row = a_piece.getRow();
+                            enums.chess_piece_columns temp_col = a_piece.getColumn();
+                            
+                            if (temp_row == piece.getRow() && temp_col == piece.getColumn() || temp_color == piece.getColor() && temp_type == piece.getType()) {
+                                canCreate = false;
+                            } 
+                            
+                        }
+
+                        if (!pieces.contains(piece) && canCreate == true) {
+                            pieces.add(piece);
+                            System.out.println("Piece added: " + piece);
+                            int row = Integer.parseInt(selectedPieceRow) - 1; 
+                            int col = eco.ordinal(); 
+                            
+                            Tile tile = boardCells[row][col];
+                            
+                            tile.setPieceImage(icon(piece));
+                        }
+
+                        else {
+                            JFrame popUpFrame1 = new JFrame("Error");
+                            JLabel messageLabel1 = new JLabel("Chess Piece already exists on the board or the tile is already in use, try again");
+                            messageLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+                            popUpFrame1.add(messageLabel1); // Corrected to add messageLabel1
+                            popUpFrame1.setSize(400, 100);
+                            popUpFrame1.setLocationRelativeTo(null);
+                            popUpFrame1.setVisible(true);   
+                            return;
+                        }
                     } 
                     catch (IllegalArgumentException ex) {
                         System.err.println("Invalid enum value: " + ex.getMessage());
@@ -336,31 +372,26 @@ public class chessboard extends JFrame {
 
         enums.chess_piece_type type = piece.getType();
 
-        if (type ==  enums.chess_piece_type.PAWN) {
-            return pawn;
-        }
+            switch (type) {
 
-        if (type ==  enums.chess_piece_type.KNIGHT) {
-            return knight;
-        }
+            case KING:
+                return king;
 
-        if (type ==  enums.chess_piece_type.ROOK) {
-            return rook;
-        }
+            case KNIGHT:
+                return knight;
 
-        if (type ==  enums.chess_piece_type.BISHOP) {
-            return bishop;
-        }
+            case PAWN:
+                return pawn;
 
-        if (type ==  enums.chess_piece_type.QUEEN) {
-            return queen;
-        }
+            case QUEEN:
+                return queen;
 
-        if (type ==  enums.chess_piece_type.KING) {
-            return king;
-        }
+            case ROOK:
+                return rook;
 
-        return pawn;
+            default:
+                throw new IllegalArgumentException("Invalid chess piece type");
+        }
 
     }
 
