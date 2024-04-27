@@ -98,4 +98,17 @@ public abstract class Figure implements IntFigure {
         // check if the input is within range
         return chessBoard.verifyCoordinate(X, Y);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Figure other = (Figure) obj;
+        return piece_name == other.piece_name && color == other.color && column == other.column && row == other.row;
+    }
+
 }
