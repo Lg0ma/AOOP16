@@ -79,9 +79,8 @@ public class chessboard extends JFrame {
     // Side panel for user to interact
     private static JPanel sidePanel() {   
         
-        Color gray = new Color(192,192,192);
+        // Color gray = new Color(192,192,192);
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setBackground(gray);
         BoxLayout buttonLayout = new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS);
         buttonsPanel.setLayout(buttonLayout);
 
@@ -236,14 +235,29 @@ public class chessboard extends JFrame {
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) throws NumberFormatException {
+                JButton moveButton = new JButton("Move Piece");
+                JButton closeGame = new JButton("Exit Game");
+                JButton createNew = new JButton("Create New Piece");
 
                 if (selectedPieceType != "" && selectedPieceColor != ""  && selectedPieceCol != "" && selectedPieceRow != "") {
 
                     JFrame popUpFrame = new JFrame("Created a Chess Piece");
-                    JLabel messageLabel = new JLabel("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow);
-
+                    popUpFrame.setSize(150, 250);
+                    JLabel messageLabel = new JLabel("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + ", " + selectedPieceRow);
                     messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                    popUpFrame.add(messageLabel);
+                    
+                    JPanel buttonPanel = new JPanel();
+                    buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                    buttonPanel.add(Box.createVerticalStrut(10));
+                    buttonPanel.add(createNew);
+                    buttonPanel.add(moveButton);
+                    buttonPanel.add(closeGame);
+
+                    popUpFrame.getContentPane().setLayout(new BoxLayout(popUpFrame.getContentPane(), BoxLayout.Y_AXIS));
+                    popUpFrame.getContentPane().add(Box.createVerticalStrut(10));          
+                    popUpFrame.add(messageLabel, BorderLayout.NORTH);
+                    popUpFrame.add(buttonPanel, BorderLayout.CENTER);
+                    popUpFrame.getContentPane().add(buttonPanel);
             
                     try {
                         enums.chess_piece_type etype = enums.chess_piece_type.valueOf(selectedPieceType.toUpperCase());
@@ -318,65 +332,75 @@ public class chessboard extends JFrame {
                     popUpFrame.setLocationRelativeTo(null);
                     popUpFrame.setVisible(true);
                 }
-            }
-        });
-        
 
-        buttonsPanel.add(Box.createVerticalStrut(5)); 
-        buttonsPanel.add(moveButton);
-        JButton closeGame = new JButton("Close Game");
-        JButton newPiece = new JButton("Enter another piece");
-        
-
-        moveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                JFrame popUpFrame = new JFrame("New Chess Piece Location");
-                JLabel wasMovable = new JLabel(selectedPieceType + " can move from: " + selectedPieceCol + ", " + selectedPieceRow + " to " + newPieceCol + ", " + newPieceRow);
-                JLabel notMovable = new JLabel(selectedPieceType + " cannot move from: " + selectedPieceCol + ", " + selectedPieceRow + " to " + newPieceCol + ", " + newPieceRow);
-                JLabel messageLabel = new JLabel("You tried to move " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow + " to: " + newPieceCol + newPieceRow);
-                JPanel buttonPanel = new JPanel();
-                
-                if(canMove == true){
-                    buttonPanel.add(wasMovable);
-                    enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
-                    int oldRow = Integer.parseInt(selectedPieceRow) - 1; 
-                    int oldCol = eco.ordinal(); 
-                    enums.chess_piece_columns newEco = enums.chess_piece_columns.valueOf(newPieceCol);
-                    int newRow = Integer.parseInt(newPieceRow) - 1; 
-                    int newCol = newEco.ordinal();                     
-
-                    Tile tile = boardCells[oldRow][oldCol];
-                    Tile newTile = boardCells[newRow][newCol];
-
-                    tile.hidePieceImage(icon(piece, piece.getColor()));
-                    newTile.setPieceImage(icon(piece, piece.getColor()));
-                }
-                else{
-                    buttonPanel.add(notMovable);
-                }
-                messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                buttonPanel.add(newPiece);
-                buttonPanel.add(closeGame);
-                buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-                popUpFrame.getContentPane().setLayout(new BoxLayout(popUpFrame.getContentPane(), BoxLayout.Y_AXIS));
-                popUpFrame.getContentPane().add(Box.createVerticalStrut(10));          
-                popUpFrame.getContentPane().add(buttonPanel);
-
-                popUpFrame.setSize(300, 150);
-                popUpFrame.setLocationRelativeTo(null);
-                popUpFrame.setVisible(true);
-                
-                newPiece.addActionListener(n -> {
-                   popUpFrame.dispose();
+                closeGame.addActionListener(a -> {
+                    System.exit(0);
                 });
+
+                enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
+                int oldRow = Integer.parseInt(selectedPieceRow) - 1; 
+                int oldCol = eco.ordinal(); 
+                Tile tile = boardCells[oldRow][oldCol];
+
+                createNew.addActionListener(n -> {
+                    Window window = SwingUtilities.getWindowAncestor(createNew);
+
+                    if(window instanceof JFrame){
+                    tile.hidePieceImage(icon(piece, piece.getColor()));
+                    ((JFrame) window).dispose();
+                    }
+                });
+
+                moveButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+        
+                        JFrame popUpFrame = new JFrame("New Chess Piece Location");
+                        JLabel wasMovable = new JLabel(selectedPieceType + " can move from: " + selectedPieceCol + ", " + selectedPieceRow + " to " + newPieceCol + ", " + newPieceRow);
+                        JLabel notMovable = new JLabel(selectedPieceType + " cannot move from: " + selectedPieceCol + ", " + selectedPieceRow + " to " + newPieceCol + ", " + newPieceRow);
+                        JLabel messageLabel = new JLabel("You tried to move " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow + " to: " + newPieceCol + newPieceRow);
+                        JPanel buttonPanel = new JPanel();
+                        
+                        if(canMove == true){
+                            buttonPanel.add(wasMovable);
+                            enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
+                            int oldRow = Integer.parseInt(selectedPieceRow) - 1; 
+                            int oldCol = eco.ordinal(); 
+                            enums.chess_piece_columns newEco = enums.chess_piece_columns.valueOf(newPieceCol);
+                            int newRow = Integer.parseInt(newPieceRow) - 1; 
+                            int newCol = newEco.ordinal();                     
+        
+                            Tile tile = boardCells[oldRow][oldCol];
+                            Tile newTile = boardCells[newRow][newCol];
+        
+                            tile.hidePieceImage(icon(piece, piece.getColor()));
+                            newTile.setPieceImage(icon(piece, piece.getColor()));
+                        }
+                        else{
+                            buttonPanel.add(notMovable);
+                        }
+                        
+                        messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                        buttonPanel.add(createNew);
+                        buttonPanel.add(closeGame);
+                        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+                        popUpFrame.getContentPane().setLayout(new BoxLayout(popUpFrame.getContentPane(), BoxLayout.Y_AXIS));
+                        popUpFrame.getContentPane().add(Box.createVerticalStrut(10));          
+                        popUpFrame.getContentPane().add(buttonPanel);
+        
+                        popUpFrame.setSize(300, 150);
+                        popUpFrame.setLocationRelativeTo(null);
+                        popUpFrame.setVisible(true);
+                        
+                        createNew.addActionListener(n -> {
+                           popUpFrame.dispose();
+                        });
+                    }
+                });
+        
             }
         });
 
-         closeGame.addActionListener(e -> {
-            System.exit(0);
-         });
         return buttonsPanel;
     }
 
