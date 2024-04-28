@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.Flow;
 
 public class chessboard extends JFrame {
 
@@ -18,13 +19,18 @@ public class chessboard extends JFrame {
     private static String newPieceRow = "";
     private static String newPieceCol = "";
 
-    static ImageIcon pawn = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BP.gif");
-    static ImageIcon knight = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BN.gif");
-    static ImageIcon rook = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BR.gif");
-    static ImageIcon bishop = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BB.gif");
-    static ImageIcon queen = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BQ.gif");
-    static ImageIcon king = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BK.gif");
-
+    static ImageIcon pawn = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\BP.gif");
+    static ImageIcon knight = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\BN.gif");
+    static ImageIcon rook = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\BR.gif");
+    static ImageIcon bishop = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\BB.gif");
+    static ImageIcon queen = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\BQ.gif");
+    static ImageIcon king = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\BK.gif");
+    static ImageIcon white_pawn = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\WP.gif");
+    static ImageIcon white_knight = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\WN.gif");
+    static ImageIcon white_rook = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\WR.gif");
+    static ImageIcon white_bishop = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\WB.gif");
+    static ImageIcon white_queen = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\WQ.gif");
+    static ImageIcon white_king = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\WK.gif");
 
     static JPanel panel = new JPanel(); 
     static JPanel sidePanel = sidePanel();
@@ -52,8 +58,9 @@ public class chessboard extends JFrame {
         add(sidePanel, BorderLayout.WEST);
     }
 
+    // Method that creates the board and adds tiles to it.
     private void initializeBoard() {
-
+        
         boardCells = new Tile[8][8];
 
         for (int row = 0; row < 8; row++) {
@@ -66,7 +73,8 @@ public class chessboard extends JFrame {
         }
     }
 
-    public static JPanel sidePanel() {   
+    // Side panel for user to interact
+    private static JPanel sidePanel() {   
         
         Color gray = new Color(192,192,192);
         JPanel buttonsPanel = new JPanel();
@@ -101,6 +109,7 @@ public class chessboard extends JFrame {
         colDropdown.setMaximumSize(colDropdown.getPreferredSize());
         colDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Creates pop up after selecting initial column
         colDropdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -122,6 +131,7 @@ public class chessboard extends JFrame {
         rowDropdown.setMaximumSize(rowDropdown.getPreferredSize());
         rowDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Creates pop up after selecting initial row
         rowDropdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -143,6 +153,7 @@ public class chessboard extends JFrame {
         colorDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
         colorDropdown.setMaximumSize(colorDropdown.getPreferredSize());
 
+        // Creates pop up after selecting piece color
         colorDropdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -164,6 +175,7 @@ public class chessboard extends JFrame {
         finalColDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
         finalColDropdown.setMaximumSize(finalColDropdown.getPreferredSize());
 
+        // Creates pop up after selecting final column
         finalColDropdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -185,6 +197,7 @@ public class chessboard extends JFrame {
         finalRowDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
         finalRowDropdown.setMaximumSize(finalRowDropdown.getPreferredSize());
 
+        // Creates pop up after selecting final row
         finalRowDropdown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -308,7 +321,7 @@ public class chessboard extends JFrame {
                             
                             Tile tile = boardCells[row][col];
                             
-                            tile.setPieceImage(icon(piece));
+                            tile.setPieceImage(icon(piece, piece.getColor()));
                         }
 
                         else {
@@ -349,6 +362,8 @@ public class chessboard extends JFrame {
 
         buttonsPanel.add(Box.createVerticalStrut(5)); 
         buttonsPanel.add(moveButton);
+        JButton closeGame = new JButton("Close Game");
+        JButton newPiece = new JButton("Enter another piece");
 
         moveButton.addActionListener(new ActionListener() {
             @Override
@@ -356,22 +371,38 @@ public class chessboard extends JFrame {
 
                 JFrame popUpFrame = new JFrame("Move Chess Piece");
                 JLabel messageLabel = new JLabel("You tried to move " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow + " to: " + newPieceCol + newPieceRow);
+                JPanel buttonPanel = new JPanel();
 
                 messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                popUpFrame.add(messageLabel);
-                popUpFrame.setSize(600, 600);
+                buttonPanel.add(messageLabel);
+                buttonPanel.add(newPiece);
+                buttonPanel.add(closeGame);
+                buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+                popUpFrame.getContentPane().setLayout(new BoxLayout(popUpFrame.getContentPane(), BoxLayout.Y_AXIS));
+                popUpFrame.getContentPane().add(Box.createVerticalStrut(10));          
+                popUpFrame.getContentPane().add(buttonPanel);
+
+                popUpFrame.setSize(300, 150);
                 popUpFrame.setLocationRelativeTo(null);
                 popUpFrame.setVisible(true);
+                
+                newPiece.addActionListener(n -> {
+                   popUpFrame.dispose();
+                });
             }
         });
 
+         closeGame.addActionListener(e -> {
+            System.exit(0);
+         });
         return buttonsPanel;
     }
 
-    public static ImageIcon icon(Figure piece) {
+    public static ImageIcon icon(Figure piece, enums.chess_piece_color color) {
 
         enums.chess_piece_type type = piece.getType();
 
+        if(color.equals(enums.chess_piece_color.BLACK)){
             switch (type) {
 
             case KING:
@@ -391,8 +422,30 @@ public class chessboard extends JFrame {
 
             default:
                 throw new IllegalArgumentException("Invalid chess piece type");
+            }
         }
+        else{
+            switch (type) {
 
+                case KING:
+                    return white_king;
+    
+                case KNIGHT:
+                    return white_knight;
+    
+                case PAWN:
+                    return white_pawn;
+    
+                case QUEEN:
+                    return white_queen;
+    
+                case ROOK:
+                    return white_rook;
+    
+                default:
+                    throw new IllegalArgumentException("Invalid chess piece type");
+                }
+            }
     }
 
     public static void main(String[] args) {
