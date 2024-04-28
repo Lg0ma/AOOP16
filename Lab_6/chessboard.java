@@ -12,6 +12,7 @@ public class chessboard extends JFrame {
 
     static ArrayList<Figure> pieces = new ArrayList<Figure>();
 
+    private static Figure piece;
     private static String selectedPieceType = "";
     private static String selectedPieceColor = "";
     private static String selectedPieceRow = "";
@@ -33,6 +34,7 @@ public class chessboard extends JFrame {
     static ImageIcon white_king = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\WK.gif");
 
     static JPanel panel = new JPanel(); 
+    static private boolean canMove = false;
     static JPanel sidePanel = sidePanel();
     JPanel boardPanel; 
     static Tile[][] boardCells;
@@ -42,6 +44,7 @@ public class chessboard extends JFrame {
 
         super();
         setTitle("Chess Game (Lab 6)");
+        
 
         panel.setLayout(new BorderLayout()); 
         boardPanel = new JPanel();
@@ -83,8 +86,8 @@ public class chessboard extends JFrame {
         buttonsPanel.setLayout(buttonLayout);
 
         String [] chessPieces = {"Pawn", "Rook", "Knight", "Queen", "King"};
-        String [] row = {"1", "2", "3", "4", "5", "6", "7", "8"};
-        String [] col = {"A", "B", "C", "D", "E", "F", "G", "H"};
+        String [] row = {"-","1", "2", "3", "4", "5", "6", "7", "8"};
+        String [] col = {"-","A", "B", "C", "D", "E", "F", "G", "H"};
         String [] colors = {"White", "Black"};
 
         JLabel chessType = new JLabel("Select a chess piece");
@@ -116,15 +119,6 @@ public class chessboard extends JFrame {
 
                 JComboBox<String> comboBox = (JComboBox<String>) e.getSource();
                 selectedPieceCol = (String) comboBox.getSelectedItem();
-
-                JFrame popUpFrame = new JFrame("Selected Initial Column");
-                JLabel messageLabel = new JLabel("You selected the column: " + selectedPieceCol);
-
-                messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                popUpFrame.add(messageLabel);
-                popUpFrame.setSize(300, 100);
-                popUpFrame.setLocationRelativeTo(null);
-                popUpFrame.setVisible(true);
             }
         });
 
@@ -138,15 +132,6 @@ public class chessboard extends JFrame {
 
                 JComboBox<String> comboBox = (JComboBox<String>) e.getSource();
                 selectedPieceRow = (String) comboBox.getSelectedItem();
-
-                JFrame popUpFrame = new JFrame("Selected Initial Row");
-                JLabel messageLabel = new JLabel("You selected the row: " + selectedPieceRow);
-
-                messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                popUpFrame.add(messageLabel);
-                popUpFrame.setSize(300, 100);
-                popUpFrame.setLocationRelativeTo(null);
-                popUpFrame.setVisible(true);
             }
         });
 
@@ -160,15 +145,6 @@ public class chessboard extends JFrame {
 
                 JComboBox<String> comboBox = (JComboBox<String>) e.getSource();
                 selectedPieceColor = (String) comboBox.getSelectedItem();
-
-                JFrame popUpFrame = new JFrame("Selected Color");
-                JLabel messageLabel = new JLabel("You selected the color: " + selectedPieceColor);
-
-                messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                popUpFrame.add(messageLabel);
-                popUpFrame.setSize(300, 100);
-                popUpFrame.setLocationRelativeTo(null);
-                popUpFrame.setVisible(true);
             }
         });
 
@@ -182,15 +158,6 @@ public class chessboard extends JFrame {
 
                 JComboBox<String> comboBox = (JComboBox<String>) e.getSource();
                 newPieceCol = (String) comboBox.getSelectedItem();
-
-                JFrame popUpFrame = new JFrame("Selected New Column");
-                JLabel messageLabel = new JLabel("You selected the column: " + newPieceCol);
-
-                messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                popUpFrame.add(messageLabel);
-                popUpFrame.setSize(300, 100);
-                popUpFrame.setLocationRelativeTo(null);
-                popUpFrame.setVisible(true);
             }
         });
 
@@ -204,15 +171,6 @@ public class chessboard extends JFrame {
 
                 JComboBox<String> comboBox = (JComboBox<String>) e.getSource();
                 newPieceRow = (String) comboBox.getSelectedItem();
-
-                JFrame popUpFrame = new JFrame("Selected New Row");
-                JLabel messageLabel = new JLabel("You selected the row: " + newPieceRow);
-
-                messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                popUpFrame.add(messageLabel);
-                popUpFrame.setSize(300, 100);
-                popUpFrame.setLocationRelativeTo(null);
-                popUpFrame.setVisible(true);
             }
         });
 
@@ -238,7 +196,6 @@ public class chessboard extends JFrame {
                     popUpFrame.add(messageLabel);
                     popUpFrame.setSize(300, 100);
                     popUpFrame.setLocationRelativeTo(null);
-                    popUpFrame.setVisible(true);
                 }
             });
         }
@@ -275,14 +232,12 @@ public class chessboard extends JFrame {
         buttonsPanel.add(Box.createVerticalStrut(40));
 
         buttonsPanel.add(createButton);
-
+        
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) throws NumberFormatException {
 
                 if (selectedPieceType != "" && selectedPieceColor != ""  && selectedPieceCol != "" && selectedPieceRow != "") {
-
-
 
                     JFrame popUpFrame = new JFrame("Created a Chess Piece");
                     JLabel messageLabel = new JLabel("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow);
@@ -297,7 +252,7 @@ public class chessboard extends JFrame {
 
                         int r = Integer.parseInt(selectedPieceRow);
                         
-                        Figure piece = chess_pieces.Figure.create_chess_piece(etype, ecolor, eco, r);
+                        piece = chess_pieces.Figure.create_chess_piece(etype, ecolor, eco, r);
                         
                         boolean canCreate = true;
 
@@ -322,6 +277,13 @@ public class chessboard extends JFrame {
                             Tile tile = boardCells[row][col];
                             
                             tile.setPieceImage(icon(piece, piece.getColor()));
+
+                            int newRow = Integer.parseInt(newPieceRow);
+                            System.out.println(newRow);
+                            enums.chess_piece_columns newCol = enums.chess_piece_columns.valueOf(newPieceCol);
+                            System.out.println(newCol);
+                            canMove = piece.moveTo(newCol, newRow);
+                            System.out.println(canMove);
                         }
 
                         else {
@@ -335,9 +297,9 @@ public class chessboard extends JFrame {
                             return;
                         }
                     } 
-                    catch (IllegalArgumentException ex) {
-                        System.err.println("Invalid enum value: " + ex.getMessage());
-                    } 
+                    // catch (IllegalArgumentException ex) {
+                    //     System.err.println("Invalid enum value: " + ex.getMessage());
+                    // } 
                     catch (ArrayIndexOutOfBoundsException ex) {
                         System.err.println("Array index out of bounds: " + ex.getMessage());
                     }
@@ -364,17 +326,26 @@ public class chessboard extends JFrame {
         buttonsPanel.add(moveButton);
         JButton closeGame = new JButton("Close Game");
         JButton newPiece = new JButton("Enter another piece");
+        
 
         moveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JFrame popUpFrame = new JFrame("Move Chess Piece");
+                JFrame popUpFrame = new JFrame("New Chess Piece Location");
+                JLabel wasMovable = new JLabel(selectedPieceType + " can move from: " + selectedPieceCol + ", " + selectedPieceRow + " to " + newPieceCol + ", " + newPieceRow);
+                JLabel notMovable = new JLabel(selectedPieceType + " cannot move from: " + selectedPieceCol + ", " + selectedPieceRow + " to " + newPieceCol + ", " + newPieceRow);
                 JLabel messageLabel = new JLabel("You tried to move " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow + " to: " + newPieceCol + newPieceRow);
                 JPanel buttonPanel = new JPanel();
-
+                
+                if(canMove == true){
+                    buttonPanel.add(wasMovable);
+                    
+                }
+                else{
+                    buttonPanel.add(notMovable);
+                }
                 messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                buttonPanel.add(messageLabel);
                 buttonPanel.add(newPiece);
                 buttonPanel.add(closeGame);
                 buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
