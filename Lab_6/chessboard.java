@@ -295,8 +295,6 @@ public class chessboard extends JFrame {
                             System.out.println(newRow);
                             enums.chess_piece_columns newCol = enums.chess_piece_columns.valueOf(newPieceCol);
                             System.out.println(newCol);
-                            canMove = piece.moveTo(newCol, newRow);
-                            System.out.println(canMove);
                             messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                             popUpFrame.add(messageLabel);
                             popUpFrame.setSize(400, 100);
@@ -433,7 +431,7 @@ public class chessboard extends JFrame {
                                 JLabel notMovable = new JLabel(type + " " + color + " cannot move from: " + col + ", " + row  + " to " + x + ", " + y);
                                 JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y);
 
-                                if (validX && y > 0 && y < 9) {
+                                if (validX && y > 0 && y < 9  && piece.moveTo(enums.chess_piece_columns.valueOf(x), y)) {
                                     System.out.println(x + " : " + y);
                                     buttonPanel.add(wasMovable);
                                     int oldRow = row - 1; 
