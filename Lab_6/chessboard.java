@@ -340,18 +340,7 @@ public class chessboard extends JFrame {
                 
                 if(canMove == true){
                     buttonPanel.add(wasMovable);
-                    enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
-                    int oldRow = Integer.parseInt(selectedPieceRow) - 1; 
-                    int oldCol = eco.ordinal(); 
-                    enums.chess_piece_columns newEco = enums.chess_piece_columns.valueOf(newPieceCol);
-                    int newRow = Integer.parseInt(newPieceRow) - 1; 
-                    int newCol = newEco.ordinal();                     
-
-                    Tile tile = boardCells[oldRow][oldCol];
-                    Tile newTile = boardCells[newRow][newCol];
-
-                    tile.hidePieceImage(icon(piece, piece.getColor()));
-                    newTile.setPieceImage(icon(piece, piece.getColor()));
+                    
                 }
                 else{
                     buttonPanel.add(notMovable);
@@ -455,11 +444,6 @@ class Tile extends JPanel {
 
         pieceLabel.setIcon(icon);
         repaint(); 
-    }
-
-    public void hidePieceImage(ImageIcon icon){
-        pieceLabel.setVisible(false);
-        repaint();
     }
 
     @Override
