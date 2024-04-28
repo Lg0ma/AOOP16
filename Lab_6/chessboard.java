@@ -268,9 +268,6 @@ public class chessboard extends JFrame {
             public void actionPerformed(ActionEvent e) throws NumberFormatException {
 
                 if (selectedPieceType != "" && selectedPieceColor != ""  && selectedPieceCol != "" && selectedPieceRow != "") {
-
-
-
                     JFrame popUpFrame = new JFrame("Created a Chess Piece");
                     JLabel messageLabel = new JLabel("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow);
 
@@ -372,7 +369,7 @@ public class chessboard extends JFrame {
 
         enums.chess_piece_type type = piece.getType();
 
-            switch (type) {
+        switch (type) {
 
             case KING:
                 return king;
