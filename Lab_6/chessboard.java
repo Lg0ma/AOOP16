@@ -1,8 +1,8 @@
-import javax.swing.*; 
+import javax.swing.*;
 import enums.*;
 import chess_pieces.*;
-import java.awt.*; 
-import java.awt.event.ActionEvent; 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,9 +32,9 @@ public class chessboard extends JFrame {
     static ImageIcon white_queen = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\WQ.gif");
     static ImageIcon white_king = new ImageIcon("C:\\Users\\Armenta\\AOOP16\\Lab_6\\art\\WK.gif");
 
-    static JPanel panel = new JPanel(); 
+    static JPanel panel = new JPanel();
     static JPanel sidePanel = sidePanel();
-    JPanel boardPanel; 
+    JPanel boardPanel;
     static Tile[][] boardCells;
     JPanel buttonPanel;
 
@@ -43,7 +43,7 @@ public class chessboard extends JFrame {
         super();
         setTitle("Chess Game (Lab 6)");
 
-        panel.setLayout(new BorderLayout()); 
+        panel.setLayout(new BorderLayout());
         boardPanel = new JPanel();
         boardPanel.setLayout(new GridLayout(8, 8));
 
@@ -51,7 +51,7 @@ public class chessboard extends JFrame {
 
         panel.add(boardPanel, BorderLayout.CENTER);
         add(panel);
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         setSize(900, 800);
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -60,12 +60,12 @@ public class chessboard extends JFrame {
 
     // Method that creates the board and adds tiles to it.
     private void initializeBoard() {
-        
+
         boardCells = new Tile[8][8];
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                Color backgroundColor = (row + col) % 2 == 0 ? Color.WHITE : Color.GRAY; 
+                Color backgroundColor = (row + col) % 2 == 0 ? Color.WHITE : Color.GRAY;
                 Tile tile = new Tile(backgroundColor);
                 boardCells[row][col] = tile;
                 boardPanel.add(tile);
@@ -74,18 +74,18 @@ public class chessboard extends JFrame {
     }
 
     // Side panel for user to interact
-    private static JPanel sidePanel() {   
-        
-        Color gray = new Color(192,192,192);
+    private static JPanel sidePanel() {
+
+        Color gray = new Color(192, 192, 192);
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setBackground(gray);
         BoxLayout buttonLayout = new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS);
         buttonsPanel.setLayout(buttonLayout);
 
-        String [] chessPieces = {"Pawn", "Rook", "Knight", "Queen", "King"};
-        String [] row = {"1", "2", "3", "4", "5", "6", "7", "8"};
-        String [] col = {"A", "B", "C", "D", "E", "F", "G", "H"};
-        String [] colors = {"White", "Black"};
+        String[] chessPieces = {"Pawn", "Rook", "Knight", "Queen", "King" };
+        String[] row = { "--", "1", "2", "3", "4", "5", "6", "7", "8" };
+        String[] col = { "--", "A", "B", "C", "D", "E", "F", "G", "H" };
+        String[] colors = { "  -----  ", "White", "Black" };
 
         JLabel chessType = new JLabel("Select a chess piece");
         JLabel inputLabel = new JLabel("Select initial chess pos.");
@@ -220,7 +220,7 @@ public class chessboard extends JFrame {
         JButton moveButton = new JButton("Move piece");
         ButtonGroup buttonPieces = new ButtonGroup();
 
-        for(String type: chessPieces){
+        for (String type : chessPieces) {
             JRadioButton buttonType = new JRadioButton(type);
             buttonType.setAlignmentX(Component.CENTER_ALIGNMENT);
             buttonPieces.add(buttonType);
@@ -280,25 +280,26 @@ public class chessboard extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) throws NumberFormatException {
 
-                if (selectedPieceType != "" && selectedPieceColor != ""  && selectedPieceCol != "" && selectedPieceRow != "") {
-
-
+                if (selectedPieceType != "" && selectedPieceColor != "" && selectedPieceCol != ""
+                        && selectedPieceRow != "") {
 
                     JFrame popUpFrame = new JFrame("Created a Chess Piece");
-                    JLabel messageLabel = new JLabel("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow);
+                    JLabel messageLabel = new JLabel("You created the following chess piece: " + selectedPieceType + " "
+                            + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow);
 
                     messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                     popUpFrame.add(messageLabel);
-            
+
                     try {
                         enums.chess_piece_type etype = enums.chess_piece_type.valueOf(selectedPieceType.toUpperCase());
-                        enums.chess_piece_color ecolor = enums.chess_piece_color.valueOf(selectedPieceColor.toUpperCase());
+                        enums.chess_piece_color ecolor = enums.chess_piece_color
+                                .valueOf(selectedPieceColor.toUpperCase());
                         enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
 
                         int r = Integer.parseInt(selectedPieceRow);
-                        
+
                         Figure piece = chess_pieces.Figure.create_chess_piece(etype, ecolor, eco, r);
-                        
+
                         boolean canCreate = true;
 
                         for (Figure a_piece : pieces) {
@@ -306,48 +307,48 @@ public class chessboard extends JFrame {
                             enums.chess_piece_color temp_color = a_piece.getColor();
                             int temp_row = a_piece.getRow();
                             enums.chess_piece_columns temp_col = a_piece.getColumn();
-                            
-                            if (temp_row == piece.getRow() && temp_col == piece.getColumn() || temp_color == piece.getColor() && temp_type == piece.getType()) {
+
+                            if (temp_row == piece.getRow() && temp_col == piece.getColumn()
+                                    || temp_color == piece.getColor() && temp_type == piece.getType()) {
                                 canCreate = false;
-                            } 
-                            
+                            }
+
                         }
 
                         if (!pieces.contains(piece) && canCreate == true) {
                             pieces.add(piece);
                             System.out.println("Piece added: " + piece);
-                            int row = Integer.parseInt(selectedPieceRow) - 1; 
-                            int col = eco.ordinal(); 
-                            
+                            int row = Integer.parseInt(selectedPieceRow) - 1;
+                            int col = eco.ordinal();
+
                             Tile tile = boardCells[row][col];
-                            
+
                             tile.setPieceImage(icon(piece, piece.getColor()));
                         }
 
                         else {
                             JFrame popUpFrame1 = new JFrame("Error");
-                            JLabel messageLabel1 = new JLabel("Chess Piece already exists on the board or the tile is already in use, try again");
+                            JLabel messageLabel1 = new JLabel(
+                                    "Chess Piece already exists on the board or the tile is already in use, try again");
                             messageLabel1.setHorizontalAlignment(SwingConstants.CENTER);
                             popUpFrame1.add(messageLabel1); // Corrected to add messageLabel1
                             popUpFrame1.setSize(400, 100);
                             popUpFrame1.setLocationRelativeTo(null);
-                            popUpFrame1.setVisible(true);   
+                            popUpFrame1.setVisible(true);
                             return;
                         }
-                    } 
-                    catch (IllegalArgumentException ex) {
+                    } catch (IllegalArgumentException ex) {
                         System.err.println("Invalid enum value: " + ex.getMessage());
-                    } 
-                    catch (ArrayIndexOutOfBoundsException ex) {
+                    } catch (ArrayIndexOutOfBoundsException ex) {
                         System.err.println("Array index out of bounds: " + ex.getMessage());
                     }
-            
+
                     popUpFrame.setSize(600, 100);
                     popUpFrame.setLocationRelativeTo(null);
                     popUpFrame.setVisible(true);
                 }
 
-                else  {
+                else {
                     JFrame popUpFrame = new JFrame("Invalid Input");
                     JLabel messageLabel = new JLabel("Invalid input, please create a valid chess piece");
                     messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -358,9 +359,8 @@ public class chessboard extends JFrame {
                 }
             }
         });
-        
 
-        buttonsPanel.add(Box.createVerticalStrut(5)); 
+        buttonsPanel.add(Box.createVerticalStrut(5));
         buttonsPanel.add(moveButton);
         JButton closeGame = new JButton("Close Game");
         JButton newPiece = new JButton("Enter another piece");
@@ -370,7 +370,8 @@ public class chessboard extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 JFrame popUpFrame = new JFrame("Move Chess Piece");
-                JLabel messageLabel = new JLabel("You tried to move " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow + " to: " + newPieceCol + newPieceRow);
+                JLabel messageLabel = new JLabel("You tried to move " + selectedPieceType + " " + selectedPieceColor
+                        + " " + selectedPieceCol + " " + selectedPieceRow + " to: " + newPieceCol + newPieceRow);
                 JPanel buttonPanel = new JPanel();
 
                 messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -379,22 +380,22 @@ public class chessboard extends JFrame {
                 buttonPanel.add(closeGame);
                 buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
                 popUpFrame.getContentPane().setLayout(new BoxLayout(popUpFrame.getContentPane(), BoxLayout.Y_AXIS));
-                popUpFrame.getContentPane().add(Box.createVerticalStrut(10));          
+                popUpFrame.getContentPane().add(Box.createVerticalStrut(10));
                 popUpFrame.getContentPane().add(buttonPanel);
 
                 popUpFrame.setSize(300, 150);
                 popUpFrame.setLocationRelativeTo(null);
                 popUpFrame.setVisible(true);
-                
+
                 newPiece.addActionListener(n -> {
-                   popUpFrame.dispose();
+                    popUpFrame.dispose();
                 });
             }
         });
 
-         closeGame.addActionListener(e -> {
+        closeGame.addActionListener(e -> {
             System.exit(0);
-         });
+        });
         return buttonsPanel;
     }
 
@@ -402,50 +403,49 @@ public class chessboard extends JFrame {
 
         enums.chess_piece_type type = piece.getType();
 
-        if(color.equals(enums.chess_piece_color.BLACK)){
+        if (color.equals(enums.chess_piece_color.BLACK)) {
             switch (type) {
 
-            case KING:
-                return king;
+                case KING:
+                    return king;
 
-            case KNIGHT:
-                return knight;
+                case KNIGHT:
+                    return knight;
 
-            case PAWN:
-                return pawn;
+                case PAWN:
+                    return pawn;
 
-            case QUEEN:
-                return queen;
+                case QUEEN:
+                    return queen;
 
-            case ROOK:
-                return rook;
+                case ROOK:
+                    return rook;
 
-            default:
-                throw new IllegalArgumentException("Invalid chess piece type");
+                default:
+                    throw new IllegalArgumentException("Invalid chess piece type");
             }
-        }
-        else{
+        } else {
             switch (type) {
 
                 case KING:
                     return white_king;
-    
+
                 case KNIGHT:
                     return white_knight;
-    
+
                 case PAWN:
                     return white_pawn;
-    
+
                 case QUEEN:
                     return white_queen;
-    
+
                 case ROOK:
                     return white_rook;
-    
+
                 default:
                     throw new IllegalArgumentException("Invalid chess piece type");
-                }
             }
+        }
     }
 
     public static void main(String[] args) {
@@ -455,8 +455,8 @@ public class chessboard extends JFrame {
 }
 
 class Tile extends JPanel {
-    
-    private JLabel pieceLabel; 
+
+    private JLabel pieceLabel;
 
     public Tile(Color color) {
 
@@ -472,11 +472,11 @@ class Tile extends JPanel {
     public void setPieceImage(ImageIcon icon) {
 
         pieceLabel.setIcon(icon);
-        repaint(); 
+        repaint();
     }
 
     @Override
-    public Dimension getPreferredSize() { 
+    public Dimension getPreferredSize() {
 
         Dimension size = super.getPreferredSize();
         int maxSize = Math.max(size.width, size.height);
