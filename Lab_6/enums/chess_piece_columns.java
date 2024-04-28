@@ -1,14 +1,49 @@
-// package
+/**
+ * Package containing enums related to chess.
+ */
 package enums;
-//Luis Gomez
-// enum for the X-Coordinates
+
+/**
+ * An enum representing the X-coordinates of a chess piece.
+ */
 public enum chess_piece_columns {
-        A,
-        B,
-        C,
-        D,
-        E,
-        F,
-        G,
-        H,
-    }
+    /**
+     * X-coordinate A.
+     */
+    A,
+
+    /**
+     * X-coordinate B.
+     */
+    B,
+
+    /**
+     * X-coordinate C.
+     */
+    C,
+
+    /**
+     * X-coordinate D.
+     */
+    D,
+
+    /**
+     * X-coordinate E.
+     */
+    E,
+
+    /**
+     * X-coordinate F.
+     */
+    F,
+
+    /**
+     * X-coordinate G.
+     */
+    G,
+
+    /**
+     * X-coordinate H.
+     */
+    H,
+}

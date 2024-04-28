@@ -304,7 +304,7 @@ public class chessboard extends JFrame {
                             JFrame popUpFrame1 = new JFrame("Error");
                             JLabel messageLabel1 = new JLabel("Chess Piece already exists on the board or the tile is already in use, try again");
                             messageLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-                            popUpFrame1.add(messageLabel1); // Corrected to add messageLabel1
+                            popUpFrame1.add(messageLabel1);
                             popUpFrame1.setSize(400, 100);
                             popUpFrame1.setLocationRelativeTo(null);
                             popUpFrame1.setVisible(true);   

@@ -1,8 +1,11 @@
+// Necessary imports 
 import board.*;
 import chess_pieces.*;
 import java.util.Scanner;
 
-// main class
+/**
+ * The main class for the chess program.
+ */
 public class Main {
 
     // initialize a private Scanner
@@ -10,18 +13,25 @@ public class Main {
     private static ChessBoard chessBoard = new ChessBoard();
     private static Bishop bishopPiece;
 
-    // everyone used this
+    /**
+     * Main method to start the chess program.
+     * 
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
-        // method call to prompt user to make chess pieces
-        Figure [] pieces = prompt(); // array used to store the chess piece objects array
-        // method prompt to move the chess pieces to a new location
-        move(pieces, bishopPiece);
-        // close the Scanner
-        scnr.close();
+         // Method call to prompt user to make chess pieces
+         Figure[] pieces = prompt(); // Array used to store the chess piece objects
+         // Method prompt to move the chess pieces to a new location
+         move(pieces, bishopPiece);
+         // Close the Scanner
+         scnr.close();
     }
 
-    // IVAN ARMENTA and ANDRE MELENDEZ
-    // method to prompt the user to create chess pieces and store the newly created objects
+    /**
+     * Prompts the user to create chess pieces and store the newly created objects.
+     * 
+     * @return An array of chess piece objects
+     */
     public static Figure[] prompt() {
         // initialize an empty chessPiece array to hold the chess piece objects
         Figure pieces[] = new Figure[5];
@@ -138,8 +148,12 @@ public class Main {
         return pieces;
     }
 
-    // Luis Gomez
-    // traverses the array and asks for new position to try to move piece into
+    /**
+     * Traverses the array and asks for a new position to try to move the piece into.
+     * 
+     * @param chessPieces An array of chess piece objects
+     * @param bishop The Bishop object
+     */
     public static void move(Figure[] chessPieces, Bishop bishop) {
         // initialize the index variable, and the variables to store the user input
         int i = 0;

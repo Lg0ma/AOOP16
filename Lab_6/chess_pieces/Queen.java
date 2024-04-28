@@ -1,30 +1,51 @@
-// package 
+/**
+ * Package containing classes related to chess pieces.
+ */
 package chess_pieces;
-// import packages
+// Import necessary packages and classes
+
 import enums.*;
 
-// ANDRE MELENDEZ
-// Queen class that extends to Rook and implementes IntBishop
+/**
+ * A class representing a Queen chess piece extends from Bishop's Interface.
+ */
 class Queen extends Rook implements IntBishop {
-    // empty constructor
+    /**
+     * Constructs a Queen object with default values.
+     */
     public Queen() {
-        // default values
         super();
     }
 
-    // constructor with parameters for each class field
+     /**
+     * Constructs a Queen object with specified attributes.
+     *
+     * @param name    The type of the chess piece.
+     * @param color   The color of the chess piece.
+     * @param x_coord The initial column coordinate of the chess piece.
+     * @param y_coord The initial row coordinate of the chess piece.
+     */
     public Queen(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
-        // set values
         super(name, color, x_coord, y_coord);
     }
 
-    // method that prints the current attributes of the Chess Piece
+    /**
+     * Retrieves a string representation of the Queen's attributes.
+     *
+     * @return A string representing the Queen's attributes.
+     */
     @Override
     public String toString() {
         return super.toString();
     }
 
-    // method to verify its piece movement (Bishop)
+    /**
+     * Moves the Queen chess piece to the specified column and row coordinates, considering Bishop movement rules.
+     *
+     * @param column The target column coordinate.
+     * @param row    The target row coordinate.
+     * @return True if the move is valid, otherwise false.
+     */
     public Boolean moveToBishop(chess_piece_columns column, int row) {
         // turn the enum into an int
         int new_column = column.ordinal() + 1;
@@ -46,7 +67,13 @@ class Queen extends Rook implements IntBishop {
         return false;
     }
 
-    // method to verify its piece movement
+    /**
+     * Moves the Queen chess piece to the specified column and row coordinates, considering Rook movement rules.
+     *
+     * @param column The target column coordinate.
+     * @param row    The target row coordinate.
+     * @return True if the move is valid, otherwise false.
+     */
     @Override
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
          //get current piece position
