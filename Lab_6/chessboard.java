@@ -216,17 +216,13 @@ public class chessboard extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                // set up the pop up window and its panels, messages, and buttons
-                JFrame popUpFrame = new JFrame("Created a Chess Piece");
-                JLabel messageLabel = new JLabel();
-                JPanel buttonPanel = new JPanel();
-                JButton closeGame = new JButton("Exit Game");
-                JButton createNew = new JButton("Create New Piece");
-        
-                // if the required inputs are selected
-                if (selectedPieceType != "" && selectedPieceColor != "" && selectedPieceCol != "" && selectedPieceRow != "") { // MAY UPDATE WITH A JUnit Test
+                if (selectedPieceType != "" && selectedPieceColor != ""  && selectedPieceCol != "" && selectedPieceRow != "") {
+                    JFrame popUpFrame = new JFrame("Created a Chess Piece");
+                    JLabel messageLabel = new JLabel("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + " " + selectedPieceRow);
 
-                    // try
+                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                    popUpFrame.add(messageLabel);
+            
                     try {
                         // initialize vars that hold the inputs for creating a Figure object
                         enums.chess_piece_type etype = enums.chess_piece_type.valueOf(selectedPieceType.toUpperCase());
@@ -533,25 +529,25 @@ public class chessboard extends JFrame {
         // get the type of Figure object
         enums.chess_piece_type type = piece.getType();
 
-        // if the color of the Figure object is black
-        if(color.equals(enums.chess_piece_color.BLACK)) {
-            // find and return the appropriate icon
-            switch (type) {
-                case KING:
-                    return king;
-                case KNIGHT:
-                    return knight;
-                case PAWN:
-                    return pawn;
-                case BISHOP:
-                    return bishop;
-                case QUEEN:
-                    return queen;
-                case ROOK:
-                    return rook;
-                default:
-                    throw new IllegalArgumentException("Invalid chess piece type");
-            }
+        switch (type) {
+
+            case KING:
+                return king;
+
+            case KNIGHT:
+                return knight;
+
+            case PAWN:
+                return pawn;
+
+            case QUEEN:
+                return queen;
+
+            case ROOK:
+                return rook;
+
+            default:
+                throw new IllegalArgumentException("Invalid chess piece type");
         }
 
         // if the color of the Figure object is white
