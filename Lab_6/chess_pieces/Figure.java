@@ -125,6 +125,9 @@ public abstract class Figure implements IntFigure {
             // type pawn
             case PAWN:
                 return new Pawn(type, color, column, row);
+            //type bishop
+            case BISHOP:
+                return new Bishop(type, color, column, row);
             // type queen
             case QUEEN:
                 return new Queen(type, color, column, row);
