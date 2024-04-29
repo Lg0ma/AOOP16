@@ -235,136 +235,138 @@ public class chessboard extends JFrame {
         
         createButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) throws NumberFormatException {
+            public void actionPerformed(ActionEvent e) {
+                JFrame popUpFrame = new JFrame("Created a Chess Piece");
+                JLabel messageLabel = new JLabel();
+                JPanel buttonPanel = new JPanel();
                 JButton closeGame = new JButton("Exit Game");
                 JButton createNew = new JButton("Create New Piece");
-
-                if (selectedPieceType != "" && selectedPieceColor != ""  && selectedPieceCol != "" && selectedPieceRow != "") {
-
-                    JFrame popUpFrame = new JFrame("Created a Chess Piece");
-                    popUpFrame.setSize(150, 250);
-                    JLabel messageLabel = new JLabel("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + ", " + selectedPieceRow);
-                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                    
-                    JPanel buttonPanel = new JPanel();
-                    buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-                    buttonPanel.add(Box.createVerticalStrut(10));
-                    buttonPanel.add(createNew);
-                    buttonPanel.add(closeGame);
-
-                    popUpFrame.getContentPane().setLayout(new BoxLayout(popUpFrame.getContentPane(), BoxLayout.Y_AXIS));
-                    popUpFrame.getContentPane().add(Box.createVerticalStrut(10));          
-                    popUpFrame.add(messageLabel, BorderLayout.NORTH);
-                    popUpFrame.add(buttonPanel, BorderLayout.CENTER);
-                    popUpFrame.getContentPane().add(buttonPanel);
-            
+        
+                if (selectedPieceType != "" && selectedPieceColor != "" && selectedPieceCol != "" && selectedPieceRow != "") {
                     try {
                         enums.chess_piece_type etype = enums.chess_piece_type.valueOf(selectedPieceType.toUpperCase());
                         enums.chess_piece_color ecolor = enums.chess_piece_color.valueOf(selectedPieceColor.toUpperCase());
                         enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
-
+        
                         int r = Integer.parseInt(selectedPieceRow);
-                        
+        
                         piece = chess_pieces.Figure.create_chess_piece(etype, ecolor, eco, r);
-                        
+        
                         boolean canCreate = true;
-
+        
                         for (Figure a_piece : pieces) {
                             enums.chess_piece_type temp_type = a_piece.getType();
                             int temp_row = a_piece.getRow();
                             enums.chess_piece_columns temp_col = a_piece.getColumn();
-                            
-                            if (temp_row == piece.getRow() && temp_col == piece.getColumn()  && temp_type == piece.getType()) {
+        
+                            if (temp_row == piece.getRow() && temp_col == piece.getColumn() && temp_type == piece.getType()) {
                                 canCreate = false;
-                            } 
-                            
+                            }
+        
                         }
+                        
+                        boolean create = true;
+                        boolean occupied = false;
+                        for (Figure p : pieces) {
+                            if (piece.getType() == p.getType()) {
+                                create = false;
+                            }
+                            
+                            if (piece.getColumn() == p.getColumn() && piece.getRow() == p.getRow()) {
+                                occupied = true;
+                            }
 
-                        if (!pieces.contains(piece) && canCreate == true && count < 6) {
+                        }
+                        if (!pieces.contains(piece) && canCreate && count < 6 && occupied == false && create) {
+                            closeGame.addActionListener(a -> {
+                                System.exit(0);
+                            });
+            
+                            createNew.addActionListener(n -> {
+                                popUpFrame.dispose();
+                             });
+                            messageLabel.setText("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + ", " + selectedPieceRow);
+                            messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+                            buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                            buttonPanel.add(createNew);
+                            buttonPanel.add(closeGame);
+
+                            popUpFrame.getContentPane().setLayout(new BorderLayout());
+                            popUpFrame.getContentPane().add(messageLabel, BorderLayout.NORTH);
+                            popUpFrame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
+
+                            popUpFrame.setSize(400, 100);
+                            popUpFrame.setLocationRelativeTo(null);
+                            popUpFrame.setVisible(true);
                             pieces.add(piece);
                             System.out.println("Piece added: " + piece);
-                            int row = Integer.parseInt(selectedPieceRow) - 1; 
-                            int col = eco.ordinal(); 
-                            
+                            int row = Integer.parseInt(selectedPieceRow) - 1;
+                            int col = eco.ordinal();
+        
                             Tile tile = boardCells[7 - row][col];
-                            
+        
                             tile.setPieceImage(icon(piece, piece.getColor()));
                             count += 1;
-
+        
                             int newRow = Integer.parseInt(newPieceRow);
-                            System.out.println(newRow);
                             enums.chess_piece_columns newCol = enums.chess_piece_columns.valueOf(newPieceCol);
-                            System.out.println(newCol);
+                        }
+                        
+                        
+                        if (create == false) {
+                            messageLabel.setText("Chess Piece already exists on the board, try another piece");
                             messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                            popUpFrame.add(messageLabel);
+                            popUpFrame.setSize(500, 100);
+                            popUpFrame.setLocationRelativeTo(null);
+                            popUpFrame.setVisible(true);
+                            return;
+                        }
+
+                        if (occupied == true) {
+                            messageLabel.setText("The tile is in use, try another tile");
+                            messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                            popUpFrame.add(messageLabel);
+                            popUpFrame.setSize(500, 100);
+                            popUpFrame.setLocationRelativeTo(null);
+                            popUpFrame.setVisible(true);
+                            return;
+                        }
+
+                        else if (count == 6) {
+                            messageLabel.setText("All chess pieces have already been created");
                             popUpFrame.add(messageLabel);
                             popUpFrame.setSize(400, 100);
                             popUpFrame.setLocationRelativeTo(null);
                             popUpFrame.setVisible(true);
-
-                        }
-
-                        else if (count == 6) {
-                            JFrame popUpFrame1 = new JFrame("Invalid input");
-                            JLabel messageLabel1 = new JLabel("All chess pieces have already been created");
-                            messageLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-                            popUpFrame1.add(messageLabel1);
-                            popUpFrame1.setSize(400, 100);
-                            popUpFrame1.setLocationRelativeTo(null);
-                            popUpFrame1.setVisible(true);   
                             return;
-                        }
-                        else {
-                            JFrame popUpFrame1 = new JFrame("Error");
-                            JLabel messageLabel1 = new JLabel("Chess Piece already exists on the board or the tile is already in use, try again");
-                            messageLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-                            popUpFrame1.add(messageLabel1);
-                            popUpFrame1.setSize(400, 100);
-                            popUpFrame1.setLocationRelativeTo(null);
-                            popUpFrame1.setVisible(true);   
-                            return;
-                        }
-                    } 
-                    // catch (IllegalArgumentException ex) {
-                    //     System.err.println("Invalid enum value: " + ex.getMessage());
-                    // } 
-                    catch (ArrayIndexOutOfBoundsException ex) {
+                        }  
+                    } catch (ArrayIndexOutOfBoundsException ex) {
                         System.err.println("Array index out of bounds: " + ex.getMessage());
                     }
-            
-                    popUpFrame.setSize(600, 100);
-                    popUpFrame.setLocationRelativeTo(null);
-                    popUpFrame.setVisible(true);
+                } else {
+                    JFrame invalidInputFrame = new JFrame("Invalid Input");
+                    JLabel invalidInputLabel = new JLabel("Invalid input, please create a valid chess piece");
+                    invalidInputLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                    invalidInputFrame.add(invalidInputLabel);
+                    invalidInputFrame.setSize(400, 100);
+                    invalidInputFrame.setLocationRelativeTo(null);
+                    invalidInputFrame.setVisible(true);
                 }
-
-                else  {
-                    JFrame popUpFrame = new JFrame("Invalid Input");
-                    JLabel messageLabel = new JLabel("Invalid input, please create a valid chess piece");
-                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                    popUpFrame.add(messageLabel);
-                    popUpFrame.setSize(400, 100);
-                    popUpFrame.setLocationRelativeTo(null);
-                    popUpFrame.setVisible(true);
-                }
-
-                closeGame.addActionListener(a -> {
-                    System.exit(0);
-                });
 
                 enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
-                int oldRow = Integer.parseInt(selectedPieceRow) - 1; 
-                int oldCol = eco.ordinal(); 
+                int oldRow = Integer.parseInt(selectedPieceRow) - 1;
+                int oldCol = eco.ordinal();
                 Tile tile = boardCells[oldRow][oldCol];
-
+        
                 createNew.addActionListener(n -> {
-                    Window window = SwingUtilities.getWindowAncestor(createNew);
-
-                    if(window instanceof JFrame){
                     tile.hidePieceImage(icon(piece, piece.getColor()));
-                    ((JFrame) window).dispose();
-                    }
-                });    
+                    popUpFrame.dispose();
+                });
             }
         });
+        
 
 
         buttonsPanel.add(Box.createVerticalStrut(10));
