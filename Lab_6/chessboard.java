@@ -606,7 +606,7 @@ class Tile extends JPanel {
 
     public void hidePieceImage(ImageIcon icon) {
         // remove the icon of the tile
-        pieceLabel.setVisible(false);
+        pieceLabel.setIcon(null);
         repaint();
     }
 
