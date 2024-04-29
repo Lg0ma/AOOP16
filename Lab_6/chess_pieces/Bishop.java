@@ -1,17 +1,20 @@
-// package
-package chess_pieces;
-import board.ChessBoard;
-// import packages
-import enums.*;
 /**
- * Bishop class that impements bihop interface
- * @author Ivan Armenta
- * @author Andre Melendez
- * @author Luis Gomez
+ * Package containing classes related to chess pieces.
  */
+package chess_pieces;
 
-public class Bishop implements IntBishop {
+// Import necessary packages and classes
+import board.ChessBoard;
+import enums.*;
 
+/**
+ * Class representing a Bishop chess piece, it extends Figure.
+ * <p>
+ * Authors: Ivan Armenta, Andre Melendez, Luis Gomez
+ */
+public class Bishop extends Figure {
+
+    // Attributes for Bishop piece
     protected chess_piece_type piece_name;
     protected chess_piece_color color;
     protected enums.chess_piece_columns column;
@@ -19,23 +22,24 @@ public class Bishop implements IntBishop {
     protected ChessBoard chessBoard = new ChessBoard();
 
     /**
-     * empty constructor for Bishop
+     * Default constructor initializing the Bishop with default values.
      */
-        public Bishop() {
+    public Bishop() {
         this.piece_name = chess_piece_type.BISHOP;
         this.color = chess_piece_color.WHITE;
         this.column = enums.chess_piece_columns.A;
         this.row = 0;
     }
 
-    /**
-     * Constructor with parameters for each class field
-     * @param name Name of the chess piece in the enum for pieces name
-     * @param color Color of the chess piece in the enum for pieces Colors
-     * @param x_coord X pos of the chess piece in the enum for pieces columns
-     * @param y_coord int value to represent the row of the piece
+/**
+     * Constructor with parameters to initialize the Bishop with specified values.
+     *
+     * @param name   The type of the Bishop piece.
+     * @param color  The color of the Bishop piece.
+     * @param x_coord The column coordinate of the Bishop piece.
+     * @param y_coord The row coordinate of the Bishop piece.
      */
-        public Bishop(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
+    public Bishop(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
         // set values
         this.piece_name = name;
         this.color = color;
@@ -43,69 +47,79 @@ public class Bishop implements IntBishop {
         this.row = y_coord;
     }
 
-    
-    /** 
-     * getter Method to get the pieces type
-     * @return chess_piece_type chess piece type
+    // Getter and setter methods for Bishop attributes...
+
+    /**
+     * Method to obtain the type of the Bishop piece.
+     *
+     * @return The type of the Bishop piece.
      */
     public chess_piece_type getType(){
         return piece_name;
     }
 
-    
-    /** 
-     * method to get color of object
-     * @return chess_piece_color
+    /**
+     * Method to obtain the color of the Bishop piece
+     * 
+     * @return The color of the Bishop piece
      */
     public chess_piece_color getColor() {
         return color;
     }
 
     /**
-     * method to get column of object
-     * @return chess_piece_columns pieces colums value
-     */
+     * Method to obtain the column of the Bishop piece
+     * 
+     * @return The column of the Bishop piece
+     */   
     public enums.chess_piece_columns getColumn() {
         return column;
     }
 
-    /**
-     * method to get row of object
-     * @return row row values for pieces
-     */    
+/**
+     * Method to obtain the row of the Bishop piece
+     * 
+     * @return The row of the Bishop piece
+     */  
     public int getRow() {
         return row;
     }
 
     /**
-     * setter method for columns
-     * @param y_coord int coord value for the piece
+     * Method that sets the column of the Bishop piece
+     * 
+     * @param x_coord Column coordinate of Bishop piece
      */
     public void setColumn(enums.chess_piece_columns x_coord) {
         this.column = x_coord;
     }
+
     /**
-     * setter method for row
-     * @param y_coord int coord value for the piece
-     */
+     * Method that sets the row of the Bishop piece
+     * 
+     * @param x_coord Row coordinate of Bishop piece
+     */    
     public void setRow(int y_coord) {
         this.row = y_coord;
     }
 
 
-    /** 
-     * Method that prints the current attributes of the Chess Piece
-     * @return String
-     */
+    /**
+     * Method that returns a string representation of the Bishop piece.
+     *
+     * @return A string containing the Bishop's type, color, and position.
+     */    
     public String toString() {
         return getType() + " (" + getColor() + ") current position: " + getColumn() + ", " + getRow();
     }
-    /** 
-     * method to verify its piece movement
-     * @param column column that the piece will try to move to 
-     * @param row row that the piece will try to move to
-     * @return Boolean if piece is able to move to a spot.
-     */    
+
+    /**
+     * Method that returns a boolean value that represents if the Bishop can move to that position following his movement rules
+     * 
+     * @param column Column which the bishop is going to move to.
+     * @param row Row which the bishop is going to move to.
+     * @return true if the movement is valid and the Bishop is successfully moved, false otherwise. 
+     */
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
         //get current piece position
         chess_piece_columns old_column = getColumn();
@@ -113,10 +127,27 @@ public class Bishop implements IntBishop {
         // if the default method return true
         if(moveToBishop( old_column, old_row, column, row) == true) {
             // update the attributes
-            ////setColumn(column);
-            ////setRow(row);
+            setColumn(column);
+            setRow(row);
             return true;
         }
+        // If movement is invalid, return false
+        return false;
+    }
+
+    public Boolean moveToBishop(chess_piece_columns oldColumn, int oldRow, chess_piece_columns column, int row){
+        // turn the enum into an int
+        int new_column = column.ordinal() + 1;
+        int old_column = oldColumn.ordinal() + 1;
+        // find the absolute difference in the x and y coordinates
+        int deltax = Math.abs(old_column - new_column);
+        int deltay = Math.abs(oldRow - row);
+        // check if the move is a valid diagonal move
+        if ((deltax == deltay) && (deltax > 0 && deltay > 0)) {
+            // return true
+            return true;
+        }
+        // return false
         return false;
     }
 }
