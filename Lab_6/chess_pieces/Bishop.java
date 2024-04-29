@@ -1,29 +1,20 @@
-/**
- * Package containing classes related to chess pieces.
- */
+// package
 package chess_pieces;
-
-// Import necessary packages and classes
 import board.ChessBoard;
+// import packages
 import enums.*;
 
-/**
- * Class representing a Bishop chess piece, it extends Figure.
- * <p>
- * Authors: Ivan Armenta, Andre Melendez, Luis Gomez
- */
-public class Bishop extends Figure {
+// IVAN ARMENTA & ANDRE MELENDEZ & Luis Gomez
+//Bishop impements bihop interface
+public class Bishop implements IntBishop {
 
-    // Attributes for Bishop piece
     protected chess_piece_type piece_name;
     protected chess_piece_color color;
     protected enums.chess_piece_columns column;
     protected int row;
     protected ChessBoard chessBoard = new ChessBoard();
 
-    /**
-     * Default constructor initializing the Bishop with default values.
-     */
+    // empty constructor
     public Bishop() {
         this.piece_name = chess_piece_type.BISHOP;
         this.color = chess_piece_color.WHITE;
@@ -31,14 +22,7 @@ public class Bishop extends Figure {
         this.row = 0;
     }
 
-/**
-     * Constructor with parameters to initialize the Bishop with specified values.
-     *
-     * @param name   The type of the Bishop piece.
-     * @param color  The color of the Bishop piece.
-     * @param x_coord The column coordinate of the Bishop piece.
-     * @param y_coord The row coordinate of the Bishop piece.
-     */
+    // constructor with parameters for each class field
     public Bishop(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
         // set values
         this.piece_name = name;
@@ -47,79 +31,43 @@ public class Bishop extends Figure {
         this.row = y_coord;
     }
 
-    // Getter and setter methods for Bishop attributes...
-
-    /**
-     * Method to obtain the type of the Bishop piece.
-     *
-     * @return The type of the Bishop piece.
-     */
+    // method to get the type of object
     public chess_piece_type getType(){
         return piece_name;
     }
 
-    /**
-     * Method to obtain the color of the Bishop piece
-     * 
-     * @return The color of the Bishop piece
-     */
+    // method to get color of object
     public chess_piece_color getColor() {
         return color;
     }
 
-    /**
-     * Method to obtain the column of the Bishop piece
-     * 
-     * @return The column of the Bishop piece
-     */   
+    // method to get column of object
     public enums.chess_piece_columns getColumn() {
         return column;
     }
 
-/**
-     * Method to obtain the row of the Bishop piece
-     * 
-     * @return The row of the Bishop piece
-     */  
+    // method to get row of object
     public int getRow() {
         return row;
     }
 
-    /**
-     * Method that sets the column of the Bishop piece
-     * 
-     * @param x_coord Column coordinate of Bishop piece
-     */
+    // setter method for column
     public void setColumn(enums.chess_piece_columns x_coord) {
         this.column = x_coord;
     }
 
-    /**
-     * Method that sets the row of the Bishop piece
-     * 
-     * @param x_coord Row coordinate of Bishop piece
-     */    
+    // setter method for row
     public void setRow(int y_coord) {
         this.row = y_coord;
     }
 
 
-    /**
-     * Method that returns a string representation of the Bishop piece.
-     *
-     * @return A string containing the Bishop's type, color, and position.
-     */    
+    // method that prints the current attributes of the Chess Piece
     public String toString() {
         return getType() + " (" + getColor() + ") current position: " + getColumn() + ", " + getRow();
     }
 
-    /**
-     * Method that returns a boolean value that represents if the Bishop can move to that position following his movement rules
-     * 
-     * @param column Column which the bishop is going to move to.
-     * @param row Row which the bishop is going to move to.
-     * @return true if the movement is valid and the Bishop is successfully moved, false otherwise. 
-     */
+    // method to verify its piece movement
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
         //get current piece position
         chess_piece_columns old_column = getColumn();
@@ -131,23 +79,6 @@ public class Bishop extends Figure {
             setRow(row);
             return true;
         }
-        // If movement is invalid, return false
-        return false;
-    }
-
-    public Boolean moveToBishop(chess_piece_columns oldColumn, int oldRow, chess_piece_columns column, int row){
-        // turn the enum into an int
-        int new_column = column.ordinal() + 1;
-        int old_column = oldColumn.ordinal() + 1;
-        // find the absolute difference in the x and y coordinates
-        int deltax = Math.abs(old_column - new_column);
-        int deltay = Math.abs(oldRow - row);
-        // check if the move is a valid diagonal move
-        if ((deltax == deltay) && (deltax > 0 && deltay > 0)) {
-            // return true
-            return true;
-        }
-        // return false
         return false;
     }
 }
