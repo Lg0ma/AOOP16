@@ -85,7 +85,7 @@ public class chessboard extends JFrame {
         BoxLayout buttonLayout = new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS);
         buttonsPanel.setLayout(buttonLayout);
 
-        String [] chessPieces = {"Pawn", "Rook", "Knight", "Queen", "King"};
+        String [] chessPieces = {"Pawn", "Rook", "Knight", "Bishop", "Queen", "King"};
         String [] row = {"-","1", "2", "3", "4", "5", "6", "7", "8"};
         String [] col = {"-","A", "B", "C", "D", "E", "F", "G", "H"};
         String [] colors = {"-", "White", "Black"};
@@ -484,6 +484,9 @@ public class chessboard extends JFrame {
             case PAWN:
                 return pawn;
 
+            case BISHOP:
+                return bishop;
+
             case QUEEN:
                 return queen;
 
@@ -505,6 +508,9 @@ public class chessboard extends JFrame {
     
                 case PAWN:
                     return white_pawn;
+
+                case BISHOP:
+                    return white_bishop;
     
                 case QUEEN:
                     return white_queen;

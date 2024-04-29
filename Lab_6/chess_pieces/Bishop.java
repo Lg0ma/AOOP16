@@ -8,11 +8,11 @@ import board.ChessBoard;
 import enums.*;
 
 /**
- * Class representing a Bishop chess piece, it implements interface IntBishop.
+ * Class representing a Bishop chess piece, it extends Figure.
  * <p>
  * Authors: Ivan Armenta, Andre Melendez, Luis Gomez
  */
-public class Bishop implements IntBishop {
+public class Bishop extends Figure {
 
     // Attributes for Bishop piece
     protected chess_piece_type piece_name;
@@ -132,6 +132,22 @@ public class Bishop implements IntBishop {
             return true;
         }
         // If movement is invalid, return false
+        return false;
+    }
+
+    public Boolean moveToBishop(chess_piece_columns oldColumn, int oldRow, chess_piece_columns column, int row){
+        // turn the enum into an int
+        int new_column = column.ordinal() + 1;
+        int old_column = oldColumn.ordinal() + 1;
+        // find the absolute difference in the x and y coordinates
+        int deltax = Math.abs(old_column - new_column);
+        int deltay = Math.abs(oldRow - row);
+        // check if the move is a valid diagonal move
+        if ((deltax == deltay) && (deltax > 0 && deltay > 0)) {
+            // return true
+            return true;
+        }
+        // return false
         return false;
     }
 }
