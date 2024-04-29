@@ -247,29 +247,15 @@ public class chessboard extends JFrame {
                         enums.chess_piece_type etype = enums.chess_piece_type.valueOf(selectedPieceType.toUpperCase());
                         enums.chess_piece_color ecolor = enums.chess_piece_color.valueOf(selectedPieceColor.toUpperCase());
                         enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
-        
                         int r = Integer.parseInt(selectedPieceRow);
         
                         piece = chess_pieces.Figure.create_chess_piece(etype, ecolor, eco, r);
-        
-                        boolean canCreate = true;
-        
-                        for (Figure a_piece : pieces) {
-                            enums.chess_piece_type temp_type = a_piece.getType();
-                            int temp_row = a_piece.getRow();
-                            enums.chess_piece_columns temp_col = a_piece.getColumn();
-        
-                            if (temp_row == piece.getRow() && temp_col == piece.getColumn() && temp_type == piece.getType()) {
-                                canCreate = false;
-                            }
-        
-                        }
                         
-                        boolean create = true;
+                        boolean canCreate = true;
                         boolean occupied = false;
                         for (Figure p : pieces) {
                             if (piece.getType() == p.getType()) {
-                                create = false;
+                                canCreate = false;
                             }
                             
                             if (piece.getColumn() == p.getColumn() && piece.getRow() == p.getRow()) {
@@ -277,7 +263,7 @@ public class chessboard extends JFrame {
                             }
 
                         }
-                        if (!pieces.contains(piece) && canCreate && count < 6 && occupied == false && create) {
+                        if (!pieces.contains(piece) && canCreate && count < 6 && occupied == false && canCreate) {
                             closeGame.addActionListener(a -> {
                                 System.exit(0);
                             });
@@ -285,6 +271,7 @@ public class chessboard extends JFrame {
                             createNew.addActionListener(n -> {
                                 popUpFrame.dispose();
                              });
+
                             messageLabel.setText("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + ", " + selectedPieceRow);
                             messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -308,13 +295,9 @@ public class chessboard extends JFrame {
         
                             tile.setPieceImage(icon(piece, piece.getColor()));
                             count += 1;
-        
-                            int newRow = Integer.parseInt(newPieceRow);
-                            enums.chess_piece_columns newCol = enums.chess_piece_columns.valueOf(newPieceCol);
                         }
                         
-                        
-                        if (create == false) {
+                        if (canCreate == false) {
                             messageLabel.setText("Chess Piece already exists on the board, try another piece");
                             messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                             popUpFrame.add(messageLabel);
@@ -342,10 +325,14 @@ public class chessboard extends JFrame {
                             popUpFrame.setVisible(true);
                             return;
                         }  
-                    } catch (ArrayIndexOutOfBoundsException ex) {
+                    } 
+                    
+                    catch (ArrayIndexOutOfBoundsException ex) {
                         System.err.println("Array index out of bounds: " + ex.getMessage());
                     }
-                } else {
+                } 
+                
+                else {
                     JFrame invalidInputFrame = new JFrame("Invalid Input");
                     JLabel invalidInputLabel = new JLabel("Invalid input, please create a valid chess piece");
                     invalidInputLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -432,6 +419,7 @@ public class chessboard extends JFrame {
                                 JLabel wasMovable = new JLabel(type + " " + color + " can move from: " + col + ", " + row + " to " + x + ", " + y);
                                 JLabel notMovable = new JLabel(type + " " + color + " cannot move from: " + col + ", " + row  + " to " + x + ", " + y);
                                 JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y);
+                                JLabel outOfBounds = new JLabel("Input is out of bounds of the chessboard");
 
                                 if (validX && y > 0 && y < 9  && piece.moveTo(enums.chess_piece_columns.valueOf(x), y)) {
                                     System.out.println(x + " : " + y);
@@ -449,8 +437,12 @@ public class chessboard extends JFrame {
                                     newTile.setPieceImage(icon(piece, piece.getColor()));
                                 }
 
-                                else{
+                                else if (validX && y > 0 && y < 9  && piece.moveTo(enums.chess_piece_columns.valueOf(x), y) == false){
                                     buttonPanel.add(notMovable);
+                                }
+
+                                else if (!validX || y <= 0 || y >= 9 ) {
+                                    buttonPanel.add(outOfBounds);
                                 }
 
                                 messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
