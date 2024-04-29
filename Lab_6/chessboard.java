@@ -440,7 +440,7 @@ public class chessboard extends JFrame {
                                 // initialize labels
                                 JLabel wasMovable = new JLabel(type + " " + color + " can move from: " + col + ", " + row + " to " + x + ", " + y);
                                 JLabel notMovable = new JLabel(type + " " + color + " cannot move from: " + col + ", " + row  + " to " + x + ", " + y);
-                                JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y);
+                                JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y + " but the location was occupied.");
                                 JLabel outOfBounds = new JLabel("Input is out of bounds of the chessboard");
 
                                 // if the user input is valid
@@ -449,8 +449,8 @@ public class chessboard extends JFrame {
                                     enums.chess_piece_columns newColumn = enums.chess_piece_columns.valueOf(x);
                                     int newRow = y;
 
-                                    // if the tile is occupied
-                                    if (isTileOccupied(newColumn, newRow, piece)) {
+                                    // if the tile is occupied and the piece can move to that location
+                                    if (isTileOccupied(newColumn, newRow, piece) && piece.moveTo(newColumn, newRow)) {
                                         // set the appropriate label
                                         messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                         buttonPanel.add(messageLabel);                                    
@@ -501,7 +501,7 @@ public class chessboard extends JFrame {
                                 popUpFrame.getContentPane().add(Box.createVerticalStrut(10));          
                                 popUpFrame.getContentPane().add(buttonPanel);
                 
-                                popUpFrame.setSize(400, 100);
+                                popUpFrame.setSize(600, 100);
                                 popUpFrame.setLocationRelativeTo(null);
                                 popUpFrame.setVisible(true);
                             }
