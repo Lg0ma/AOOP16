@@ -431,22 +431,12 @@ public class chessboard extends JFrame {
 
                                 // initialize a boolean to check if the user input is valid for the column # UPDATE
                                 boolean validX = false;
-                                boolean occupied = false;
 
                                 // for loop to traverse the enums for columns
                                 for (enums.chess_piece_columns column : enums.chess_piece_columns.values()) {
                                     // if the user input is a valid column
                                     if (column.name().equals(x)) {
                                         validX = true;
-
-                                        // for loop to traverse the existing valid Figure objects
-                                        for (Figure p : pieces) {
-                                            // if the coordinates are occupied, set the boolean to true
-                                            if (enums.chess_piece_columns.valueOf(x) == p.getColumn() && y == p.getRow()) { // MAY UPDATE WITH A JUnit Test
-                                                occupied = true;
-                                                break;
-                                            }
-                                        }
                                         break;
                                     }
                                 }
@@ -457,45 +447,53 @@ public class chessboard extends JFrame {
                                 JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y);
                                 JLabel outOfBounds = new JLabel("Input is out of bounds of the chessboard");
 
+                                // if the user input is valid
+                                if (validX && y > 0 && y < 9) {
+                                    // initialize the new coordinates as usable variables
+                                    enums.chess_piece_columns newColumn = enums.chess_piece_columns.valueOf(x);
+                                    int newRow = y;
 
-                                 // if the user input is valid and can move to the new position but its occupied
-                                if (validX && y > 0 && y < 9  && piece.moveTo(enums.chess_piece_columns.valueOf(x), y) && occupied == true) {
-                                    buttonPanel.add(messageLabel);
+                                    // if the tile is occupied
+                                    if (isTileOccupied(newColumn, newRow, piece)) {
+                                        // set the appropriate label
+                                        messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                        buttonPanel.add(messageLabel);                                    
+                                    } 
+
+                                    // else if the piece can move to the new location
+                                    else if (piece.moveTo(newColumn, newRow)) {
+                                        // add the appropriate label to the panel
+                                        buttonPanel.add(wasMovable);
+                                        
+                                        // initialize the vars for updating the tile
+                                        int oldRow = row - 1; 
+                                        int oldCol =  col.ordinal();                     
+
+                                        System.out.println(newColumn + " " + newRow); // FOR TERMINAL TESTING
+                                        
+                                        // update the Figure objects attributes
+                                        piece.setColumn(newColumn);
+                                        piece.setRow(newRow);
+
+                                        // get the old tile and the new tile
+                                        Tile tile = boardCells[7 - oldRow][oldCol];
+                                        Tile newTile = boardCells[8 - newRow ][newColumn.ordinal()];
+                    
+                                        // reset the old tile and update the new tile icon
+                                        tile.hidePieceImage(icon(piece, piece.getColor()));
+                                        newTile.setPieceImage(icon(piece, piece.getColor()));
+                                    }   
+
+                                    // otherwise the piece is not movable
+                                    else {
+                                        // set the appropriate label
+                                        buttonPanel.add(notMovable);
+                                    }
                                 }
 
-                                // else if the user input is valid, and the piece can move to the new position
-                                else if (validX && y > 0 && y < 9  && occupied == false && piece.moveTo(enums.chess_piece_columns.valueOf(x), y)) { // MAY UPDATE WITH A JUnit Test
-
-                                    System.out.println(x + " : " + y); // FOR TERMINAL USE
-
-                                    // add the appropriate label to the panel
-                                    buttonPanel.add(wasMovable);
-                                    
-                                    // initialize the vars for updating the tile
-                                    int oldRow = row - 1; 
-                                    int oldCol =  col.ordinal(); 
-                                    enums.chess_piece_columns newEco = enums.chess_piece_columns.valueOf(x);
-                                    int newRow = y - 1; 
-                                    int newCol = newEco.ordinal();                     
-                
-                                    // get the old tile and the new tile
-                                    Tile tile = boardCells[7 - oldRow][oldCol];
-                                    Tile newTile = boardCells[7 - newRow][newCol];
-                
-                                    // reset the old tile and update the new tile icon
-                                    tile.hidePieceImage(icon(piece, piece.getColor()));
-                                    newTile.setPieceImage(icon(piece, piece.getColor()));
-                                }
-
-                                // if the user input is valid and the piece cannot move to the new position
-                                else if (validX && y > 0 && y < 9  && occupied == false && piece.moveTo(enums.chess_piece_columns.valueOf(x), y) == false) { // MAY UPDATE WITH A JUnit Test
-                                    // add the appropriate label to the panel
-                                    buttonPanel.add(notMovable);
-                                }
-
-                                // if the user input is invalid
-                                else if (!validX || y <= 0 || y >= 9 ) { // MAY UPDATE WITH A JUnit Test
-                                    // add the appropriate label to the panel
+                                // otherwise the input is out of bounds/invalid
+                                else {
+                                    // set the appropriate label
                                     buttonPanel.add(outOfBounds);
                                 }
 
@@ -518,6 +516,16 @@ public class chessboard extends JFrame {
         });
         // return the button panel
         return buttonsPanel;
+    }
+
+    private static boolean isTileOccupied(enums.chess_piece_columns column, int row, Figure currentPiece) {
+        // for loop to find out if the tile is occupied
+        for (Figure piece : pieces) {
+            if (piece != currentPiece && piece.getColumn() == column && piece.getRow() == row) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static ImageIcon icon(Figure piece, enums.chess_piece_color color) {
