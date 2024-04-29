@@ -169,12 +169,16 @@ public abstract class Figure implements IntFigure {
      */
     @Override
     public boolean equals(Object obj) {
+
+        // if the objects are the same
         if (this == obj) {
             return true;
         }
+        // if the objects are not the same
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
+        // return the boolean
         Figure other = (Figure) obj;
         return piece_name == other.piece_name && color == other.color && column == other.column && row == other.row;
     }
