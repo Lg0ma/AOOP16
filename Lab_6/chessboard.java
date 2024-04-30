@@ -726,12 +726,23 @@ public class chessboard extends JFrame {
 
                                             // Reset the old tile and update the new tile icon.
                                             tile.hidePieceImage();
+                                            System.out.println(6 - oldRow + " " + oldCol);
                                             newTile.setPieceImage(icon(piece, piece.getColor()));
+                                            //continue;
+                                        }
+
+                                        // if the tile is occupied and the piece can move to that location
+                                        else if (isTileOccupied(newColumn, newRow, curr) && piece.moveTo(newColumn, newRow)) {
+                                            // set the appropriate label
+                                            messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                            buttonPanel.add(messageLabel);
+                                            break;
                                         }
                                         
                                         // If the piece is not movable, set the appropriate label.
                                         else {
                                             buttonPanel.add(notMovable);
+                                            //continue;
                                         }
                                     }
                                     
