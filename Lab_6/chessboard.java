@@ -6,11 +6,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * This class represents a chessboard which extends JFrame.
+ */
 public class chessboard extends JFrame {
-    
+
     // ArrayList collection that holds the Figure objects
-    static ArrayList<Object> pieces = new ArrayList<Object>(); // CHANGED : FROM Figure TO Object
-    
+    /**
+     * An ArrayList that holds the chess pieces on the board.
+     */
+    static ArrayList<Object> pieces = new ArrayList<Object>(); 
+
     // static vars for creating a Figure object (or Bishop)
     private static Figure piece;
     private static Bishop bish;
@@ -18,29 +24,26 @@ public class chessboard extends JFrame {
     private static String selectedPieceColor = "";
     private static String selectedPieceRow = "";
     private static String selectedPieceCol = "";
-    private static String returnInitialCol;
-    private static String returnInitialRow;
-    private static String returnFinalCol;
-    private static String returnFinalRow;
 
-    
     // counter to count the number of Figure objects on the chessboard
+    /**
+     * A counter to keep track of the number of pieces on the board.
+     */
     private static int count = 0;
-    
+
     // icons 
-    //static ImageIcon pawn = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\BP.gif");
-    static ImageIcon pawn = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/BP.gif");
-    static ImageIcon knight = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/BN.gif");
-    static ImageIcon rook = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/BR.gif");
-    static ImageIcon bishop = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/BB.gif");
-    static ImageIcon queen = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/BQ.gif");
-    static ImageIcon king = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/BK.gif");
-    static ImageIcon white_pawn = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/WP.gif");
-    static ImageIcon white_knight = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/WN.gif");
-    static ImageIcon white_rook = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/WR.gif");
-    static ImageIcon white_bishop = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/WB.gif");
-    static ImageIcon white_queen = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/WQ.gif");
-    static ImageIcon white_king = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/WK.gif");
+    static ImageIcon pawn = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\BP.gif");
+    static ImageIcon knight = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\BN.gif");
+    static ImageIcon rook = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\BR.gif");
+    static ImageIcon bishop = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\BB.gif");
+    static ImageIcon queen = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\BQ.gif");
+    static ImageIcon king = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\BK.gif");
+    static ImageIcon white_pawn = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\WP.gif");
+    static ImageIcon white_knight = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\WN.gif");
+    static ImageIcon white_rook = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\WR.gif");
+    static ImageIcon white_bishop = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\WB.gif");
+    static ImageIcon white_queen = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\WQ.gif");
+    static ImageIcon white_king = new ImageIcon("C:\\Users\\luisg\\AOOP16\\Lab_6\\art\\WK.gif");
 
     // initialize the panels
     static JPanel panel = new JPanel(); 
@@ -49,6 +52,9 @@ public class chessboard extends JFrame {
     static Tile[][] boardCells;
     JPanel buttonPanel;
 
+    /**
+     * Constructor for the chessboard class.
+     */
     public chessboard() {
 
         // initialize the window and its title
@@ -73,6 +79,9 @@ public class chessboard extends JFrame {
         add(sidePanel, BorderLayout.WEST);
     }
 
+    /**
+     * This method initializes the chessboard.
+     */
     private void initializeBoard() {
         
         // initialize the chess board tiles
@@ -89,9 +98,18 @@ public class chessboard extends JFrame {
         }
     }
 
+
+    
+    /**
+     * This method creates a side panel for the chessboard with various controls.
+     * @return JPanel The side panel.
+     */
     private static JPanel sidePanel() {   
 
         // initialize a panel for buttons
+        /**
+         * A JPanel that holds the buttons for the side panel.
+         */
         JPanel buttonsPanel = new JPanel();
         BoxLayout buttonLayout = new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS);
         buttonsPanel.setLayout(buttonLayout);
@@ -127,14 +145,17 @@ public class chessboard extends JFrame {
 
         // initialize an action listener for the column dropdown menu
         colDropdown.addActionListener(new ActionListener() {
+            /**
+             * This method is called when an action is performed on the column dropdown menu.
+             * It sets the selected column for the piece.
+             * @param e The action event.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 // get the selected item from the dropdown menu
                 JComboBox<String> comboBox = (JComboBox<String>) e.getSource();
                 selectedPieceCol = (String) comboBox.getSelectedItem();
-                getInitialCol(selectedPieceCol);
-
             }
         });
 
@@ -144,23 +165,31 @@ public class chessboard extends JFrame {
 
         // initialize an action listener for the row dropdown menu
         rowDropdown.addActionListener(new ActionListener() {
+            /**
+             * This method is called when an action is performed on the row dropdown menu.
+             * It sets the selected row for the piece.
+             * @param e The action event.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 // get the selected item from the dropdown menu
                 JComboBox<String> comboBox = (JComboBox<String>) e.getSource();
                 selectedPieceRow = (String) comboBox.getSelectedItem();
-                getInitialRow(selectedPieceRow);
             }
-            
         });
-        
+
         // set up the dropdown menu for the color
         colorDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
         colorDropdown.setMaximumSize(colorDropdown.getPreferredSize());
 
         // initialize an action listener for the color dropdown menu
         colorDropdown.addActionListener(new ActionListener() {
+            /**
+             * This method is called when an action is performed on the color dropdown menu.
+             * It sets the selected color for the piece.
+             * @param e The action event.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -170,13 +199,26 @@ public class chessboard extends JFrame {
             }
         });
 
-        // initialize buttons for creating a Figure object and moving existing objects in the chessboard
+
+                // initialize buttons for creating a Figure object and moving existing objects in the chessboard
+        /**
+         * A button for creating a new chess piece.
+         */
         JButton createButton = new JButton("Create piece");
+        /**
+         * A button for moving an existing chess piece.
+         */
         JButton moveButton = new JButton("Move piece");
+        /**
+         * A group of radio buttons for selecting a type of chess piece.
+         */
         ButtonGroup buttonPieces = new ButtonGroup();
 
         // add radio buttons for selecting a type of chess piece to the button panel
         for(String type: chessPieces) {
+            /**
+             * A radio button for selecting a type of chess piece.
+             */
             JRadioButton buttonType = new JRadioButton(type);
             buttonType.setAlignmentX(Component.CENTER_ALIGNMENT);
             buttonPieces.add(buttonType);
@@ -184,6 +226,11 @@ public class chessboard extends JFrame {
 
             // initialize an action listener for the type of chess piece to be created
             buttonType.addActionListener(new ActionListener() {
+                /**
+                 * This method is called when an action is performed on the type radio button.
+                 * It sets the selected type for the piece.
+                 * @param e The action event.
+                 */
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     
@@ -208,6 +255,9 @@ public class chessboard extends JFrame {
         buttonsPanel.add(Box.createVerticalStrut(5));
 
         // initialize a new panel for the dropdown menus for the column and row
+        /**
+         * A panel for the dropdown menus for the column and row.
+         */
         JPanel initialPosPanel = new JPanel();
         initialPosPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         initialPosPanel.setLayout(new BoxLayout(initialPosPanel, BoxLayout.X_AXIS));
@@ -223,9 +273,12 @@ public class chessboard extends JFrame {
         buttonsPanel.add(createButton);
         
         // initialize an action listener for creating a Figure object
-        returnInitialCol = selectedPieceCol;
-        returnInitialRow = selectedPieceRow;
         createButton.addActionListener(new ActionListener() {
+            /**
+             * This method is called when an action is performed on the create button.
+             * It creates a new chess piece based on the selected options.
+             * @param e The action event.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -248,21 +301,26 @@ public class chessboard extends JFrame {
                             enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
                             int r = Integer.parseInt(selectedPieceRow);
 
-
                             // create the Bishop object
                             bish = new Bishop(etype, ecolor, eco, r);
 
                             // initialize booleans to check if the Figure can be created
+                            /**
+                             * A boolean to check if a new chess piece can be created.
+                             */
                             boolean canCreate = true;
+                            /**
+                             * A boolean to check if a tile is occupied by a chess piece.
+                             */
                             boolean occupied = false;
 
                             // for loop to traverse the existing valid Figure objects
                             for (Object p : pieces) {
                                 // if the object is an instance of a Bishop object
-                                if (p instanceof Bishop) { // MAY UPDATE WITH A JUnit Test
+                                if (p instanceof Bishop) { 
                                     // set the boolean as false
                                     canCreate = false;
-                                    break; // MAY CHANGE
+                                    break; 
 
                                 }
                                 // otherwise the object is an instance of a Figure object
@@ -270,14 +328,14 @@ public class chessboard extends JFrame {
                                     // cast Figure to p
                                     Figure temp = (Figure)p;
                                     // if the coordinates are occupied, set the boolean to true
-                                    if (bish.getColumn() == temp.getColumn() && bish.getRow() == temp.getRow()) { // MAY UPDATE WITH A JUnit Test
+                                    if (bish.getColumn() == temp.getColumn() && bish.getRow() == temp.getRow()) { 
                                         occupied = true;
                                     }
                                 }
                             }
 
                             // if the new Bishop object does not exist in the collection and can be created
-                            if (canCreate && count < 6 && !occupied) { // MAY UPDATE WITH A JUnit Test
+                            if (canCreate && count < 6 && !occupied) { 
 
                                 // initialize an action listener for the 'Exit Game' button
                                 closeGame.addActionListener(a -> {
@@ -320,18 +378,19 @@ public class chessboard extends JFrame {
                                 System.out.println(col + " " + row); // FOR TERMINAL USE
 
 
+
                                 // get the tile to place the icon for the Figure object
-                                Tile tile = boardCells[7 - row][col];
+                                Tile tile = boardCells[7 - row][col]; // Get the tile on the chessboard where the icon for the chess piece will be placed.
 
                                 // update the tile
-                                tile.setPieceImageBish(bish_icon(bish.getColor())); // UPDATED
+                                tile.setPieceImageBish(bish_icon(bish.getColor())); // Update the tile with the icon for the Bishop chess piece.
 
                                 // increment through the counter
-                                count += 1;
+                                count += 1; // Increment the counter to keep track of the number of chess pieces on the board.
                             }
 
                             // if the Figure object already exists in the chessboard
-                            if (canCreate == false) { // MAY UPDATE WITH A JUnit Test
+                            if (canCreate == false) { 
                                 // initialize, set up, and display the pop up frame
                                 messageLabel.setText("Chess Piece already exists on the board, try another piece");
                                 messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -343,7 +402,7 @@ public class chessboard extends JFrame {
                             }
 
                             // if the tile is occupied by another Figure object
-                            if (occupied == true) { // MAY UPDATE WITH A JUnit Test
+                            if (occupied == true) { 
                                 // initialize, set up, and display the pop up frame
                                 messageLabel.setText("The tile is in use, try another tile");
                                 messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -355,7 +414,7 @@ public class chessboard extends JFrame {
                             }
 
                             // else if all chess pieces have been created
-                            else if (count == 6) { // MAY UPDATE WITH A JUnit Test
+                            else if (count == 6) { 
                                 // initialize, set up, and display the pop up frame
                                 messageLabel.setText("All chess pieces have already been created");
                                 popUpFrame.add(messageLabel);
@@ -368,7 +427,7 @@ public class chessboard extends JFrame {
 
                         // catch any index out of bounds erros
                         catch (ArrayIndexOutOfBoundsException ex) {
-                            System.err.println("Array index out of bounds: " + ex.getMessage());
+                            System.err.println("Array index out of bounds: " + ex.getMessage()); // Catch any index out of bounds errors.
                         }
                     }
 
@@ -380,16 +439,15 @@ public class chessboard extends JFrame {
                             enums.chess_piece_type etype = enums.chess_piece_type.valueOf(selectedPieceType.toUpperCase());
                             enums.chess_piece_color ecolor = enums.chess_piece_color.valueOf(selectedPieceColor.toUpperCase());
                             enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
-                            returnInitialCol = selectedPieceCol;
-                            returnInitialRow = selectedPieceRow;
                             int r = Integer.parseInt(selectedPieceRow);
 
                             // create the Figure object
-                            piece = chess_pieces.Figure.create_chess_piece(etype, ecolor, eco, r);
+                            piece = chess_pieces.Figure.create_chess_piece(etype, ecolor, eco, r); // Create a new chess piece based on the selected options.
 
                             // initialize booleans to check if the Figure can be created
                             boolean canCreate = true;
                             boolean occupied = false;
+
 
                             // for loop to traverse the existing valid Figure objects
                             for (Object p : pieces) {
@@ -398,12 +456,12 @@ public class chessboard extends JFrame {
                                     // cast Figure to p
                                     Figure p_iece = (Figure) p;
                                     // if the Figure object already exists, set the boolean to false
-                                    if (piece.getType() == p_iece.getType()) { // MAY UPDATE WITH A JUnit Test
+                                    if (piece.getType() == p_iece.getType()) { 
                                         canCreate = false;
                                     }
 
                                     // if the coordinates are occupied, set the boolean to true
-                                    if (piece.getColumn() == p_iece.getColumn() && piece.getRow() == p_iece.getRow()) { // MAY UPDATE WITH A JUnit Test
+                                    if (piece.getColumn() == p_iece.getColumn() && piece.getRow() == p_iece.getRow()) { 
                                         occupied = true;
                                     }
                                 }
@@ -412,14 +470,14 @@ public class chessboard extends JFrame {
                                     // cast Bishop to p
                                     Bishop p_iece = (Bishop) p;
                                     // if the coordinates are occupied, set the boolean to true
-                                    if (piece.getColumn() == p_iece.getColumn() && piece.getRow() == p_iece.getRow()) { // MAY UPDATE WITH A JUnit Test
+                                    if (piece.getColumn() == p_iece.getColumn() && piece.getRow() == p_iece.getRow()) { 
                                         occupied = true;
                                     }
                                 }
                             }
 
                             // if the new Figure object does not exist in the collection and can be created
-                            if (!pieces.contains(piece) && canCreate && count < 6 && occupied == false) { // MAY UPDATE WITH A JUnit Test
+                            if (!pieces.contains(piece) && canCreate && count < 6 && occupied == false) { 
 
                                 // initialize an action listener for the 'Exit Game' button
                                 closeGame.addActionListener(a -> {
@@ -434,7 +492,6 @@ public class chessboard extends JFrame {
                                 });
 
                                 // initialize and set up the success message
-                                
                                 messageLabel.setText("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + ", " + selectedPieceRow);
                                 messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -453,27 +510,27 @@ public class chessboard extends JFrame {
 
                                 // add the created Figure object to the collection of pieces
                                 pieces.add(piece);
+                            }
 
-                                System.out.println("Piece added: " + piece); // FOR TERMINAL USE
 
-
-                                // set up the vars for updating the tile
+                                // Print a message to the console indicating that the piece has been added.
+                                System.out.println("Piece added: " + piece); 
+                                
+                                // Set up the variables for updating the tile.
                                 int row = Integer.parseInt(selectedPieceRow) - 1;
                                 int col = eco.ordinal();
 
-                                // get the tile to place the icon for the Figure object
+                                // Get the tile on the chessboard where the icon for the chess piece will be placed.
                                 Tile tile = boardCells[7 - row][col];
 
-                                // update the tile
+                                // Update the tile with the icon for the chess piece.
                                 tile.setPieceImage(icon(piece, piece.getColor()));
 
-                                // increment through the counter
+                                // Increment the counter to keep track of the number of chess pieces on the board.
                                 count += 1;
-                            }
 
-                            // if the Figure object already exists in the chessboard
-                            if (canCreate == false) { // MAY UPDATE WITH A JUnit Test
-                                // initialize, set up, and display the pop up frame
+                            // If the Figure object already exists in the chessboard, display a message to the user.
+                            if (canCreate == false) { 
                                 messageLabel.setText("Chess Piece already exists on the board, try another piece");
                                 messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                 popUpFrame.add(messageLabel);
@@ -483,9 +540,8 @@ public class chessboard extends JFrame {
                                 return;
                             }
 
-                            // if the tile is occupied by another Figure object
-                            if (occupied == true) { // MAY UPDATE WITH A JUnit Test
-                                // initialize, set up, and display the pop up frame
+                            // If the tile is occupied by another Figure object, display a message to the user.
+                            if (occupied == true) { 
                                 messageLabel.setText("The tile is in use, try another tile");
                                 messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                 popUpFrame.add(messageLabel);
@@ -495,9 +551,8 @@ public class chessboard extends JFrame {
                                 return;
                             }
 
-                            // else if all chess pieces have been created
-                            else if (count == 6) { // MAY UPDATE WITH A JUnit Test
-                                // initialize, set up, and display the pop up frame
+                            // If all chess pieces have been created, display a message to the user.
+                            else if (count == 6) { 
                                 messageLabel.setText("All chess pieces have already been created");
                                 popUpFrame.add(messageLabel);
                                 popUpFrame.setSize(400, 100);
@@ -507,17 +562,15 @@ public class chessboard extends JFrame {
                             }
                         }
 
-                        // catch any index out of bounds erros
+                        // Catch any index out of bounds errors.
                         catch (ArrayIndexOutOfBoundsException ex) {
                             System.err.println("Array index out of bounds: " + ex.getMessage());
                         }
                     }
                 }
 
-
-                // otherwise, the user input is invalid
+                // If the user input is invalid, display a message to the user.
                 else {
-                    // initialize, set up, and display the pop up frame
                     JFrame invalidInputFrame = new JFrame("Invalid Input");
                     JLabel invalidInputLabel = new JLabel("Invalid input, please create a valid chess piece");
                     invalidInputLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -529,50 +582,65 @@ public class chessboard extends JFrame {
             }
         });
 
-        // add the 'Move piece' button to the buttons panel
+        // Add a vertical strut to the buttons panel for spacing.
         buttonsPanel.add(Box.createVerticalStrut(10));
+        // Add the 'Move piece' button to the buttons panel.
         buttonsPanel.add(moveButton);
 
-        // initialize an action listener to move the Figure objects on the chessboard
+        // Initialize an action listener to move the Figure objects on the chessboard.
         moveButton.addActionListener(new ActionListener() {
+            /**
+             * This method is called when an action is performed on the move button.
+             * It opens a new frame for the user to enter the new coordinates for the piece to be moved.
+             * @param e The action event.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                // initialize a new pop up Frame
+                // Initialize a new pop up Frame for entering new coordinates.
                 JFrame new_coord = new JFrame("New Coordinates");
+                // Initialize a panel for the coordinate input components.
                 JPanel coordPanel = new JPanel();
 
-                // initialize label, text field, and a 'Submit' button
+                // Initialize label, text field, and a 'Submit' button for entering new coordinates.
                 JLabel coordLabel = new JLabel("Enter coordinates (e.g., A1): ");
                 JTextField coordTextField = new JTextField(5); 
                 JButton submitButton = new JButton("Submit");
 
-                // add the label, text field, and button to the pop up frame
+                // Add the label, text field, and button to the pop up frame.
                 coordPanel.add(coordLabel);
                 coordPanel.add(coordTextField);
                 coordPanel.add(submitButton);
                 new_coord.add(coordPanel);
 
-                // set up the Frame
+                // Set up the Frame.
                 new_coord.setSize(400, 100);
                 new_coord.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 new_coord.setLocationRelativeTo(null);
                 new_coord.setVisible(true);
 
-                // initialize an action listener to change the positions of the Figure objects
+                // Initialize an action listener to change the positions of the Figure objects.
                 submitButton.addActionListener(new ActionListener() {
+                    /**
+                     * This method is called when an action is performed on the submit button.
+                     * It moves the selected chess piece to the entered coordinates.
+                     * @param e The action event.
+                     */
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        // Initialize a boolean to check if the user input is valid for the column.
+                        boolean validX = false;
 
-                        // traverse the collection of Figure objects
+
+                        // Traverse the collection of Figure objects.
                         for (Object curr : pieces) {
-                            // get the objects attributes
+                            // Get the objects attributes.
                             enums.chess_piece_type type = null;
                             enums.chess_piece_color color = null;
                             enums.chess_piece_columns col = null;
                             int row = 0;
 
-                            // if the Object is an isntance of a Figure Object
+                            // If the Object is an instance of a Figure Object.
                             if (curr instanceof Figure) {
                                 piece = (Figure) curr;
                                 type = piece.getType();
@@ -581,118 +649,112 @@ public class chessboard extends JFrame {
                                 row = piece.getRow();
                                 System.out.println("Current piece in move : " + type + " " + col + " " + row); // FOR TERMINAL USE
 
-                                // initialize vars to hold the new coordinates
+                                // Initialize vars to hold the new coordinates.
                                 String x = "";
                                 int y = 0;
 
-                                // initialize a new pop up frame, button panel, and an 'Exit Game' button
+                                // Initialize a new pop up frame, button panel, and an 'Exit Game' button.
                                 JFrame popUpFrame = new JFrame("New Chess Piece Location");
                                 JPanel buttonPanel = new JPanel();
                                 JButton closeGame = new JButton("Exit Game");
 
-                                // remove any unwanted symbols and spaces from the user input
+                                // Remove any unwanted symbols and spaces from the user input.
                                 String coordinates = coordTextField.getText().replaceAll("[,\\s/]", "");
 
-                                // initialize an action listener for the 'Exit Game' button
+                                // Initialize an action listener for the 'Exit Game' button.
                                 closeGame.addActionListener(a -> {
                                     System.exit(0);
                                 });
 
-                                // if the user input is valid (length 2)
-                                if (coordinates.length() == 2) { // MAY UPDATE WITH A JUnit Test
-                                    // split the user input
+
+                                // If the user input is valid (length 2).
+                                if (coordinates.length() == 2) { 
+                                    // Split the user input into an array of Strings.
                                     String [] coord = coordinates.split("");
-                                    // update the Strings to their appropriate values
+                                    // Update the Strings to their appropriate values.
                                     x = coord[0].toUpperCase();
                                     y = Integer.parseInt(coord[1]);
-                                    returnFinalCol = String.valueOf(y);
-                                    returnFinalRow = x;
-                                    getFinalRow(returnFinalRow);
-                                    getFinalCol(returnFinalCol);
 
-                                    // initialize a boolean to check if the user input is valid for the column # UPDATE
-                                    boolean validX = false;
 
-                                    // for loop to traverse the enums for columns
+                                    // For loop to traverse the enums for columns.
                                     for (enums.chess_piece_columns column : enums.chess_piece_columns.values()) {
-                                        // if the user input is a valid column
+                                        // If the user input is a valid column.
                                         if (column.name().equals(x)) {
                                             validX = true;
                                             break;
                                         }
                                     }
 
-                                    // initialize labels
+                                    // Initialize labels for different messages.
                                     JLabel wasMovable = new JLabel(type + " " + color + " can move from: " + col + ", " + row + " to " + x + ", " + y);
                                     JLabel notMovable = new JLabel(type + " " + color + " cannot move from: " + col + ", " + row  + " to " + x + ", " + y);
                                     JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y + " but the location was occupied.");
                                     JLabel outOfBounds = new JLabel("Input is out of bounds of the chessboard");
 
-                                    // if the user input is valid
+                                    // If the user input is valid.
                                     if (validX && y > 0 && y < 9) {
-                                        // initialize the new coordinates as usable variables
+                                        // Initialize the new coordinates as usable variables.
                                         enums.chess_piece_columns newColumn = enums.chess_piece_columns.valueOf(x);
                                         int newRow = y;
 
-                                        // if the tile is occupied and the piece can move to that location
+                                        // If the tile is occupied and the piece can move to that location.
                                         if (isTileOccupied(newColumn, newRow, curr) && piece.moveTo(newColumn, newRow)) {
-                                            // set the appropriate label
+                                            // Set the appropriate label.
                                             messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                             buttonPanel.add(messageLabel);
                                         }
 
-                                        // else if the piece can move to the new location
+                                        // Else if the piece can move to the new location.
                                         else if (!isTileOccupied(newColumn, newRow, curr) && piece != null && piece.moveTo(newColumn, newRow)) {
-                                            // add the appropriate label to the panel
+                                            // Add the appropriate label to the panel.
                                             buttonPanel.add(wasMovable);
 
-                                            // initialize the vars for updating the tile
+                                            // Initialize the vars for updating the tile.
                                             int oldRow = row - 1;
                                             int oldCol =  col.ordinal();
 
-                                            System.out.println(newColumn + " " + newRow); // FOR TERMINAL TESTING
+                                            // Print the new coordinates to the console for testing.
+                                            System.out.println(newColumn + " " + newRow); 
 
-                                            // update the Figure objects attributes
+                                            // Update the Figure objects attributes.
                                             piece.setColumn(newColumn);
                                             piece.setRow(newRow);
 
-                                            // get the old tile and the new tile
+                                            // Get the old tile and the new tile.
                                             Tile tile = boardCells[6 - oldRow][oldCol];
                                             Tile newTile = boardCells[8 - newRow ][newColumn.ordinal()];
 
-                                            // reset the old tile and update the new tile icon
+                                            // Reset the old tile and update the new tile icon.
                                             tile.hidePieceImage();
                                             newTile.setPieceImage(icon(piece, piece.getColor()));
                                         }
-
-                                        // otherwise the piece is not movable
+                                        
+                                        // If the piece is not movable, set the appropriate label.
                                         else {
-                                            // set the appropriate label
                                             buttonPanel.add(notMovable);
                                         }
                                     }
-
-                                    // otherwise the input is out of bounds/invalid
+                                    
+                                    // If the input is out of bounds/invalid, set the appropriate label.
                                     else {
-                                        // set the appropriate label
                                         buttonPanel.add(outOfBounds);
                                     }
-
-                                    // set up, and display the pop up frame
+                                    
+                                    // Set up, and display the pop up frame.
                                     messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                     buttonPanel.add(closeGame);
                                     buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
                                     popUpFrame.getContentPane().setLayout(new BoxLayout(popUpFrame.getContentPane(), BoxLayout.Y_AXIS));
                                     popUpFrame.getContentPane().add(Box.createVerticalStrut(10));
                                     popUpFrame.getContentPane().add(buttonPanel);
-
+                                    
                                     popUpFrame.setSize(600, 100);
                                     popUpFrame.setLocationRelativeTo(null);
                                     popUpFrame.setVisible(true);
                                 }
                             }
-
-                            // if the Object is an isntance of a Figure Object
+                            
+                            // If the Object is an instance of a Figure Object.
                             if (curr instanceof Bishop) {
                                 bish = (Bishop) curr;
                                 type = bish.getType();
@@ -700,101 +762,99 @@ public class chessboard extends JFrame {
                                 col = bish.getColumn();
                                 row = bish.getRow();
                                 System.out.println("Current piece in move : " + type + " " + col + " " + row); // FOR TERMINAL USE
-
-                                // initialize vars to hold the new coordinates
+                            
+                                // Initialize vars to hold the new coordinates.
                                 String x = "";
                                 int y = 0;
-
-                                // initialize a new pop up frame, button panel, and an 'Exit Game' button
+                            
+                                // Initialize a new pop up frame, button panel, and an 'Exit Game' button.
                                 JFrame popUpFrame = new JFrame("New Chess Piece Location");
                                 JPanel buttonPanel = new JPanel();
                                 JButton closeGame = new JButton("Exit Game");
-
-                                // remove any unwanted symbols and spaces from the user input
+                            
+                                // Remove any unwanted symbols and spaces from the user input.
                                 String coordinates = coordTextField.getText().replaceAll("[,\\s/]", "");
-
-                                // initialize an action listener for the 'Exit Game' button
+                            
+                                // Initialize an action listener for the 'Exit Game' button.
                                 closeGame.addActionListener(a -> {
                                     System.exit(0);
                                 });
-
-                                // if the user input is valid (length 2)
-                                if (coordinates.length() == 2) { // MAY UPDATE WITH A JUnit Test
-                                    // split the user input
+                            
+                                // If the user input is valid (length 2).
+                                if (coordinates.length() == 2) { 
+                                    // Split the user input.
                                     String [] coord = coordinates.split("");
-                                    // update the Strings to their appropriate values
+                                    // Update the Strings to their appropriate values.
                                     x = coord[0].toUpperCase();
                                     y = Integer.parseInt(coord[1]);
 
-                                    // initialize a boolean to check if the user input is valid for the column # UPDATE
-                                    boolean validX = false;
 
-                                    // for loop to traverse the enums for columns
+
+                                    // For loop to traverse the enums for columns.
                                     for (enums.chess_piece_columns column : enums.chess_piece_columns.values()) {
-                                        // if the user input is a valid column
+                                        // If the user input is a valid column.
                                         if (column.name().equals(x)) {
                                             validX = true;
                                             break;
                                         }
                                     }
 
-                                    // initialize labels
+                                    // Initialize labels for different messages.
                                     JLabel wasMovable = new JLabel(type + " " + color + " can move from: " + col + ", " + row + " to " + x + ", " + y);
                                     JLabel notMovable = new JLabel(type + " " + color + " cannot move from: " + col + ", " + row  + " to " + x + ", " + y);
                                     JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y + " but the location was occupied.");
                                     JLabel outOfBounds = new JLabel("Input is out of bounds of the chessboard");
 
-                                    // if the user input is valid
+                                    // If the user input is valid.
                                     if (validX && y > 0 && y < 9) {
-                                        // initialize the new coordinates as usable variables
+                                        // Initialize the new coordinates as usable variables.
                                         enums.chess_piece_columns newColumn = enums.chess_piece_columns.valueOf(x);
                                         int newRow = y;
 
-                                        // if the tile is occupied and the piece can move to that location
+                                        // If the tile is occupied and the piece can move to that location.
                                         if (isTileOccupied(newColumn, newRow, curr) && bish.moveTo(newColumn, newRow)) {
-                                            // set the appropriate label
+                                            // Set the appropriate label.
                                             messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                             buttonPanel.add(messageLabel);
                                         }
 
-                                        // else if the piece can move to the new location
+                                        // Else if the piece can move to the new location.
                                         else if (! isTileOccupied(newColumn, newRow, curr) && bish != null && bish.moveTo(newColumn, newRow)) {
-                                            // add the appropriate label to the panel
+                                            // Add the appropriate label to the panel.
                                             buttonPanel.add(wasMovable);
 
-                                            // initialize the vars for updating the tile
+                                            // Initialize the vars for updating the tile.
                                             int oldRow = row - 1;
                                             int oldCol =  col.ordinal();
 
                                             System.out.println(newColumn + " " + newRow); // FOR TERMINAL TESTING
 
-                                            // update the Figure objects attributes
+                                            // Update the Figure objects attributes.
                                             bish.setColumn(newColumn);
                                             bish.setRow(newRow);
 
-                                            // get the old tile and the new tile
+                                            // Get the old tile and the new tile.
                                             Tile tile = boardCells[6 - oldRow][oldCol];
                                             Tile newTile = boardCells[8 - newRow ][newColumn.ordinal()];
 
-                                            // reset the old tile and update the new tile icon
+                                            // Reset the old tile and update the new tile icon.
                                             tile.hidePieceImageBish();
                                             newTile.setPieceImageBish(bish_icon(bish.getColor()));
                                         }
 
-                                        // otherwise the piece is not movable
+                                        // Otherwise the piece is not movable.
                                         else {
-                                            // set the appropriate label
+                                            // Set the appropriate label.
                                             buttonPanel.add(notMovable);
                                         }
                                     }
 
-                                    // otherwise the input is out of bounds/invalid
+                                    // If the input is out of bounds/invalid, set the appropriate label.
                                     else {
-                                        // set the appropriate label
                                         buttonPanel.add(outOfBounds);
                                     }
 
-                                    // set up, and display the pop up frame
+                                    // Set up, and display the pop up frame.
                                     messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                     buttonPanel.add(closeGame);
                                     buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
@@ -812,22 +872,29 @@ public class chessboard extends JFrame {
                 });
             }
         });
-        // return the button panel
+        // Return the button panel.
         return buttonsPanel;
     }
 
+    /**
+     * Method to check if a tile is occupied by a chess piece.
+     * @return TRUE is tile is occupied FALSE otherwise
+     * @param column the pieces col value in the columns enum
+     * @param row an integer value for the row
+     * @param currentPiece the current chesspiece that is being checked
+     */ 
     private static boolean isTileOccupied(enums.chess_piece_columns column, int row, Object currentPiece) {
 
-        // Cast currentPiece to the appropriate type based on the initial check
+        // Cast currentPiece to the appropriate type based on the initial check.
         if (currentPiece instanceof Figure) {
             Figure curr_fig = (Figure) currentPiece;
         } else {
             Bishop curr_bish = (Bishop) currentPiece;
         }
 
-        // Loop through pieces to check for occupancy
+        // Loop through pieces to check for occupancy.
         for (Object p : pieces) {
-            // Check if the piece is of a different type and occupies the same tile
+            // Check if the piece is of a different type and occupies the same tile.
             if (p instanceof Figure && p != currentPiece &&
                     ((Figure) p).getColumn() == column && ((Figure) p).getRow() == row) {
                 return true;
@@ -837,18 +904,24 @@ public class chessboard extends JFrame {
             }
         }
 
-        // Tile is not occupied
+        // Tile is not occupied.
         return false;
     }
 
+    /**
+     * Method to get the icon for a chess piece.
+     * @param piece the piece whos image we want to get
+     * @param color part of the color enum for pieces
+     * @return ImageIcon the corresponding piece image
+     */
     public static ImageIcon icon(Figure piece, enums.chess_piece_color color) {
         
-        // get the type of Figure object
+        // Get the type of Figure object.
         enums.chess_piece_type type = piece.getType();
 
-        // if the color of the Figure object is black
+        // If the color of the Figure object is black.
         if(color.equals(enums.chess_piece_color.BLACK)) {
-            // find and return the appropriate icon
+            // Find and return the appropriate icon.
             switch (type) {
                 case KING:
                     return king;
@@ -867,9 +940,10 @@ public class chessboard extends JFrame {
             }
         }
 
-        // if the color of the Figure object is white
+                
+        // If the color of the Figure object is white.
         else {
-            // find and return the appropriate icon
+            // Find and return the appropriate icon.
             switch (type) {
                 case KING:
                     return white_king;
@@ -879,7 +953,6 @@ public class chessboard extends JFrame {
                     return white_pawn;
                 case BISHOP:
                     return white_bishop;
-
                 case QUEEN:
                     return white_queen;
                 case ROOK:
@@ -889,93 +962,91 @@ public class chessboard extends JFrame {
             }
         }
     }
-
+    /**
+     * Method to get the icon for a Bishop chess piece.
+     * @param color the pieces color from the colors Enum
+     * @return ImageIcon for the bishop piece
+     */
     public static ImageIcon bish_icon(enums.chess_piece_color color) {
-
-        // if the color is black return the black icon
+        // If the color of the Bishop object is black.
         if (color.equals(enums.chess_piece_color.BLACK)) {
             return bishop;
         }
 
-        // otherwise, return the white icon
+        // If the color of the Bishop object is white.
         return white_bishop;
-
     }
 
+    /**
+     * Main method for initializing the chessboard
+     * @param args
+    */
+    // Main method to start the chessboard.
     public static void main(String[] args) {
-
-        // call in the chessboard 
         new chessboard();
-
-    }
-
-
-    public static String getInitialRow(String selectedPieceRow){
-        return selectedPieceRow;
-    }
-    public static String getInitialCol(String selectedPieceCol){
-        return selectedPieceCol;
-    }
-    public static String getFinalRow(String returnFinalRow){
-        return returnFinalRow;
-    }
-    public static String getFinalCol(String returnFinalCol){
-        return returnFinalCol;
     }
 }
+/**
+ *  Class to represent a tile on the chessboard.
 
+ */
 class Tile extends JPanel {
     
-    // initialize a label
+    // Label to display the chess piece.
     private JLabel pieceLabel; 
 
+    /**
+     * Constructor to initialize the tile with a specific color.
+     * @param color
+     */
     public Tile(Color color) {
-
-        // set the background color fo the tile
         setBackground(color);
-        // initialize a new label
         pieceLabel = new JLabel();
-        // set up the grid for the tile
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        // add the label
         add(pieceLabel, gbc);
     }
 
+    /**
+     * Method to set the image of the chess piece on the tile.
+     * @param icon the image that will be set for the piece on the board
+     */
     public void setPieceImage(ImageIcon icon) {
-
-        // set the icon of the tile
         pieceLabel.setIcon(icon);
-        // update the tile
         repaint(); 
     }
-
+/**
+ * Method to set the image of the Bishop chess piece on the tile.
+ * @param bish_icon the image that will be set for the piece on the board
+ */
     public void setPieceImageBish(ImageIcon bish_icon) {
-
-        // set the icon of the tile
         pieceLabel.setIcon(bish_icon);
-        // update the tile
         repaint();
     }
 
+    /**
+     *  Method to hide the image of the chess piece on the tile.
+     */
     public void hidePieceImage() {
-        // remove the icon of the tile
         pieceLabel.setIcon(null);
         repaint();
     }
 
+    /**
+     *  Method to hide the image of the Bishop chess piece on the tile.
+     */
     public void hidePieceImageBish() {
-        // remove the icon of the tile
         pieceLabel.setIcon(null);
         repaint();
     }
 
+    /**
+     * Method to get the preferred size of the tile.
+     */
     @Override
     public Dimension getPreferredSize() { 
-
-        // initialize the dimension of the component and return it
         Dimension size = super.getPreferredSize();
         int maxSize = Math.max(size.width, size.height);
         return new Dimension(maxSize, maxSize);
