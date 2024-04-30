@@ -59,8 +59,8 @@ class Knight extends Figure {
         // check if the move is a valid L-shape for a knight
         if ((deltax == 1 && deltay == 2) || (deltax == 2 && deltay == 1)) {
             // set the valid new coordinates to the object
-            setColumn(column);
-            setRow(row);
+            ////setColumn(column);
+            ////setRow(row);
             // set valid as false if the move is valid
             return true;
         }

@@ -1,5 +1,6 @@
 import javax.swing.*; 
 import enums.*;
+import board.*;
 import chess_pieces.*;
 import java.awt.*; 
 import java.awt.event.ActionEvent; 
@@ -614,37 +615,39 @@ public class chessboard extends JFrame {
                                         int newRow = y;
 
                                         // if the piece can move to the new location
-                                        if (!isTileOccupied(newColumn, newRow, curr) && piece != null && piece.moveTo(newColumn, newRow)) {
-                                            // add the appropriate label to the panel
-                                            buttonPanel.add(wasMovable);
+                                        if (piece != null && piece.moveTo(newColumn, newRow)) {
+                                            // otherwise the tile is not occupied
+                                            if (!isTileOccupied(newColumn, newRow, pieces)) {
+                                                System.out.print(isTileOccupied(newColumn, newRow, pieces) + " can move");
 
-                                            // initialize the vars for updating the tile
-                                            int oldRow = row - 1;
-                                            int oldCol =  col.ordinal();
+                                                // add the appropriate label to the panel
+                                                buttonPanel.add(wasMovable);
 
-                                            System.out.println(newColumn + " " + newRow); // FOR TERMINAL TESTING
+                                                // initialize the vars for updating the tile
+                                                int oldRow = row - 1;
+                                                int oldCol = col.ordinal();
 
-                                            // update the Figure objects attributes
-                                            piece.setColumn(newColumn);
-                                            piece.setRow(newRow);
+                                                System.out.println(newColumn + " " + newRow); // FOR TERMINAL TESTING
 
-                                            // get the old tile and the new tile
-                                            Tile tile = boardCells[7 - oldRow][oldCol];
-                                            Tile newTile = boardCells[8 - newRow ][newColumn.ordinal()];
+                                                // update the Figure objects attributes
+                                                piece.setColumn(newColumn);
+                                                piece.setRow(newRow);
 
-                                            // reset the old tile and update the new tile icon
-                                            tile.hidePieceImage();
-                                            System.out.println(6 - oldRow + " " + oldCol);
-                                            newTile.setPieceImage(icon(piece, piece.getColor()));
-                                            //continue;
-                                        }
+                                                // get the old tile and the new tile
+                                                Tile tile = boardCells[7 - oldRow][oldCol];
+                                                Tile newTile = boardCells[8 - newRow][newColumn.ordinal()];
 
-                                        // if the tile is occupied and the piece can move to that location
-                                        else if (isTileOccupied(newColumn, newRow, curr) && piece.moveTo(newColumn, newRow)) {
-                                            // set the appropriate label
-                                            messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                                            buttonPanel.add(messageLabel);
-                                            break;
+                                                // reset the old tile and update the new tile icon
+                                                tile.hidePieceImage();
+                                                System.out.println(6 - oldRow + " " + oldCol);
+                                                newTile.setPieceImage(icon(piece, piece.getColor()));
+                                            }
+                                            // else if the tile is occupied
+                                            else if (isTileOccupied(newColumn, newRow, pieces)) {
+                                                // set the appropriate label
+                                                messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                                buttonPanel.add(messageLabel);
+                                            }
                                         }
 
                                         // otherwise the piece is not movable
@@ -672,6 +675,7 @@ public class chessboard extends JFrame {
                                     popUpFrame.setSize(600, 100);
                                     popUpFrame.setLocationRelativeTo(null);
                                     popUpFrame.setVisible(true);
+                                    piece = null;
                                 }
                             }
 
@@ -734,14 +738,16 @@ public class chessboard extends JFrame {
                                         int newRow = y;
 
                                         // if the tile is occupied and the piece can move to that location
-                                        if (isTileOccupied(newColumn, newRow, curr) && bish.moveTo(newColumn, newRow)) {
+                                        if (isTileOccupied(newColumn, newRow, pieces) && bish.moveTo(newColumn, newRow)) {
                                             // set the appropriate label
                                             messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                             buttonPanel.add(messageLabel);
                                         }
 
                                         // else if the piece can move to the new location
-                                        else if (! isTileOccupied(newColumn, newRow, curr) && bish != null && bish.moveTo(newColumn, newRow)) {
+                                        else if (bish != null && bish.moveTo(newColumn, newRow) && !isTileOccupied(newColumn, newRow, pieces)) {
+                                            System.out.print(isTileOccupied(newColumn, newRow, pieces) + " can move");
+
                                             // add the appropriate label to the panel
                                             buttonPanel.add(wasMovable);
 
@@ -799,23 +805,14 @@ public class chessboard extends JFrame {
         return buttonsPanel;
     }
 
-    private static boolean isTileOccupied(enums.chess_piece_columns column, int row, Object currentPiece) {
-
-        // Cast currentPiece to the appropriate type based on the initial check
-        if (currentPiece instanceof Figure) {
-            Figure curr_fig = (Figure) currentPiece;
-        } else {
-            Bishop curr_bish = (Bishop) currentPiece;
-        }
+    private static boolean isTileOccupied(enums.chess_piece_columns column, int row, ArrayList<Object> pieces) {
 
         // Loop through pieces to check for occupancy
-        for (Object p : pieces) {
-            // Check if the piece is of a different type and occupies the same tile
-            if (p instanceof Figure && p != currentPiece &&
-                    ((Figure) p).getColumn() == column && ((Figure) p).getRow() == row) {
+        for (Object piece : pieces) {
+            // Check if the piece is of a different type and occupies the same tile (excluding currentPiece)
+            if (piece instanceof Figure && ((Figure) piece).getColumn() == column && ((Figure) piece).getRow() == row) {
                 return true;
-            } else if (p instanceof Bishop && p != currentPiece &&
-                    ((Bishop) p).getColumn() == column && ((Bishop) p).getRow() == row) {
+            } else if (piece instanceof Bishop && ((Bishop) piece).getColumn() == column && ((Bishop) piece).getRow() == row) {
                 return true;
             }
         }

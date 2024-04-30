@@ -61,8 +61,8 @@ public class King extends Queen {
             // if the King moves like the Queen
             if (super.moveTo(column, row) == true) {
                 // set the valid new coordinates to the object
-                setColumn(column);
-                setRow(row);
+                ////setColumn(column);
+                ////setRow(row);
                 // return true if the move is valid
                 return true;
             }

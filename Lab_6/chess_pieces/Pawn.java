@@ -72,8 +72,8 @@ public class Pawn extends Figure {
         // if valid is true up to this point
         if (valid == true) {
             // set the valid new coordinates to the object
-            setColumn(column);
-            setRow(row);
+            ////setColumn(column);
+            ////setRow(row);
         }
         // return the validity of the move
         return valid;
