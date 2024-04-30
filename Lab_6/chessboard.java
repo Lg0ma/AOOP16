@@ -613,15 +613,8 @@ public class chessboard extends JFrame {
                                         enums.chess_piece_columns newColumn = enums.chess_piece_columns.valueOf(x);
                                         int newRow = y;
 
-                                        // if the tile is occupied and the piece can move to that location
-                                        if (isTileOccupied(newColumn, newRow, curr) && piece.moveTo(newColumn, newRow)) {
-                                            // set the appropriate label
-                                            messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                                            buttonPanel.add(messageLabel);
-                                        }
-
-                                        // else if the piece can move to the new location
-                                        else if (!isTileOccupied(newColumn, newRow, curr) && piece != null && piece.moveTo(newColumn, newRow)) {
+                                        // if the piece can move to the new location
+                                        if (!isTileOccupied(newColumn, newRow, curr) && piece != null && piece.moveTo(newColumn, newRow)) {
                                             // add the appropriate label to the panel
                                             buttonPanel.add(wasMovable);
 
@@ -636,18 +629,29 @@ public class chessboard extends JFrame {
                                             piece.setRow(newRow);
 
                                             // get the old tile and the new tile
-                                            Tile tile = boardCells[6 - oldRow][oldCol];
+                                            Tile tile = boardCells[7 - oldRow][oldCol];
                                             Tile newTile = boardCells[8 - newRow ][newColumn.ordinal()];
 
                                             // reset the old tile and update the new tile icon
                                             tile.hidePieceImage();
+                                            System.out.println(6 - oldRow + " " + oldCol);
                                             newTile.setPieceImage(icon(piece, piece.getColor()));
+                                            //continue;
+                                        }
+
+                                        // if the tile is occupied and the piece can move to that location
+                                        else if (isTileOccupied(newColumn, newRow, curr) && piece.moveTo(newColumn, newRow)) {
+                                            // set the appropriate label
+                                            messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                            buttonPanel.add(messageLabel);
+                                            break;
                                         }
 
                                         // otherwise the piece is not movable
                                         else {
                                             // set the appropriate label
                                             buttonPanel.add(notMovable);
+                                            //continue;
                                         }
                                     }
 
@@ -752,11 +756,11 @@ public class chessboard extends JFrame {
                                             bish.setRow(newRow);
 
                                             // get the old tile and the new tile
-                                            Tile tile = boardCells[6 - oldRow][oldCol];
+                                            Tile tile = boardCells[7 - oldRow][oldCol];
                                             Tile newTile = boardCells[8 - newRow ][newColumn.ordinal()];
 
                                             // reset the old tile and update the new tile icon
-                                            tile.hidePieceImageBish();
+                                            tile.hidePieceImage();
                                             newTile.setPieceImageBish(bish_icon(bish.getColor()));
                                         }
 
@@ -891,7 +895,7 @@ public class chessboard extends JFrame {
 class Tile extends JPanel {
     
     // initialize a label
-    private JLabel pieceLabel; 
+    private JLabel pieceLabel;
 
     public Tile(Color color) {
 
@@ -925,12 +929,6 @@ class Tile extends JPanel {
     }
 
     public void hidePieceImage() {
-        // remove the icon of the tile
-        pieceLabel.setIcon(null);
-        repaint();
-    }
-
-    public void hidePieceImageBish() {
         // remove the icon of the tile
         pieceLabel.setIcon(null);
         repaint();
