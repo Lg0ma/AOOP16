@@ -1,7 +1,7 @@
 import javax.swing.*;
 import chess_pieces.*;
-import java.awt.*; 
-import java.awt.event.ActionEvent; 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -226,7 +226,7 @@ public class chessboard extends JFrame {
             });
         }
 
-        // set up the buttons 
+        // set up the buttons
         createButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         moveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -330,9 +330,6 @@ public class chessboard extends JFrame {
                                 // set up the vars for updating the tile
                                 int row = Integer.parseInt(selectedPieceRow) - 1;
                                 int col = eco.ordinal();
-
-                                System.out.println(col + " " + row); // FOR TERMINAL USE
-
 
                                 // get the tile to place the icon for the Figure object
                                 Tile tile = boardCells[7 - row][col];
@@ -568,196 +565,217 @@ public class chessboard extends JFrame {
 
                         // if the user input is valid (length 2)
                         if (coordinates.length() == 2) { // MAY UPDATE WITH A JUnit Test
-                            // split the user input
-                            String[] coord = coordinates.split("");
-                            // update the Strings to their appropriate values
-                            x = coord[0].toUpperCase();
-                            y = Integer.parseInt(coord[1]);
+                            // try
+                            try {
+                                // split the user input
+                                String[] coord = coordinates.split("");
+                                // update the Strings to their appropriate values
+                                x = coord[0].toUpperCase();
+                                y = Integer.parseInt(coord[1]);
 
-                            // traverse the collection of Figure objects
-                            for (Object curr : pieces) {
-                                // get the objects attributes
-                                enums.chess_piece_type type = null;
-                                enums.chess_piece_color color = null;
-                                enums.chess_piece_columns col = null;
-                                int row = 0;
+                                // traverse the collection of Figure objects
+                                for (Object curr : pieces) {
+                                    // get the objects attributes
+                                    enums.chess_piece_type type = null;
+                                    enums.chess_piece_color color = null;
+                                    enums.chess_piece_columns col = null;
+                                    int row = 0;
 
-                                // if the Object is an isntance of a Figure Object
-                                if (curr instanceof Figure piece) {
-                                    type = piece.getType();
-                                    color = piece.getColor();
-                                    col = piece.getColumn();
-                                    row = piece.getRow();
+                                    // if the Object is an isntance of a Figure Object
+                                    if (curr instanceof Figure piece) {
+                                        type = piece.getType();
+                                        color = piece.getColor();
+                                        col = piece.getColumn();
+                                        row = piece.getRow();
 
-                                    System.out.println("Current piece trying to move: " + piece); // FOR TERMINAL USE
+                                        System.out.println("Current piece trying to move: " + piece); // FOR TERMINAL USE
 
-                                    // initialize labels
-                                    JLabel wasMovable = new JLabel(type + " " + color + " can move from: " + col + ", " + row + " to " + x + ", " + y);
-                                    JLabel notMovable = new JLabel(type + " " + color + " cannot move from: " + col + ", " + row + " to " + x + ", " + y);
-                                    JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y + " but the location was occupied.");
-                                    // set up, and display the pop-up frame
-                                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                        // initialize labels
+                                        JLabel wasMovable = new JLabel(type + " " + color + " can move from: " + col + ", " + row + " to " + x + ", " + y);
+                                        JLabel notMovable = new JLabel(type + " " + color + " cannot move from: " + col + ", " + row + " to " + x + ", " + y);
+                                        JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y + " but the location was occupied.");
+                                        // set up, and display the pop-up frame
+                                        wasMovable.setHorizontalAlignment(SwingConstants.CENTER);
+                                        notMovable.setHorizontalAlignment(SwingConstants.CENTER);
+                                        messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-                                    // initialize a boolean to check if the user input is valid for the column # UPDATE
-                                    boolean validX = false;
+                                        // initialize a boolean to check if the user input is valid for the column # UPDATE
+                                        boolean validX = false;
 
-                                    // for loop to traverse the enums for columns
-                                    for (enums.chess_piece_columns column : enums.chess_piece_columns.values()) {
-                                        // if the user input is a valid column
-                                        if (column.name().equals(x)) {
-                                            validX = true;
-                                            break;
+                                        // for loop to traverse the enums for columns
+                                        for (enums.chess_piece_columns column : enums.chess_piece_columns.values()) {
+                                            // if the user input is a valid column
+                                            if (column.name().equals(x)) {
+                                                validX = true;
+                                                break;
+                                            }
+                                        }
+
+                                        // if the user input is valid
+                                        if (validX && y > 0 && y < 9) {
+                                            // initialize the new coordinates as usable variables
+                                            enums.chess_piece_columns newColumn = enums.chess_piece_columns.valueOf(x);
+                                            int newRow = y;
+
+                                            // if the piece can move to the new location
+                                            if (piece != null && piece.moveTo(newColumn, newRow)) {
+                                                // otherwise the tile is not occupied
+                                                if (!isTileOccupied(newColumn, newRow, pieces)) {
+
+                                                    // add the appropriate label to the panel
+                                                    buttonPanel.add(wasMovable);
+
+                                                    // initialize the vars for updating the tile
+                                                    int oldRow = row - 1;
+                                                    int oldCol = col.ordinal();
+
+                                                    // update the Figure objects attributes
+                                                    piece.setColumn(newColumn);
+                                                    piece.setRow(newRow);
+
+                                                    System.out.print("Piece has been moved: " + piece); // FOR TERMINAL USE
+
+
+                                                    // get the old tile and the new tile
+                                                    Tile tile = boardCells[7 - oldRow][oldCol];
+                                                    Tile newTile = boardCells[8 - newRow][newColumn.ordinal()];
+
+                                                    // reset the old tile and update the new tile icon
+                                                    tile.hidePieceImage();
+                                                    newTile.setPieceImage(icon(piece, piece.getColor()));
+                                                }
+
+                                                // else if the tile is occupied
+                                                else if (isTileOccupied(newColumn, newRow, pieces)) {
+                                                    System.out.print("Piece could not be  due to tile being in use: " + piece); // FOR TERMINAL USE
+                                                    // set the appropriate label
+                                                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                                    buttonPanel.add(messageLabel);
+                                                }
+                                            }
+
+                                            // otherwise the piece is not movable
+                                            else {
+                                                System.out.print("Piece could not be moved: " + piece); // FOR TERMINAL USE
+                                                // set the appropriate label
+                                                buttonPanel.add(notMovable);
+                                            }
                                         }
                                     }
 
-                                    // if the user input is valid
-                                    if (validX && y > 0 && y < 9) {
-                                        // initialize the new coordinates as usable variables
-                                        enums.chess_piece_columns newColumn = enums.chess_piece_columns.valueOf(x);
-                                        int newRow = y;
+                                    // if the Object is an isntance of a Figure Object
+                                    if (curr instanceof Bishop bish) {
+                                        type = bish.getType();
+                                        color = bish.getColor();
+                                        col = bish.getColumn();
+                                        row = bish.getRow();
 
-                                        // if the piece can move to the new location
-                                        if (piece != null && piece.moveTo(newColumn, newRow)) {
-                                            // otherwise the tile is not occupied
-                                            if (!isTileOccupied(newColumn, newRow, pieces)) {
+                                        System.out.println("Current piece trying to move: " + bish); // FOR TERMINAL USE
 
-                                                // add the appropriate label to the panel
-                                                buttonPanel.add(wasMovable);
+                                        // initialize labels
+                                        JLabel wasMovable = new JLabel(type + " " + color + " can move from: " + col + ", " + row + " to " + x + ", " + y);
+                                        JLabel notMovable = new JLabel(type + " " + color + " cannot move from: " + col + ", " + row + " to " + x + ", " + y);
+                                        JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y + " but the location was occupied.");
+                                        // set up, and display the pop-up frame
+                                        messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                        wasMovable.setHorizontalAlignment(SwingConstants.CENTER);
+                                        notMovable.setHorizontalAlignment(SwingConstants.CENTER);
 
-                                                // initialize the vars for updating the tile
-                                                int oldRow = row - 1;
-                                                int oldCol = col.ordinal();
+                                        // initialize a boolean to check if the user input is valid for the column # UPDATE
+                                        boolean validX = false;
 
-                                                // update the Figure objects attributes
-                                                piece.setColumn(newColumn);
-                                                piece.setRow(newRow);
-
-                                                System.out.print("Piece has been moved: " + piece); // FOR TERMINAL USE
-
-
-                                                // get the old tile and the new tile
-                                                Tile tile = boardCells[7 - oldRow][oldCol];
-                                                Tile newTile = boardCells[8 - newRow][newColumn.ordinal()];
-
-                                                // reset the old tile and update the new tile icon
-                                                tile.hidePieceImage();
-                                                System.out.println(6 - oldRow + " " + oldCol);
-                                                newTile.setPieceImage(icon(piece, piece.getColor()));
-                                            }
-
-                                            // else if the tile is occupied
-                                            else if (isTileOccupied(newColumn, newRow, pieces)) {
-                                                System.out.print("Piece could not be  due to tile being in use: " + piece); // FOR TERMINAL USE
-                                                // set the appropriate label
-                                                messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                                                buttonPanel.add(messageLabel);
+                                        // for loop to traverse the enums for columns
+                                        for (enums.chess_piece_columns column : enums.chess_piece_columns.values()) {
+                                            // if the user input is a valid column
+                                            if (column.name().equals(x)) {
+                                                validX = true;
+                                                break;
                                             }
                                         }
 
-                                        // otherwise the piece is not movable
-                                        else {
-                                            System.out.print("Piece could not be moved: " + piece); // FOR TERMINAL USE
-                                            // set the appropriate label
-                                            buttonPanel.add(notMovable);
+                                        // if the user input is valid
+                                        if (validX && y > 0 && y < 9) {
+                                            // initialize the new coordinates as usable variables
+                                            enums.chess_piece_columns newColumn = enums.chess_piece_columns.valueOf(x);
+                                            int newRow = y;
+
+                                            // if the piece can move to the new location
+                                            if (piece != null && piece.moveTo(newColumn, newRow)) {
+                                                // otherwise the tile is not occupied
+                                                if (!isTileOccupied(newColumn, newRow, pieces)) {
+
+                                                    // add the appropriate label to the panel
+                                                    buttonPanel.add(wasMovable);
+
+                                                    // initialize the vars for updating the tile
+                                                    int oldRow = row - 1;
+                                                    int oldCol = col.ordinal();
+
+                                                    // update the Figure objects attributes
+                                                    bish.setColumn(newColumn);
+                                                    bish.setRow(newRow);
+
+                                                    System.out.print("Piece has been moved: " + bish); // FOR TERMINAL USE
+
+
+                                                    // get the old tile and the new tile
+                                                    Tile tile = boardCells[7 - oldRow][oldCol];
+                                                    Tile newTile = boardCells[8 - newRow][newColumn.ordinal()];
+
+                                                    // reset the old tile and update the new tile icon
+                                                    tile.hidePieceImage();
+                                                    newTile.setPieceImageBish(bish_icon(bish.getColor()));
+                                                }
+
+                                                // else if the tile is occupied
+                                                else if (isTileOccupied(newColumn, newRow, pieces)) {
+                                                    System.out.print("Piece could not be  due to tile being in use: " + piece); // FOR TERMINAL USE
+                                                    // set the appropriate label
+                                                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                                    buttonPanel.add(messageLabel);
+                                                }
+                                            }
+
+                                            // otherwise the piece is not movable
+                                            else {
+                                                System.out.print("Piece could not be moved: " + piece); // FOR TERMINAL USE
+                                                // set the appropriate label
+                                                buttonPanel.add(notMovable);
+                                            }
                                         }
                                     }
                                 }
+                                // set up the buttons
+                                buttonPanel.add(tryAgain);
+                                buttonPanel.add(closeGame);
 
-                                // if the Object is an isntance of a Figure Object
-                                if (curr instanceof Bishop bish) {
-                                    type = bish.getType();
-                                    color = bish.getColor();
-                                    col = bish.getColumn();
-                                    row = bish.getRow();
-
-                                    System.out.println("Current piece trying to move: " + bish); // FOR TERMINAL USE
-
-                                    // initialize labels
-                                    JLabel wasMovable = new JLabel(type + " " + color + " can move from: " + col + ", " + row + " to " + x + ", " + y);
-                                    JLabel notMovable = new JLabel(type + " " + color + " cannot move from: " + col + ", " + row + " to " + x + ", " + y);
-                                    JLabel messageLabel = new JLabel("You tried to move " + type + " " + color + " " + col + " " + row + " to: " + x + y + " but the location was occupied.");
-                                    // set up, and display the pop-up frame
-                                    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-                                    // initialize a boolean to check if the user input is valid for the column # UPDATE
-                                    boolean validX = false;
-
-                                    // for loop to traverse the enums for columns
-                                    for (enums.chess_piece_columns column : enums.chess_piece_columns.values()) {
-                                        // if the user input is a valid column
-                                        if (column.name().equals(x)) {
-                                            validX = true;
-                                            break;
-                                        }
-                                    }
-
-                                    // if the user input is valid
-                                    if (validX && y > 0 && y < 9) {
-                                        // initialize the new coordinates as usable variables
-                                        enums.chess_piece_columns newColumn = enums.chess_piece_columns.valueOf(x);
-                                        int newRow = y;
-
-                                        // if the piece can move to the new location
-                                        if (piece != null && piece.moveTo(newColumn, newRow)) {
-                                            // otherwise the tile is not occupied
-                                            if (!isTileOccupied(newColumn, newRow, pieces)) {
-
-                                                // add the appropriate label to the panel
-                                                buttonPanel.add(wasMovable);
-
-                                                // initialize the vars for updating the tile
-                                                int oldRow = row - 1;
-                                                int oldCol = col.ordinal();
-
-                                                // update the Figure objects attributes
-                                                bish.setColumn(newColumn);
-                                                bish.setRow(newRow);
-
-                                                System.out.print("Piece has been moved: " + bish); // FOR TERMINAL USE
-
-
-                                                // get the old tile and the new tile
-                                                Tile tile = boardCells[7 - oldRow][oldCol];
-                                                Tile newTile = boardCells[8 - newRow][newColumn.ordinal()];
-
-                                                // reset the old tile and update the new tile icon
-                                                tile.hidePieceImage();
-                                                System.out.println(6 - oldRow + " " + oldCol);
-                                                newTile.setPieceImageBish(bish_icon(bish.getColor()));
-                                            }
-
-                                            // else if the tile is occupied
-                                            else if (isTileOccupied(newColumn, newRow, pieces)) {
-                                                System.out.print("Piece could not be  due to tile being in use: " + piece); // FOR TERMINAL USE
-                                                // set the appropriate label
-                                                messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                                                buttonPanel.add(messageLabel);
-                                            }
-                                        }
-
-                                        // otherwise the piece is not movable
-                                        else {
-                                            System.out.print("Piece could not be moved: " + piece); // FOR TERMINAL USE
-                                            // set the appropriate label
-                                            buttonPanel.add(notMovable);
-                                        }
-                                    }
-                                }
+                                // set the appropriate label
+                                buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                                // initialize, set up, and display the pop-up frame
+                                popUpFrame.getContentPane().setLayout(new BorderLayout());
+                                popUpFrame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
+                                popUpFrame.setSize(500, 600);
+                                popUpFrame.setLocationRelativeTo(null);
+                                popUpFrame.setVisible(true);
                             }
-                            // set up the buttons
-                            buttonPanel.add(tryAgain);
-                            buttonPanel.add(closeGame);
+                            catch (Exception out) {
+// set up the buttons
+                                buttonPanel.add(tryAgain);
+                                buttonPanel.add(closeGame);
 
-                            // set the appropriate label
-                            buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-                            popUpFrame.getContentPane().setLayout(new BoxLayout(popUpFrame.getContentPane(), BoxLayout.Y_AXIS));
-                            popUpFrame.getContentPane().add(Box.createVerticalStrut(10));
-                            popUpFrame.getContentPane().add(buttonPanel);
+                                // set the appropriate label
+                                JLabel error = new JLabel("Invalid Input");
 
-                            popUpFrame.setSize(500, 100);
-                            popUpFrame.setLocationRelativeTo(null);
-                            popUpFrame.setVisible(true);
-                            piece = null;
+                                error.setHorizontalAlignment(SwingConstants.CENTER);
+                                buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                                // initialize, set up, and display the pop-up frame
+                                popUpFrame.getContentPane().setLayout(new BorderLayout());
+                                popUpFrame.getContentPane().add(error, BorderLayout.NORTH);
+                                popUpFrame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
+                                popUpFrame.setSize(500, 100);
+                                popUpFrame.setLocationRelativeTo(null);
+                                popUpFrame.setVisible(true);
+                            }
                         }
                         // otherwise the input is out of bounds/invalid
                         else {
@@ -803,7 +821,7 @@ public class chessboard extends JFrame {
     }
 
     public static ImageIcon icon(Figure piece, enums.chess_piece_color color) {
-        
+
         // get the type of Figure object
         enums.chess_piece_type type = piece.getType();
 
@@ -865,13 +883,13 @@ public class chessboard extends JFrame {
 
     public static void main(String[] args) {
 
-        // call in the chessboard 
+        // call in the chessboard
         new chessboard();
     }
 }
 
 class Tile extends JPanel {
-    
+
     // initialize a label
     private JLabel pieceLabel;
 
@@ -895,7 +913,7 @@ class Tile extends JPanel {
         // set the icon of the tile
         pieceLabel.setIcon(icon);
         // update the tile
-        repaint(); 
+        repaint();
     }
 
     public void setPieceImageBish(ImageIcon bish_icon) {
@@ -913,7 +931,7 @@ class Tile extends JPanel {
     }
 
     @Override
-    public Dimension getPreferredSize() { 
+    public Dimension getPreferredSize() {
 
         // initialize the dimension of the component and return it
         Dimension size = super.getPreferredSize();
