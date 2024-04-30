@@ -582,6 +582,8 @@ public class chessboard extends JFrame {
                                     enums.chess_piece_columns col = null;
                                     int row = 0;
 
+                                    boolean test = false; // ADDED
+
                                     // if the Object is an isntance of a Figure Object
                                     if (curr instanceof Figure piece) {
                                         type = piece.getType();
@@ -644,14 +646,17 @@ public class chessboard extends JFrame {
                                                     // reset the old tile and update the new tile icon
                                                     tile.hidePieceImage();
                                                     newTile.setPieceImage(icon(piece, piece.getColor()));
+                                                    test = true;
+                                                    continue;
                                                 }
 
                                                 // else if the tile is occupied
-                                                else if (isTileOccupied(newColumn, newRow, pieces)) {
+                                                else if (isTileOccupied(newColumn, newRow, pieces) && !test) {
                                                     System.out.print("Piece could not be  due to tile being in use: " + piece); // FOR TERMINAL USE
                                                     // set the appropriate label
                                                     messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                                     buttonPanel.add(messageLabel);
+                                                    continue;
                                                 }
                                             }
 
@@ -660,6 +665,7 @@ public class chessboard extends JFrame {
                                                 System.out.print("Piece could not be moved: " + piece); // FOR TERMINAL USE
                                                 // set the appropriate label
                                                 buttonPanel.add(notMovable);
+                                                continue;
                                             }
                                         }
                                     }
