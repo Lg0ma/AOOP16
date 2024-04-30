@@ -1,4 +1,4 @@
-// package 
+// package
 package chess_pieces;
 import board.ChessBoard;
 // import packages

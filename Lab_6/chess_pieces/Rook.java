@@ -1,30 +1,51 @@
-// package 
+/**
+ * Package containing classes related to chess pieces.
+ */
 package chess_pieces;
-// import packages
-import enums.*; 
+// Import necessary packages and classes
 
-// ANDRE MELENDEZ
-// Pawn class that extends to Figure
+import enums.*;
+
+/**
+ * A class representing a Rook chess piece extends from Figure.
+ */
 class Rook extends Figure {
-    // empty constructor
+    /**
+     * Constructs a Rook object with default values.
+     */
     public Rook() {
-        // default values
         super();
     }
 
-    // constructor with parameters for each class field
+    /**
+     * Constructs a Rook object with specified attributes.
+     *
+     * @param name    The type of the chess piece.
+     * @param color   The color of the chess piece.
+     * @param x_coord The initial column coordinate of the chess piece.
+     * @param y_coord The initial row coordinate of the chess piece.
+     */
     public Rook(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
-        // set values
         super(name, color, x_coord, y_coord);
     }
 
-    // method that prints the current attributes of the Chess Piece
+    /**
+     * Retrieves a string representation of the Rook's attributes.
+     *
+     * @return A string representing the Rook's attributes.
+     */
     @Override
     public String toString() {
         return super.toString();
     }
     
-    // method to verify its piece movement
+    /**
+     * Moves the Rook chess piece to the specified column and row coordinates.
+     *
+     * @param column The target column coordinate.
+     * @param row    The target row coordinate.
+     * @return True if the move is valid, otherwise false.
+     */
     @Override
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
         // turn the enum into an int

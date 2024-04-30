@@ -1,4 +1,4 @@
-// package 
+// package
 package chess_pieces;
 // import packages
 import enums.*;
@@ -49,16 +49,16 @@ class Queen extends Rook implements IntBishop {
     // method to verify its piece movement
     @Override
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
-         //get current piece position
-         chess_piece_columns old_column = getColumn();
-         int old_row = getRow();
-         // if the default method return true
-         if(moveToBishop( old_column, old_row, column, row) == true) {
-             // update the attributes
-             setColumn(column);
-             setRow(row);
-             return true;
-         }
+        //get current piece position
+        chess_piece_columns old_column = getColumn();
+        int old_row = getRow();
+        // if the default method return true
+        if(moveToBishop( old_column, old_row, column, row) == true) {
+            // update the attributes
+            setColumn(column);
+            setRow(row);
+            return true;
+        }
         // If moving like a Bishop fails, try moving like a Rook
         return super.moveTo(column, row);
     }
