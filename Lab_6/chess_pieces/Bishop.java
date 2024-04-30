@@ -3,9 +3,13 @@ package chess_pieces;
 import board.ChessBoard;
 // import packages
 import enums.*;
+/**
+ * Bishop class that impements bihop interface
+ * @author Ivan Armenta
+ * @author Andre Melendez
+ * @author Luis Gomez
+ */
 
-// IVAN ARMENTA & ANDRE MELENDEZ & Luis Gomez
-//Bishop impements bihop interface
 public class Bishop implements IntBishop {
 
     protected chess_piece_type piece_name;
