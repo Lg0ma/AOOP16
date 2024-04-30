@@ -18,6 +18,11 @@ public class chessboard extends JFrame {
     private static String selectedPieceColor = "";
     private static String selectedPieceRow = "";
     private static String selectedPieceCol = "";
+    private static String returnInitialCol;
+    private static String returnInitialRow;
+    private static String returnFinalCol;
+    private static String returnFinalRow;
+
     
     // counter to count the number of Figure objects on the chessboard
     private static int count = 0;
@@ -128,6 +133,8 @@ public class chessboard extends JFrame {
                 // get the selected item from the dropdown menu
                 JComboBox<String> comboBox = (JComboBox<String>) e.getSource();
                 selectedPieceCol = (String) comboBox.getSelectedItem();
+                getInitialCol(selectedPieceCol);
+
             }
         });
 
@@ -143,9 +150,11 @@ public class chessboard extends JFrame {
                 // get the selected item from the dropdown menu
                 JComboBox<String> comboBox = (JComboBox<String>) e.getSource();
                 selectedPieceRow = (String) comboBox.getSelectedItem();
+                getInitialRow(selectedPieceRow);
             }
+            
         });
-
+        
         // set up the dropdown menu for the color
         colorDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
         colorDropdown.setMaximumSize(colorDropdown.getPreferredSize());
@@ -214,6 +223,8 @@ public class chessboard extends JFrame {
         buttonsPanel.add(createButton);
         
         // initialize an action listener for creating a Figure object
+        returnInitialCol = selectedPieceCol;
+        returnInitialRow = selectedPieceRow;
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -236,6 +247,7 @@ public class chessboard extends JFrame {
                             enums.chess_piece_color ecolor = enums.chess_piece_color.valueOf(selectedPieceColor.toUpperCase());
                             enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
                             int r = Integer.parseInt(selectedPieceRow);
+
 
                             // create the Bishop object
                             bish = new Bishop(etype, ecolor, eco, r);
@@ -368,6 +380,8 @@ public class chessboard extends JFrame {
                             enums.chess_piece_type etype = enums.chess_piece_type.valueOf(selectedPieceType.toUpperCase());
                             enums.chess_piece_color ecolor = enums.chess_piece_color.valueOf(selectedPieceColor.toUpperCase());
                             enums.chess_piece_columns eco = enums.chess_piece_columns.valueOf(selectedPieceCol);
+                            returnInitialCol = selectedPieceCol;
+                            returnInitialRow = selectedPieceRow;
                             int r = Integer.parseInt(selectedPieceRow);
 
                             // create the Figure object
@@ -420,6 +434,7 @@ public class chessboard extends JFrame {
                                 });
 
                                 // initialize and set up the success message
+                                
                                 messageLabel.setText("You created the following chess piece: " + selectedPieceType + " " + selectedPieceColor + " " + selectedPieceCol + ", " + selectedPieceRow);
                                 messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -440,6 +455,7 @@ public class chessboard extends JFrame {
                                 pieces.add(piece);
 
                                 System.out.println("Piece added: " + piece); // FOR TERMINAL USE
+
 
                                 // set up the vars for updating the tile
                                 int row = Integer.parseInt(selectedPieceRow) - 1;
@@ -589,6 +605,10 @@ public class chessboard extends JFrame {
                                     // update the Strings to their appropriate values
                                     x = coord[0].toUpperCase();
                                     y = Integer.parseInt(coord[1]);
+                                    returnFinalCol = String.valueOf(y);
+                                    returnFinalRow = x;
+                                    getFinalRow(returnFinalRow);
+                                    getFinalCol(returnFinalCol);
 
                                     // initialize a boolean to check if the user input is valid for the column # UPDATE
                                     boolean validX = false;
@@ -886,6 +906,21 @@ public class chessboard extends JFrame {
 
         // call in the chessboard 
         new chessboard();
+
+    }
+
+
+    public static String getInitialRow(String selectedPieceRow){
+        return selectedPieceRow;
+    }
+    public static String getInitialCol(String selectedPieceCol){
+        return selectedPieceCol;
+    }
+    public static String getFinalRow(String returnFinalRow){
+        return returnFinalRow;
+    }
+    public static String getFinalCol(String returnFinalCol){
+        return returnFinalCol;
     }
 }
 
