@@ -74,9 +74,6 @@ public class Bishop implements IntBishop {
         int old_row = getRow();
         // if the default method return true
         if(moveToBishop( old_column, old_row, column, row) == true) {
-            // update the attributes
-            ////setColumn(column);
-            ////setRow(row);
             return true;
         }
         return false;

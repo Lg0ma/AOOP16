@@ -58,14 +58,8 @@ class Rook extends Figure {
         int deltay = Math.abs(old_row - row);
         // check if the move is valid along the y-axis or x-axis
         if (deltax == 0 && deltay != 0) {
-            // return true if the move is valid along the y-axis
-            setColumn(column);
-            setRow(row);
             return true;
         } else if (deltax != 0 && deltay == 0) {
-            // set the valid new coordinates to the object
-            ////setColumn(column);
-            ////setRow(row);
             // return true if the move is valid along the x-axis
             return true;
         }

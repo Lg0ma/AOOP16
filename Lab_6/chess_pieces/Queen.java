@@ -36,9 +36,6 @@ class Queen extends Rook implements IntBishop {
         int deltay = Math.abs(old_row - row);
         // check if the move is a valid diagonal move
         if ((deltax == deltay) && (deltax > 0 && deltay >0)) {
-            // set the valid new coordinates to the object
-            setColumn(column);
-            setRow(row);
             // return true
             return true;
         }
@@ -53,10 +50,7 @@ class Queen extends Rook implements IntBishop {
         chess_piece_columns old_column = getColumn();
         int old_row = getRow();
         // if the default method return true
-        if(moveToBishop( old_column, old_row, column, row) == true) {
-            // update the attributes
-            ////setColumn(column);
-            ////setRow(row);
+        if(moveToBishop( old_column, old_row, column, row)) {
             return true;
         }
         // If moving like a Bishop fails, try moving like a Rook

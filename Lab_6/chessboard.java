@@ -706,7 +706,7 @@ public class chessboard extends JFrame {
                                             int newRow = y;
 
                                             // if the piece can move to the new location
-                                            if (piece != null && piece.moveTo(newColumn, newRow)) {
+                                            if (bish != null && bish.moveToBishop(col, row, newColumn, newRow)) {
                                                 // otherwise the tile is not occupied
                                                 if (!isTileOccupied(newColumn, newRow, pieces)) {
 
