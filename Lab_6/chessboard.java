@@ -378,6 +378,7 @@ public class chessboard extends JFrame {
                                 popUpFrame.setVisible(true);
                             }
                         }
+                    }
 
                         // catch any index out of bounds errors
                         catch (ArrayIndexOutOfBoundsException ex) {
@@ -479,7 +480,7 @@ public class chessboard extends JFrame {
                             System.err.println("Array index out of bounds: " + ex.getMessage());
                         }
                     }
-                }
+                
 
                 // otherwise, the user input is invalid
                 else {
