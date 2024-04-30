@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class chessboard extends JFrame {
-
+    
     // ArrayList collection that holds the Figure objects
     static ArrayList<Object> pieces = new ArrayList<Object>(); // CHANGED : FROM Figure TO Object
-
+    
     // static vars for creating a Figure object (or Bishop)
     private static Figure piece;
     private static Bishop bish;
@@ -18,7 +18,7 @@ public class chessboard extends JFrame {
     private static String selectedPieceColor = "";
     private static String selectedPieceRow = "";
     private static String selectedPieceCol = "";
-
+    
     // icons
     static ImageIcon pawn = new ImageIcon("Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/BP.gif");
     static ImageIcon knight = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/BN.gif");
@@ -32,7 +32,7 @@ public class chessboard extends JFrame {
     static ImageIcon white_bishop = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/WB.gif");
     static ImageIcon white_queen = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/WQ.gif");
     static ImageIcon white_king = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/WK.gif");
-
+    
     // initialize the panels
     static JPanel panel = new JPanel();
     static JPanel sidePanel = sidePanel();
