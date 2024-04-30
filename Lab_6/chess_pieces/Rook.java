@@ -64,8 +64,8 @@ class Rook extends Figure {
             return true;
         } else if (deltax != 0 && deltay == 0) {
             // set the valid new coordinates to the object
-            setColumn(column);
-            setRow(row);
+            ////setColumn(column);
+            ////setRow(row);
             // return true if the move is valid along the x-axis
             return true;
         }
