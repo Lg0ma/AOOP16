@@ -8,6 +8,7 @@ import enums.*;
 
 /**
  * A class representing a Rook chess piece extends from Figure.
+ * @author Andre Melendez
  */
 class Rook extends Figure {
     /**
