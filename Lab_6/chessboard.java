@@ -491,6 +491,7 @@ public class chessboard extends JFrame {
 
                 // initialize a new pop up frame, button panel, and an 'Exit Game' button
                 JFrame popUpFrame = new JFrame("Notice");
+                JPanel messagePanel = new JPanel();
                 JPanel buttonPanel = new JPanel();
                 JButton closeGame = new JButton("Exit Game");
                 JButton tryAgain = new JButton("Try Again");
@@ -573,7 +574,7 @@ public class chessboard extends JFrame {
                                         if (!isTileOccupied(newColumn, y, pieces)) {
 
                                             // add the appropriate label to the panel
-                                            buttonPanel.add(wasMovable);
+                                            messagePanel.add(wasMovable);
 
                                             // initialize the vars for updating the tile
                                             int oldRow = row12 - 1;
@@ -601,7 +602,7 @@ public class chessboard extends JFrame {
                                             System.out.print("Piece could not be  due to tile being in use: " + piece); // FOR TERMINAL USE
                                             // set the appropriate label
                                             messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                                            buttonPanel.add(messageLabel);
+                                            messagePanel.add(messageLabel);
                                             continue;
                                         }
                                     }
@@ -610,7 +611,7 @@ public class chessboard extends JFrame {
                                     else {
                                         System.out.print("Piece could not be moved: " + piece); // FOR TERMINAL USE
                                         // set the appropriate label
-                                        buttonPanel.add(notMovable);
+                                        messagePanel.add(notMovable);
                                         continue;
                                     }
                                 }
@@ -657,7 +658,8 @@ public class chessboard extends JFrame {
                                         if (!isTileOccupied(newColumn, y, pieces)) {
 
                                             // add the appropriate label to the panel
-                                            buttonPanel.add(wasMovable);
+                                            wasMovable.setHorizontalAlignment(SwingConstants.CENTER);
+                                            messagePanel.add(wasMovable);
 
                                             // initialize the vars for updating the tile
                                             int oldRow = row12 - 1;
@@ -684,7 +686,7 @@ public class chessboard extends JFrame {
                                             System.out.print("Piece could not be  due to tile being in use: " + piece); // FOR TERMINAL USE
                                             // set the appropriate label
                                             messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                                            buttonPanel.add(messageLabel);
+                                            messagePanel.add(messageLabel);
                                         }
                                     }
 
@@ -692,7 +694,8 @@ public class chessboard extends JFrame {
                                     else {
                                         System.out.print("Piece could not be moved: " + piece); // FOR TERMINAL USE
                                         // set the appropriate label
-                                        buttonPanel.add(notMovable);
+                                        notMovable.setHorizontalAlignment(SwingConstants.CENTER);
+                                        messagePanel.add(notMovable);
                                     }
                                 }
                             }
@@ -700,41 +703,42 @@ public class chessboard extends JFrame {
                         // set up the buttons
                         buttonPanel.add(tryAgain);
                         buttonPanel.add(closeGame);
-
-                        // set the appropriate label
                         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                        // set the appropriate label
+                        messagePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
                         // initialize, set up, and display the pop-up frame
                         popUpFrame.getContentPane().setLayout(new BorderLayout());
-                        popUpFrame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
-                        popUpFrame.setSize(500, 600);
+                        popUpFrame.getContentPane().add(messagePanel, BorderLayout.CENTER);
+                        popUpFrame.getContentPane().add(buttonPanel, BorderLayout.NORTH);
+                        popUpFrame.setSize(500, 200);
                         popUpFrame.setLocationRelativeTo(null);
                         popUpFrame.setVisible(true);
                     }
                     catch (Exception out) {
 // set up the buttons
-                        buttonPanel.add(tryAgain);
-                        buttonPanel.add(closeGame);
+                        messagePanel.add(tryAgain);
+                        messagePanel.add(closeGame);
 
                         // set the appropriate label
                         JLabel error = new JLabel("Invalid Input");
 
                         error.setHorizontalAlignment(SwingConstants.CENTER);
-                        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                        messagePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
                         // initialize, set up, and display the pop-up frame
-                        pop_up_frame(popUpFrame, error, buttonPanel);
+                        pop_up_frame(popUpFrame, error, messagePanel);
                     }
                 }
                 // otherwise the input is out of bounds/invalid
                 else {
                     // set up the buttons
-                    buttonPanel.add(tryAgain);
-                    buttonPanel.add(closeGame);
+                    messagePanel.add(tryAgain);
+                    messagePanel.add(closeGame);
 
                     // set the appropriate label
                     outOfBounds.setHorizontalAlignment(SwingConstants.CENTER);
-                    buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                    messagePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
                     // initialize, set up, and display the pop-up frame
-                    pop_up_frame(popUpFrame, outOfBounds, buttonPanel);
+                    pop_up_frame(popUpFrame, outOfBounds, messagePanel);
                 }
 
 
