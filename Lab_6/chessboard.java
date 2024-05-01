@@ -22,18 +22,18 @@ public class chessboard extends JFrame {
     private static String selectedPieceCol = "";
 
     // icons
-    static ImageIcon pawn = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BP.gif");
-    static ImageIcon knight = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BN.gif");
-    static ImageIcon rook = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BR.gif");
-    static ImageIcon bishop = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BB.gif");
-    static ImageIcon queen = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BQ.gif");
-    static ImageIcon king = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\BK.gif");
-    static ImageIcon white_pawn = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\WP.gif");
-    static ImageIcon white_knight = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\WN.gif");
-    static ImageIcon white_rook = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\WR.gif");
-    static ImageIcon white_bishop = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\WB.gif");
-    static ImageIcon white_queen = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\WQ.gif");
-    static ImageIcon white_king = new ImageIcon("C:\\Users\\andre\\Code\\OOP\\AOOP16\\Lab_6\\art\\WK.gif");
+    static ImageIcon pawn = new ImageIcon("art\\BP.gif");
+    static ImageIcon knight = new ImageIcon("art\\BN.gif");
+    static ImageIcon rook = new ImageIcon("art\\BR.gif");
+    static ImageIcon bishop = new ImageIcon("art\\BB.gif");
+    static ImageIcon queen = new ImageIcon("art\\BQ.gif");
+    static ImageIcon king = new ImageIcon("art\\BK.gif");
+    static ImageIcon white_pawn = new ImageIcon("art\\WP.gif");
+    static ImageIcon white_knight = new ImageIcon("art\\WN.gif");
+    static ImageIcon white_rook = new ImageIcon("art\\WR.gif");
+    static ImageIcon white_bishop = new ImageIcon("art\\WB.gif");
+    static ImageIcon white_queen = new ImageIcon("art\\WQ.gif");
+    static ImageIcon white_king = new ImageIcon("art\\WK.gif");
 
     // initialize the panels
     static JPanel panel = new JPanel();
