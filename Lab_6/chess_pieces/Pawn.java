@@ -3,6 +3,7 @@
  */
 package chess_pieces;
 // Import necessary packages and classes
+
 import enums.*;
 
 /**
