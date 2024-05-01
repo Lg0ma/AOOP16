@@ -645,6 +645,7 @@ public class chessboard extends JFrame {
 
 
                                             // get the old tile and the new tile
+                                            // get the old tile and the new tile
                                             Tile tile = boardCells[6 - oldRow][oldCol];
                                             Tile newTile = boardCells[8 - newRow ][newColumn.ordinal()];
 
@@ -759,9 +760,6 @@ public class chessboard extends JFrame {
                                             // update the Figure objects attributes
                                             bish.setColumn(newColumn);
                                             bish.setRow(y);
-
-                                            System.out.print("Piece has been moved: " + bish); // FOR TERMINAL USE
-
 
                                             // get the old tile and the new tile
                                             Tile tile = boardCells[6 - oldRow][oldCol];
