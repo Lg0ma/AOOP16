@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class chessboard extends JFrame {
-    
+
     // ArrayList collection that holds the Figure objects
     static ArrayList<Object> pieces = new ArrayList<Object>(); // CHANGED : FROM Figure TO Object
     
@@ -18,7 +18,7 @@ public class chessboard extends JFrame {
     private static String selectedPieceColor = "";
     private static String selectedPieceRow = "";
     private static String selectedPieceCol = "";
-    
+
     // icons
     static ImageIcon pawn = new ImageIcon("Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/BP.gif");
     static ImageIcon knight = new ImageIcon("/Users/ivan_armenta/Desktop/AOOP16/Lab_6/art/BN.gif");
