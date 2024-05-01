@@ -7,8 +7,7 @@ import enums.*;;
 
 /**
  * Interface representing a chess board.
- * <p>
- * Author: Luis Gomez
+ * @author Luis Gomez
  */
 public interface IntChessBoard {
     /**

@@ -8,9 +8,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * This class represents a chessboard which extends JFrame.
+ * @author Andre Melendez
+ * @author Ivan Armenta
+ * @author Luis Gomez
+ */
 public class chessboard extends JFrame {
 
     // ArrayList collection that holds the Figure objects
+    /**
+     * An ArrayList that holds the chess pieces on the board.
+     */
     static ArrayList<Object> pieces = new ArrayList<>(); // CHANGED : FROM Figure TO Object
 
     // static vars for creating a Figure object (or Bishop)
@@ -41,6 +50,9 @@ public class chessboard extends JFrame {
     JPanel boardPanel;
     static Tile[][] boardCells;
 
+    /**
+     * Constructor for the chessboard class.
+     */
     public chessboard() {
 
         // initialize the window and its title
@@ -65,6 +77,9 @@ public class chessboard extends JFrame {
         add(sidePanel, BorderLayout.WEST);
     }
 
+    /**
+     * This method initializes the chessboard.
+     */
     private void initializeBoard() {
 
         // initialize the chess board tiles
@@ -81,6 +96,10 @@ public class chessboard extends JFrame {
         }
     }
 
+    /**
+     * This method creates a side panel for the chessboard with various controls.
+     * @return JPanel The side panel.
+     */
     private static Boolean can_create(enums.chess_piece_type type) {
 
         // for loop to traverse the existing valid Figure objects
@@ -103,7 +122,12 @@ public class chessboard extends JFrame {
         // return true since the object can be created
         return true;
     }
-
+    /**
+     * Method that checks if coordinate on the chessboard is occupied.
+     * @param col column coordinate to be checked
+     * @param row row coordinate to be checked
+     * @return True if the coordinates inputted are not occupied, False otherwise
+     */
     private static Boolean not_occupied(enums.chess_piece_columns col, int row) {
 
         // for loop to traverse the existing valid Figure objects
@@ -127,9 +151,16 @@ public class chessboard extends JFrame {
         return true;
     }
 
+    /**
+     * This method creates a side panel for the chessboard with various controls.
+     * @return JPanel The side panel.
+     */
     private static JPanel sidePanel() {
 
         // initialize a panel for buttons
+        /**
+         * A JPanel that holds the buttons for the side panel.
+         */
         JPanel buttonsPanel = new JPanel();
         BoxLayout buttonLayout = new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS);
         buttonsPanel.setLayout(buttonLayout);
@@ -759,6 +790,13 @@ public class chessboard extends JFrame {
         popUpFrame.setVisible(true);
     }
 
+    /**
+     * Method to check if a tile is occupied by a chess piece.
+     * @return TRUE is tile is occupied FALSE otherwise
+     * @param column the pieces col value in the columns enum
+     * @param row an integer value for the row
+     * @param currentPiece the current chesspiece that is being checked
+     */
     private static boolean isTileOccupied(enums.chess_piece_columns column, int row, ArrayList<Object> pieces) {
 
         // Loop through pieces to check for occupancy
@@ -775,6 +813,12 @@ public class chessboard extends JFrame {
         return false;
     }
 
+    /**
+     * Method to get the icon for a chess piece.
+     * @param piece the piece whos image we want to get
+     * @param color part of the color enum for pieces
+     * @return ImageIcon the corresponding piece image
+     */
     public static ImageIcon icon(Figure piece, enums.chess_piece_color color) {
 
         // get the type of Figure object
@@ -793,6 +837,17 @@ public class chessboard extends JFrame {
         }
     }
 
+    /**
+     * Returns Image icon depending on what type is needed.
+     * @param type chess piece type whos image we need
+     * @param king ImageIcon
+     * @param knight ImageIcon
+     * @param pawn ImageIcon
+     * @param bishop ImageIcon
+     * @param queen ImageIcon
+     * @param rook ImageIcon
+     * @return an ImageIcon for the specified piece
+     */
     private static ImageIcon getImageIcon(chess_piece_type type, ImageIcon king, ImageIcon knight, ImageIcon pawn, ImageIcon bishop, ImageIcon queen, ImageIcon rook) {
 
         // return the appropriate icon
@@ -806,6 +861,11 @@ public class chessboard extends JFrame {
         };
     }
 
+    /**
+     * Method to get the icon for a Bishop chess piece.
+     * @param color the pieces color from the colors Enum
+     * @return ImageIcon for the bishop piece
+     */
     public static ImageIcon bish_icon(enums.chess_piece_color color) {
 
         // if the color is black return the black icon
@@ -818,6 +878,10 @@ public class chessboard extends JFrame {
 
     }
 
+    /**
+     * Main method for initializing the chessboard
+     * @param args
+    */
     public static void main(String[] args) {
 
         // call in the chessboard
@@ -825,11 +889,18 @@ public class chessboard extends JFrame {
     }
 }
 
+/**
+ *  Class to represent a tile on the chessboard.
+ */
 class Tile extends JPanel {
 
     // initialize a label
     private final JLabel pieceLabel;
 
+    /**
+     * Constructor to initialize the tile with a specific color.
+     * @param color
+     */
     public Tile(Color color) {
 
         // set the background color fo the tile
@@ -845,6 +916,10 @@ class Tile extends JPanel {
         add(pieceLabel, gbc);
     }
 
+    /**
+     * Method to set the image of the chess piece on the tile.
+     * @param icon the image that will be set for the piece on the board
+     */
     public void setPieceImage(ImageIcon icon) {
 
         // set the icon of the tile
@@ -853,6 +928,10 @@ class Tile extends JPanel {
         repaint();
     }
 
+    /**
+     * Method to set the image of the Bishop chess piece on the tile.
+     * @param bish_icon the image that will be set for the piece on the board
+     */
     public void setPieceImageBish(ImageIcon bish_icon) {
 
         // set the icon of the tile
@@ -861,12 +940,18 @@ class Tile extends JPanel {
         repaint();
     }
 
+      /**
+     *  Method to hide the image of the chess piece on the tile.
+     */
     public void hidePieceImage() {
         // remove the icon of the tile
         pieceLabel.setIcon(null);
         repaint();
     }
 
+    /**
+     * Method to get the preferred size of the tile.
+     */
     @Override
     public Dimension getPreferredSize() {
 
