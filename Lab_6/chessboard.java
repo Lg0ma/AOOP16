@@ -548,10 +548,48 @@ public class chessboard extends JFrame {
                 new_coord.setLocationRelativeTo(null);
                 new_coord.setVisible(true);
 
+<<<<<<< HEAD
                 // initialize an action listener to change the positions of the Figure objects
                 submitButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+=======
+            // initialize an action listener to change the positions of the Figure objects
+            submitButton.addActionListener(e1 -> {
+
+                // initialize a new pop up frame, button panel, and an 'Exit Game' button
+                JFrame popUpFrame = new JFrame("Notice");
+                JPanel buttonPanel = new JPanel();
+                JButton closeGame = new JButton("Exit Game");
+                JButton tryAgain = new JButton("Try Again");
+                JLabel outOfBounds = new JLabel("Input is out of bounds of the chessboard");
+
+                // initialize an action listener for the 'Exit Game' button
+                closeGame.addActionListener(a -> System.exit(0));
+
+                // initialize an action listener for the 'Try Again' button
+                tryAgain.addActionListener(n -> {
+                    // close the frame
+                    popUpFrame.dispose();
+                });
+
+                // initialize vars to hold the new coordinates
+                String x;
+                int y;
+
+                // remove any unwanted symbols and spaces from the user input
+                String coordinates = coordTextField.getText().replaceAll("[,\\s/]", "");
+
+                // if the user input is valid (length 2)
+                if (coordinates.length() == 2) { // MAY UPDATE WITH A JUnit Test
+                    // try
+                    try {
+                        // split the user input
+                        String[] coord = coordinates.split("");
+                        // update the Strings to their appropriate values
+                        x = coord[0].toUpperCase();
+                        y = Integer.parseInt(coord[1]);
+>>>>>>> parent of 9f37334 (Updated the labels)
 
                         // traverse the collection of Figure objects
                         for (Object curr : pieces) {
@@ -657,14 +695,25 @@ public class chessboard extends JFrame {
                                         // otherwise the piece is not movable
                                         else {
                                             // set the appropriate label
+<<<<<<< HEAD
                                             buttonPanel.add(notMovable);
+=======
+                                            messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                            buttonPanel.add(messageLabel);
+                                            continue;
+>>>>>>> parent of 9f37334 (Updated the labels)
                                         }
                                     }
 
                                     // otherwise the input is out of bounds/invalid
                                     else {
                                         // set the appropriate label
+<<<<<<< HEAD
                                         buttonPanel.add(outOfBounds);
+=======
+                                        buttonPanel.add(notMovable);
+                                        continue;
+>>>>>>> parent of 9f37334 (Updated the labels)
                                     }
 
                                     // set up, and display the pop up frame
@@ -773,14 +822,23 @@ public class chessboard extends JFrame {
                                         // otherwise the piece is not movable
                                         else {
                                             // set the appropriate label
+<<<<<<< HEAD
                                             buttonPanel.add(notMovable);
+=======
+                                            messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                            buttonPanel.add(messageLabel);
+>>>>>>> parent of 9f37334 (Updated the labels)
                                         }
                                     }
 
                                     // otherwise the input is out of bounds/invalid
                                     else {
                                         // set the appropriate label
+<<<<<<< HEAD
                                         buttonPanel.add(outOfBounds);
+=======
+                                        buttonPanel.add(notMovable);
+>>>>>>> parent of 9f37334 (Updated the labels)
                                     }
 
                                     // set up, and display the pop up frame
@@ -797,19 +855,47 @@ public class chessboard extends JFrame {
                                 }
                             }
                         }
+<<<<<<< HEAD
+=======
+                        // set up the buttons
+                        buttonPanel.add(tryAgain);
+                        buttonPanel.add(closeGame);
+
+                        // set the appropriate label
+                        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                        // initialize, set up, and display the pop-up frame
+                        popUpFrame.getContentPane().setLayout(new BorderLayout());
+                        popUpFrame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
+                        popUpFrame.setSize(500, 600);
+                        popUpFrame.setLocationRelativeTo(null);
+                        popUpFrame.setVisible(true);
+                    }
+                    catch (Exception out) {
+// set up the buttons
+                        buttonPanel.add(tryAgain);
+                        buttonPanel.add(closeGame);
+
+                        // set the appropriate label
+                        JLabel error = new JLabel("Invalid Input");
+
+                        error.setHorizontalAlignment(SwingConstants.CENTER);
+                        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                        // initialize, set up, and display the pop-up frame
+                        pop_up_frame(popUpFrame, error, buttonPanel);
+>>>>>>> parent of 9f37334 (Updated the labels)
                     }
                 }
                 // otherwise the input is out of bounds/invalid
                 else {
                     // set up the buttons
-                    messagePanel.add(tryAgain);
-                    messagePanel.add(closeGame);
+                    buttonPanel.add(tryAgain);
+                    buttonPanel.add(closeGame);
 
                     // set the appropriate label
                     outOfBounds.setHorizontalAlignment(SwingConstants.CENTER);
-                    messagePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                    buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
                     // initialize, set up, and display the pop-up frame
-                    pop_up_frame(popUpFrame, outOfBounds, messagePanel);
+                    pop_up_frame(popUpFrame, outOfBounds, buttonPanel);
                 }
 
 
