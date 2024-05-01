@@ -8,8 +8,7 @@ import enums.*;
 
 /**
  * Implementation of the IntChessBoard interface representing a chess board.
- * <p>
- * Author: Luis Gomez
+ * @author Luis Gomez
  */
 public class ChessBoard implements IntChessBoard {
 

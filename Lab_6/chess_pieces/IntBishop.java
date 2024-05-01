@@ -3,6 +3,9 @@ package chess_pieces;
 
 import enums.chess_piece_columns;
 
+/**
+ * Interface for the Bishop that conatins the MovetoBishop method that will be implemented in bishop
+ */
 public interface IntBishop {
     // initialize a default method to be implemented
     default Boolean moveToBishop(chess_piece_columns oldColumn, int oldRow, chess_piece_columns column, int row){

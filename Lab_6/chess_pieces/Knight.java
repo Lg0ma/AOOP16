@@ -7,6 +7,7 @@ import enums.*;
 
 /**
  * A class representing a Knight chess piece extends from Figure.
+ * @author Luis Gomez
  */
 class Knight extends Figure {
     /**

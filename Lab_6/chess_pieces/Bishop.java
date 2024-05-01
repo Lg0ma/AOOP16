@@ -4,8 +4,12 @@ import board.ChessBoard;
 // import packages
 import enums.*;
 
-// IVAN ARMENTA & ANDRE MELENDEZ & Luis Gomez
-//Bishop impements bihop interface
+/**
+ * Bishop class that impements bihop interface
+ * @author Ivan Armenta
+ * @author Andre Melendez
+ * @author Luis Gomez
+ */
 public class Bishop implements IntBishop {
 
     protected chess_piece_type piece_name;
@@ -14,16 +18,24 @@ public class Bishop implements IntBishop {
     protected int row;
     protected ChessBoard chessBoard = new ChessBoard();
 
-    // empty constructor
-    public Bishop() {
+    /**
+     * empty constructor for Bishop
+     */
+        public Bishop() {
         this.piece_name = chess_piece_type.BISHOP;
         this.color = chess_piece_color.WHITE;
         this.column = enums.chess_piece_columns.A;
         this.row = 0;
     }
 
-    // constructor with parameters for each class field
-    public Bishop(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
+    /**
+     * Constructor with parameters for each class field
+     * @param name Name of the chess piece in the enum for pieces name
+     * @param color Color of the chess piece in the enum for pieces Colors
+     * @param x_coord X pos of the chess piece in the enum for pieces columns
+     * @param y_coord int value to represent the row of the piece
+     */
+        public Bishop(chess_piece_type name, chess_piece_color color, chess_piece_columns x_coord, int y_coord) {
         // set values
         this.piece_name = name;
         this.color = color;
@@ -31,43 +43,69 @@ public class Bishop implements IntBishop {
         this.row = y_coord;
     }
 
-    // method to get the type of object
+    /** 
+     * getter Method to get the pieces type
+     * @return chess_piece_type chess piece type
+     */
     public chess_piece_type getType(){
         return piece_name;
     }
 
-    // method to get color of object
+    /** 
+     * method to get color of object
+     * @return chess_piece_color
+     */
     public chess_piece_color getColor() {
         return color;
     }
 
-    // method to get column of object
+    /**
+     * method to get column of object
+     * @return chess_piece_columns pieces colums value
+     */
     public enums.chess_piece_columns getColumn() {
         return column;
     }
 
-    // method to get row of object
+    /**
+     * method to get row of object
+     * @return row row values for pieces
+     */
     public int getRow() {
         return row;
     }
 
-    // setter method for column
+    /**
+     * setter method for columns
+     * @param x_coord col coord value for the piece in columns enum
+     */
     public void setColumn(enums.chess_piece_columns x_coord) {
         this.column = x_coord;
     }
 
-    // setter method for row
+    /**
+     * setter method for columns
+     * @param y_coord int coord value for the piece
+     */
     public void setRow(int y_coord) {
         this.row = y_coord;
     }
 
 
-    // method that prints the current attributes of the Chess Piece
+    /** 
+     * Method that prints the current attributes of the Chess Piece
+     * @return String
+     */
     public String toString() {
         return getType() + " (" + getColor() + ") current position: " + getColumn() + ", " + getRow();
     }
 
-    // method to verify its piece movement
+    /** 
+     * method to verify its piece movement
+     * @param column column that the piece will try to move to 
+     * @param row row that the piece will try to move to
+     * @return Boolean if piece is able to move to a spot.
+     */
     public Boolean moveTo(enums.chess_piece_columns column, int row) {
         //get current piece position
         chess_piece_columns old_column = getColumn();

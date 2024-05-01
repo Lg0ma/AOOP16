@@ -11,8 +11,7 @@ import board.*;
 
 /**
  * Abstract class representing a chess piece.
- * <p>
- * Author: Andre Melendez
+ * @author Andre Melendez
  */
 public abstract class Figure implements IntFigure {
 
