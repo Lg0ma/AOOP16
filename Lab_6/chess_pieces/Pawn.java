@@ -8,6 +8,7 @@ import enums.*;
 
 /**
  * A class representing a Pawn chess piece extends from Figure.
+ * @author Luis Gomez
  */
 public class Pawn extends Figure {
     /**
