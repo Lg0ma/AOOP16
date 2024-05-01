@@ -1,6 +1,3 @@
-/**
- * Method that will initialize the board in a 8X8 format for chess
- */
 private void initializeBoard() {
     boardCells = new Tile[8][8];
     for (int row = 0; row < 8; row++) {
